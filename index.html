@@ -46,17 +46,8 @@ img{display:block;max-width:100%}
 .hero-sub{font-size:clamp(14px,1.8vw,18px);color:var(--muted);line-height:1.6;max-width:560px;margin:0 auto;animation:heroFade 0.8s 1.1s both}
 @keyframes heroFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
-/* Floating particles overlay */
-.hero-particles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.hero-particle{position:absolute;width:2px;height:2px;background:var(--accent);border-radius:50%;opacity:0;animation:particleFloat linear infinite}
-@keyframes particleFloat{
-  0%{opacity:0;transform:translateY(100vh) scale(0)}
-  10%{opacity:0.6}
-  90%{opacity:0.6}
-  100%{opacity:0;transform:translateY(-20vh) scale(1)}
-}
-
-.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;animation:heroFade 0.8s 1.8s both}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;animation:heroFade 0.8s 1.8s both;transition:opacity 0.6s ease}
+.scroll-hint.hidden{opacity:0;pointer-events:none}
 .scroll-hint span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
 .scroll-hint i{width:1px;height:28px;background:linear-gradient(to bottom,var(--accent),transparent);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:1;transform:translateY(8px)}}
@@ -70,6 +61,9 @@ img{display:block;max-width:100%}
 .nav-links{display:flex;align-items:center;justify-content:center;flex:1}
 #sticky-nav a{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:0 16px;white-space:nowrap;transition:color 0.2s}
 #sticky-nav a:hover,#sticky-nav a.active{color:var(--accent)}
+#sticky-nav a{position:relative}
+#sticky-nav a::after{content:'';position:absolute;bottom:0;left:16px;right:16px;height:2px;background:linear-gradient(90deg,var(--copper),var(--accent));transform:scaleX(0);transition:transform 0.3s ease;transform-origin:left}
+#sticky-nav a.active::after{transform:scaleX(1)}
 @media(max-width:768px){#sticky-nav{padding:0}.nav-brand{padding:0 12px 0 10px;margin-right:4px}.nav-brand img{height:14px}#sticky-nav a{padding:0 10px;font-size:10px}}
 
 /* ---- SECTIONS ---- */
@@ -83,7 +77,6 @@ img{display:block;max-width:100%}
 .body-text{color:rgba(240,230,214,0.75);font-size:16px;line-height:1.8;margin-bottom:24px;max-width:720px}
 .body-text:last-child{margin-bottom:0}
 .centered{text-align:center;margin-left:auto;margin-right:auto}
-.divider{width:60px;height:1px;background:rgba(196,145,62,0.2);margin:0 auto}
 
 /* ---- EXEC SUMMARY ---- */
 .exec-summary{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px}
@@ -113,7 +106,9 @@ img{display:block;max-width:100%}
 .hotspot{position:absolute;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);background:rgba(26,22,18,0.8);border:1px solid rgba(196,145,62,0.4);padding:5px 10px;border-radius:3px;cursor:pointer;transition:all 0.2s;white-space:nowrap;font-family:var(--sans);font-weight:500}
 .hotspot:hover{background:rgba(196,145,62,0.15);border-color:var(--accent);box-shadow:0 0 12px rgba(196,145,62,0.15)}
 .hotspot.active{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-@media(max-width:768px){.hotspot{font-size:8px;padding:4px 7px}}
+@media(max-width:768px){.hotspot{font-size:8px;padding:8px 10px;min-height:44px;display:flex;align-items:center}}
+.hotspot-pulse{animation:hotspotPulse 2s ease-in-out 3}
+@keyframes hotspotPulse{0%,100%{box-shadow:0 0 0 0 rgba(196,145,62,0)}50%{box-shadow:0 0 0 6px rgba(196,145,62,0.25)}}
 
 /* ---- ZONE MODULES ---- */
 .zone-module{max-width:900px;margin:48px auto 0;padding:40px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:6px;transition:border-color 0.3s}
@@ -140,8 +135,8 @@ img{display:block;max-width:100%}
 .tab-panel p:last-child{margin-bottom:0}
 
 /* Tab instruction hint */
-.tab-hint{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.tab-hint svg{width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2}
+.tab-hint{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:8px;font-weight:500}
+.tab-hint svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2}
 
 /* Zone 3 brief block */
 .zone-brief p{color:rgba(240,230,214,0.7);font-size:15px;line-height:1.8}
@@ -161,7 +156,9 @@ img{display:block;max-width:100%}
 .process-node-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-left:8px;transition:color 0.3s;white-space:nowrap}
 .process-node.active .process-node-label{color:var(--accent);font-weight:600}
 .process-node-sub{display:none}
-.process-connector{width:32px;height:1px;background:rgba(196,145,62,0.2);flex-shrink:0;margin:0 4px}
+.process-connector{width:32px;height:1px;background:rgba(196,145,62,0.2);flex-shrink:0;margin:0 4px;position:relative;overflow:hidden}
+.process-connector::after{content:'';position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
+.process-connector.filled::after{transform:scaleX(1)}
 
 @media(max-width:768px){
   .process-diagram{gap:0;padding:14px 16px;justify-content:flex-start;overflow:hidden}
@@ -195,13 +192,13 @@ img{display:block;max-width:100%}
 @media(max-width:1024px){.tier-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.tier-grid{grid-template-columns:1fr}}
 .tier-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s;cursor:pointer}
-.tier-card:hover{border-color:rgba(196,145,62,0.3)}
+.tier-card:hover{border-color:rgba(196,145,62,0.3);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
 .tier-card.selected{border-color:var(--accent);box-shadow:0 0 16px rgba(196,145,62,0.15)}
 .tier-card-header{padding:28px;position:relative}
 .tier-card-header h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:4px}
 .tier-card-price{font-size:14px;color:var(--accent);font-weight:500;margin-bottom:8px}
 .tier-card-oneliner{font-size:13px;color:var(--muted);font-style:italic;line-height:1.5}
-.tier-card-cta{display:block;margin-top:14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);transition:color 0.2s}
+.tier-card-cta{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);transition:color 0.2s;font-weight:500;padding:6px 14px;border:1px solid rgba(196,145,62,0.3);border-radius:3px}
 .tier-card.selected .tier-card-cta{color:var(--text)}
 
 /* Tier detail panel (full-width below cards) */
@@ -269,6 +266,21 @@ img{display:block;max-width:100%}
 @media(max-width:768px){.two-col-text{grid-template-columns:1fr;gap:24px}}
 .two-col-text h4{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:10px;color:var(--text)}
 .two-col-text p{font-size:15px;color:rgba(240,230,214,0.75);line-height:1.8}
+
+/* ---- REDUCED MOTION ---- */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .fade-in{opacity:1;transform:none;transition:none}
+  .hero-rule,.hero-label,.hero-title,.hero-sub{animation:none}
+  .scroll-hint{animation:none}
+  .scroll-hint i{animation:none}
+  .tab-panel.active{animation:none}
+  .hotspot-pulse{animation:none}
+  .process-connector::after{transition:none}
+  #sticky-nav a::after{transition:none}
+  .tier-card{transition:none}
+  @keyframes heroFade{from{opacity:1;transform:none}to{opacity:1;transform:none}}
+}
 </style>
 </head>
 <body>
@@ -298,7 +310,6 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <section id="hero">
 <canvas id="hero-canvas"></canvas>
-<div class="hero-particles" id="hero-particles"></div>
 <div class="hero-content">
   <div class="hero-rule"></div>
   <div class="hero-label">A Proposal for IonQ</div>
@@ -456,7 +467,7 @@ img{display:block;max-width:100%}
   <div style="height:16px"></div>
 </div>
 <div class="tabbed-section">
-  <p class="body-text fade-in">This is the piece that plays on a loop and still stops people mid-stride on their fifth pass through the space. Below are four directional concepts. The right answer depends on what we learn in Discovery&mdash;specifically which register resonates most with IonQ's primary visitor profile and which narrative the brand is most ready to own.</p>
+  <p class="body-text">This is the piece that plays on a loop and still stops people mid-stride on their fifth pass through the space. Below are four directional concepts. The right answer depends on what we learn in Discovery&mdash;specifically which register resonates most with IonQ's primary visitor profile and which narrative the brand is most ready to own.</p>
   <div class="section-tier"><span class="tier-chip">All Tiers</span></div>
   <div style="height:24px"></div>
   <div class="tab-hint fade-in"><svg viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg> Select a concept to explore</div>
@@ -486,11 +497,11 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <section class="section section-light" id="extra-ordinary">
 <div class="section-inner">
-  <div class="section-label fade-in">06 &mdash; Extra Ordinary Experiences</div>
+  <div class="section-label fade-in">06 &mdash; Extras</div>
   <div style="height:16px"></div>
 </div>
 <div class="tabbed-section">
-  <p class="body-text fade-in">Three installation concepts that extend the interactive layer beyond any single zone. Large-tier additions&mdash;these ride on top of the foundational content and sensor systems already in scope at lower tiers.</p>
+  <p class="body-text">Three installation concepts that extend the interactive layer beyond any single zone. Large-tier additions&mdash;these ride on top of the foundational content and sensor systems already in scope at lower tiers.</p>
   <div class="section-tier"><span class="tier-chip">Large / Upgrade</span></div>
   <div style="height:24px"></div>
   <div class="tab-hint fade-in"><svg viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg> Select an experience</div>
@@ -733,7 +744,7 @@ img{display:block;max-width:100%}
 <div class="section-inner centered">
   <div class="section-label fade-in">12 &mdash; Team</div>
   <div style="height:16px"></div>
-  <p class="body-text centered fade-in">The team leading this engagement for IonQ.</p>
+  <p class="body-text centered">The team leading this engagement for IonQ.</p>
 </div>
 <div style="height:40px"></div>
 <div class="team-grid">
@@ -751,7 +762,7 @@ img{display:block;max-width:100%}
 <div class="section-inner centered">
   <div class="section-label fade-in">13 &mdash; Portfolio</div>
   <div style="height:16px"></div>
-  <p class="body-text centered fade-in">A selection of work from the Futureman studio.</p>
+  <p class="body-text centered">A selection of work from the Futureman studio.</p>
 </div>
 <div style="height:40px"></div>
 <div class="portfolio-grid">
@@ -861,18 +872,30 @@ window.addEventListener('resize',()=>{renderer.setSize(canvas.clientWidth,canvas
 (function loop(t){mat.uniforms.uTime.value=t*0.001;mat.uniforms.uMouse.value.set(mouse.x,mouse.y);renderer.render(scene,camera);requestAnimationFrame(loop)})(0);
 })();
 
-// ===== HERO PARTICLES =====
+// ===== SCROLL HINT AUTO-FADE =====
 (function(){
-  const container = document.getElementById('hero-particles');
-  for(let i=0;i<30;i++){
-    const p = document.createElement('div');
-    p.className='hero-particle';
-    p.style.left = Math.random()*100+'%';
-    p.style.animationDuration = (8+Math.random()*12)+'s';
-    p.style.animationDelay = Math.random()*10+'s';
-    p.style.width = p.style.height = (1+Math.random()*2)+'px';
-    container.appendChild(p);
-  }
+  const hint = document.querySelector('.scroll-hint');
+  if(!hint) return;
+  let hidden = false;
+  window.addEventListener('scroll',function(){
+    if(!hidden && window.scrollY > window.innerHeight * 0.15){
+      hint.classList.add('hidden');
+      hidden = true;
+    }
+  },{passive:true});
+})();
+
+// ===== HOTSPOT PULSE ON VIEWPORT ENTRY =====
+(function(){
+  const hotspots = document.querySelectorAll('.hotspot');
+  const obs = new IntersectionObserver(([e])=>{
+    if(e.isIntersecting){
+      hotspots.forEach(h=>h.classList.add('hotspot-pulse'));
+      obs.disconnect();
+    }
+  },{threshold:0.3});
+  const fp = document.querySelector('.floorplan-container');
+  if(fp) obs.observe(fp);
 })();
 
 // ===== INTERSECTION OBSERVER (fade-in) =====
@@ -892,16 +915,28 @@ const navObserver = new IntersectionObserver(([e])=>{
 navObserver.observe(heroEl);
 
 // Active section tracking - use scrollY-based approach for accuracy
-const sectionIds = ['hero','concepts','video-content','extra-ordinary','process','capabilities','pricing','team','portfolio'];
+// Map all page sections to their nearest nav link
+const navSectionMap = {
+  'hero':'#hero','exec-summary':'#hero',
+  'what-we-heard':'#concepts','disclaimer':'#concepts','concepts':'#concepts',
+  'video-content':'#video-content',
+  'extra-ordinary':'#extra-ordinary',
+  'content-architecture':'#process','process':'#process',
+  'tech-scope':'#capabilities','capabilities':'#capabilities',
+  'pricing':'#pricing',
+  'team':'#team',
+  'portfolio':'#portfolio'
+};
+const allSectionIds = Object.keys(navSectionMap);
 function updateActiveNav(){
   const scrollY = window.scrollY + 120;
-  let current = 'hero';
-  for(const id of sectionIds){
+  let currentNav = '#hero';
+  for(const id of allSectionIds){
     const el = document.getElementById(id);
-    if(el && el.offsetTop <= scrollY) current = id;
+    if(el && el.offsetTop <= scrollY) currentNav = navSectionMap[id];
   }
   navLinks.forEach(a=>{
-    a.classList.toggle('active', a.getAttribute('href') === '#'+current);
+    a.classList.toggle('active', a.getAttribute('href') === currentNav);
   });
 }
 window.addEventListener('scroll', updateActiveNav, {passive:true});
@@ -948,15 +983,20 @@ document.querySelectorAll('.hotspot').forEach(hs=>{
   const nodes=document.querySelectorAll('.process-node');
   const mobileLabel=document.getElementById('process-mobile-label');
   const phaseNames=['Discovery','Content & Design','Production','QA & Review','Installation','Commissioning'];
+  const connectors=document.querySelectorAll('.process-connector');
+  function updateProcessState(phaseNum){
+    nodes.forEach(n=>n.classList.remove('active'));
+    const activeNode=document.querySelector('.process-node[data-phase="'+phaseNum+'"]');
+    if(activeNode) activeNode.classList.add('active');
+    if(mobileLabel) mobileLabel.textContent='Phase '+phaseNum+': '+phaseNames[phaseNum-1];
+    // Fill connectors up to active phase
+    connectors.forEach((c,i)=>{
+      c.classList.toggle('filled', i < phaseNum - 1);
+    });
+  }
   const phaseObserver=new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
-      if(e.isIntersecting){
-        const phaseNum=e.target.dataset.phase;
-        nodes.forEach(n=>n.classList.remove('active'));
-        const activeNode=document.querySelector('.process-node[data-phase="'+phaseNum+'"]');
-        if(activeNode) activeNode.classList.add('active');
-        if(mobileLabel) mobileLabel.textContent='Phase '+phaseNum+': '+phaseNames[phaseNum-1];
-      }
+      if(e.isIntersecting) updateProcessState(parseInt(e.target.dataset.phase));
     });
   },{threshold:0.2, rootMargin:'-80px 0px -60% 0px'});
   phases.forEach(p=>phaseObserver.observe(p));
