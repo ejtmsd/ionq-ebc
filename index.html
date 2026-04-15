@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Quantum Capitol — A Proposal for IonQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#1A1612;--text:#F0E6D6;--accent:#C4913E;--copper:#8B5E34;
+  --muted:#9A8B7A;--ionq:#E84D0E;
+  --card-bg:rgba(26,22,18,0.9);--card-border:rgba(196,145,62,0.12);
+  --serif:'Cormorant Garamond',serif;--sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(196,145,62,0.3)}
+img{display:block;max-width:100%}
+
+/* Fade-in observer */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ---- HERO ---- */
+#hero{position:relative;min-height:100dvh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-content{position:relative;z-index:1;text-align:center;padding:24px;max-width:680px}
+.hero-rule{width:60px;height:1px;background:var(--accent);margin:0 auto 32px;animation:heroFade 1s 0.2s both}
+.hero-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;animation:heroFade 0.8s 0.5s both}
+.hero-title{font-family:var(--serif);font-size:clamp(34px,5.5vw,56px);font-weight:400;line-height:1.1;margin-bottom:20px;animation:heroFade 0.8s 0.8s both}
+.hero-sub{font-size:clamp(14px,1.8vw,18px);color:var(--muted);line-height:1.6;max-width:520px;margin:0 auto 14px;animation:heroFade 0.8s 1.1s both}
+.hero-credit{font-size:14px;color:var(--muted);animation:heroFade 0.8s 1.4s both}
+@keyframes heroFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;animation:heroFade 0.8s 1.8s both}
+.scroll-hint span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.scroll-hint i{width:1px;height:28px;background:linear-gradient(to bottom,var(--accent),transparent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:1;transform:translateY(8px)}}
+
+/* ---- STICKY NAV ---- */
+#sticky-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;display:flex;align-items:center;justify-content:center;background:rgba(26,22,18,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(196,145,62,0.08);transform:translateY(-100%);transition:transform 0.35s ease;overflow-x:auto;-webkit-overflow-scrolling:touch}
+#sticky-nav.show{transform:translateY(0)}
+#sticky-nav a{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:0 16px;white-space:nowrap;transition:color 0.2s}
+#sticky-nav a:hover,#sticky-nav a.active{color:var(--accent)}
+@media(max-width:768px){#sticky-nav{justify-content:flex-start;padding:0 8px}#sticky-nav a{padding:0 10px;font-size:10px}}
+
+/* ---- SECTIONS ---- */
+.section{padding:120px 24px;position:relative}
+@media(max-width:768px){.section{padding:60px 16px}}
+.section-inner{max-width:800px;margin:0 auto}
+.section-wide{max-width:1000px;margin:0 auto}
+.section-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.section-heading{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.15;margin-bottom:12px}
+.section-sub{font-size:16px;color:var(--muted);margin-bottom:48px;max-width:600px}
+.body-text{color:rgba(240,230,214,0.75);font-size:16px;line-height:1.8;margin-bottom:24px;max-width:720px}
+.body-text:last-child{margin-bottom:0}
+.centered{text-align:center;margin-left:auto;margin-right:auto}
+
+/* Dividers */
+.divider{width:60px;height:1px;background:rgba(196,145,62,0.2);margin:0 auto}
+
+/* ---- RENDER IMAGES ---- */
+.render-block{margin-bottom:60px}
+.render-block:last-child{margin-bottom:0}
+.render-block img{width:100%;border-radius:4px;border:1px solid rgba(196,145,62,0.1)}
+.render-caption{margin-top:14px;font-size:14px;color:var(--muted);text-align:center}
+.render-caption strong{color:var(--accent);font-weight:500}
+
+/* ---- FLOOR PLAN ---- */
+.floorplan-container{position:relative;max-width:900px;margin:0 auto;border:1px solid var(--card-border);padding:24px;border-radius:6px;background:var(--card-bg)}
+.floorplan-container img{width:100%;filter:invert(0.85) sepia(0.3) saturate(0.4) brightness(0.7) hue-rotate(10deg);border-radius:2px}
+.hotspot{position:absolute;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);background:rgba(26,22,18,0.8);border:1px solid rgba(196,145,62,0.4);padding:5px 10px;border-radius:3px;cursor:pointer;transition:all 0.2s;white-space:nowrap;font-family:var(--sans);font-weight:500}
+.hotspot:hover{background:rgba(196,145,62,0.15);border-color:var(--accent);box-shadow:0 0 12px rgba(196,145,62,0.15)}
+.hotspot.active{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+@media(max-width:768px){.hotspot{font-size:8px;padding:4px 7px}}
+
+.zone-detail{max-width:900px;margin:32px auto 0;overflow:hidden;max-height:0;opacity:0;transition:max-height 0.4s ease,opacity 0.3s ease}
+.zone-detail.open{max-height:600px;opacity:1}
+.zone-detail-inner{display:flex;gap:24px;align-items:flex-start;border-left:2px solid var(--accent);padding:24px;background:var(--card-bg);border-radius:0 6px 6px 0}
+@media(max-width:768px){.zone-detail-inner{flex-direction:column}}
+.zone-detail-inner img{width:220px;min-width:220px;border-radius:4px;border:1px solid rgba(196,145,62,0.1)}
+@media(max-width:768px){.zone-detail-inner img{width:100%;min-width:0}}
+.zone-detail-inner h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:10px}
+.zone-detail-inner p{font-size:15px;color:rgba(240,230,214,0.75);line-height:1.7;margin-bottom:12px}
+.zone-detail-inner .installs{font-size:13px;color:var(--muted)}
+
+/* ---- PILLARS ---- */
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto}
+@media(max-width:768px){.pillars-grid{grid-template-columns:1fr}}
+.pillar{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:32px;transition:border-color 0.3s,transform 0.3s}
+.pillar:hover{border-color:rgba(196,145,62,0.3);transform:translateY(-2px)}
+.pillar-icon{width:40px;height:40px;margin-bottom:16px}
+.pillar-icon svg{width:40px;height:40px;stroke:var(--accent);fill:none;stroke-width:1.2}
+.pillar h3{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:10px}
+.pillar p{font-size:14px;color:rgba(240,230,214,0.7);line-height:1.7}
+
+/* ---- PERSONAS ---- */
+.persona-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+@media(max-width:768px){.persona-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}}
+.persona-btn{font-family:var(--sans);font-size:15px;padding:14px 28px;border-radius:4px;cursor:pointer;border:1px solid rgba(196,145,62,0.4);background:transparent;color:var(--accent);transition:all 0.2s;white-space:nowrap}
+.persona-btn.active{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+@media(max-width:768px){.persona-btn{font-size:13px;padding:12px 16px;text-align:center}}
+
+.journey{position:relative;padding-left:28px;border-left:1px solid rgba(196,145,62,0.2)}
+.journey-stage{margin-bottom:36px;position:relative}
+.journey-stage:last-child{margin-bottom:0}
+.journey-stage::before{content:'';position:absolute;left:-33px;top:4px;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.journey-stage .stage-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:4px;font-weight:500}
+.journey-stage p{font-size:15px;color:rgba(240,230,214,0.7);line-height:1.7}
+
+.persona-panel{display:none;opacity:0;transition:opacity 0.2s}
+.persona-panel.active{display:block;opacity:1}
+
+/* ---- MOOD IMAGES ---- */
+.mood-block{max-width:1000px;margin:0 auto}
+.mood-block img{width:100%;border-radius:4px;border:1px solid rgba(196,145,62,0.1);margin-bottom:40px}
+.mood-block img:last-of-type{margin-bottom:0}
+
+/* ---- CREDENTIALS ---- */
+.cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px;margin:0 auto 56px}
+@media(max-width:768px){.cred-grid{grid-template-columns:1fr}}
+.cred-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:32px}
+.cred-card h3{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:12px}
+.cred-card p{font-size:15px;color:rgba(240,230,214,0.7);line-height:1.7;margin-bottom:14px}
+.cred-card .tags{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+
+.method-flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;max-width:1000px;margin:0 auto}
+.method-step{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text);padding:8px 0}
+.method-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);margin:0 12px;flex-shrink:0}
+.method-line{width:24px;height:1px;background:rgba(196,145,62,0.3);flex-shrink:0}
+@media(max-width:768px){.method-flow{flex-direction:column;align-items:flex-start}.method-dot{margin:4px 0 4px 0}.method-line{display:none}}
+
+/* ---- TIMELINE ---- */
+.timeline{position:relative;padding-left:28px;border-left:1px solid rgba(196,145,62,0.2);max-width:500px}
+.timeline-item{margin-bottom:40px;position:relative}
+.timeline-item:last-child{margin-bottom:0}
+.timeline-item::before{content:'';position:absolute;left:-33px;top:4px;width:9px;height:9px;border-radius:50%;border:2px solid var(--accent);background:var(--bg)}
+.timeline-item .tl-date{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:2px}
+.timeline-item .tl-text{font-size:16px;color:rgba(240,230,214,0.8)}
+
+/* ---- INVESTMENT ---- */
+.invest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto}
+@media(max-width:768px){.invest-grid{grid-template-columns:1fr}}
+.invest-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:32px;position:relative}
+.invest-card.featured{border-color:rgba(196,145,62,0.4)}
+.invest-badge{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+.invest-card h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:12px}
+.invest-card .desc{font-size:15px;color:rgba(240,230,214,0.7);line-height:1.7;margin-bottom:16px;font-style:italic}
+.invest-card .scope{font-size:13px;color:var(--muted);line-height:1.8}
+.invest-note{text-align:center;color:var(--muted);font-size:14px;margin-top:40px;max-width:1000px;margin-left:auto;margin-right:auto}
+
+/* ---- CLOSING ---- */
+#closing{padding:200px 24px 120px;text-align:center}
+@media(max-width:768px){#closing{padding:100px 16px 60px}}
+.closing-rule{width:60px;height:1px;background:var(--accent);margin:0 auto 48px}
+.closing-quote{font-family:var(--serif);font-size:clamp(24px,4vw,36px);font-weight:400;line-height:1.35;margin-bottom:6px;color:var(--text)}
+.closing-spacer{height:32px}
+.closing-cta{font-size:16px;color:var(--muted);margin-bottom:32px}
+.closing-brand{font-size:14px;color:var(--accent);margin-bottom:6px}
+.closing-conf{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav id="sticky-nav">
+<a href="#vision">Vision</a>
+<a href="#the-space">The Space</a>
+<a href="#concept-map">Concept Map</a>
+<a href="#platform">Platform</a>
+<a href="#experience">Experience</a>
+<a href="#credentials">Credentials</a>
+<a href="#timeline">Timeline</a>
+<a href="#investment">Investment</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+<canvas id="hero-canvas"></canvas>
+<div class="hero-content">
+<div class="hero-rule"></div>
+<div class="hero-label">A PROPOSAL FOR IONQ</div>
+<h1 class="hero-title">The Quantum Capitol</h1>
+<p class="hero-sub">An Experiential Design Vision for the Executive Business Center — Washington, D.C.</p>
+<p class="hero-credit">Futureman Digital &times; SketchDeck &middot; April 2026</p>
+</div>
+<div class="scroll-hint"><span>Scroll</span><i></i></div>
+</section>
+
+<!-- VISION -->
+<div class="divider"></div>
+<section class="section" id="vision">
+<div class="section-inner centered">
+<div class="section-label fade-in">01 — THE VISION</div>
+<h2 class="section-heading fade-in">Where Quantum Meets Statecraft</h2>
+<div style="height:24px"></div>
+<p class="body-text centered fade-in">This is not a showroom. It is the physical manifestation of American quantum sovereignty — a space where the invisible becomes undeniable, where complex technology earns the confidence of the people who fund it, field it, and depend on it.</p>
+<p class="body-text centered fade-in">Every surface, every interaction, every moment of curated stillness is designed to communicate one message: the quantum future is here, it is American-built, and IonQ is its architect.</p>
+<p class="body-text centered fade-in">The design draws from the gravitas of national laboratories and the warmth of world-class cultural institutions. Visitors are not toured through the space — they are received into it.</p>
+</div>
+</section>
+
+<!-- THE SPACE -->
+<div class="divider"></div>
+<section class="section" id="the-space">
+<div class="section-inner centered">
+<div class="section-label fade-in">02 — THE SPACE</div>
+<h2 class="section-heading fade-in">A First Look</h2>
+<p class="section-sub centered fade-in" style="margin-left:auto;margin-right:auto">Architectural renders of the IonQ Executive Business Center</p>
+</div>
+<div class="section-wide">
+<div class="render-block fade-in">
+<img src="render-arrival.png" alt="Arrival render" loading="lazy">
+<div class="render-caption"><strong>Arrival</strong> — The first impression</div>
+</div>
+<div class="render-block fade-in">
+<img src="render-prefunction.png" alt="Experience Center render" loading="lazy">
+<div class="render-caption"><strong>Experience Center</strong> — Where quantum becomes tangible</div>
+</div>
+<div class="render-block fade-in">
+<img src="render-boardroom.png" alt="Boardroom render" loading="lazy">
+<div class="render-caption"><strong>Board Room</strong> — Where decisions of consequence are made</div>
+</div>
+</div>
+</section>
+
+<!-- CONCEPT MAP -->
+<div class="divider"></div>
+<section class="section" id="concept-map">
+<div class="section-inner centered">
+<div class="section-label fade-in">03 — SPATIAL VISION</div>
+<h2 class="section-heading fade-in">Installation Concept Map</h2>
+<p class="section-sub centered fade-in" style="margin-left:auto;margin-right:auto">Select a zone to explore proposed experiential interventions.</p>
+</div>
+<div class="floorplan-container fade-in">
+<img src="floorplan-level3.png" alt="Level 3 Floor Plan" loading="lazy">
+<div class="hotspot" data-zone="experience" style="top:18%;left:22%">Experience Center</div>
+<div class="hotspot" data-zone="boardroom" style="top:62%;left:12%">Boardroom</div>
+<div class="hotspot" data-zone="arrival" style="top:40%;left:3%">Arrival</div>
+<div class="hotspot" data-zone="dining" style="top:52%;left:1%">Private Dining</div>
+<div class="hotspot" data-zone="bistro" style="top:78%;left:35%">Bistro</div>
+</div>
+<div class="zone-detail" id="zone-detail">
+<div class="zone-detail-inner" id="zone-detail-inner"></div>
+</div>
+</section>
+
+<!-- PLATFORM -->
+<div class="divider"></div>
+<section class="section" id="platform">
+<div class="section-inner centered">
+<div class="section-label fade-in">04 — THE PLATFORM</div>
+<h2 class="section-heading fade-in">Six Pillars of Quantum Sovereignty</h2>
+<div style="height:40px"></div>
+</div>
+<div class="pillars-grid">
+<div class="pillar fade-in">
+<div class="pillar-icon"><svg viewBox="0 0 40 40"><circle cx="16" cy="20" r="9"/><circle cx="24" cy="20" r="9"/></svg></div>
+<h3>Quantum Compute</h3>
+<p>High-fidelity trapped-ion systems enabling partners to solve their most complex problems. Enterprise-grade, room-temperature quantum advantage.</p>
+</div>
+<div class="pillar fade-in">
+<div class="pillar-icon"><svg viewBox="0 0 40 40"><circle cx="10" cy="20" r="3.5"/><circle cx="30" cy="20" r="3.5"/><circle cx="20" cy="10" r="3.5"/><line x1="13" y1="18" x2="17" y2="13"/><line x1="23" y1="13" x2="27" y2="18"/><line x1="14" y1="20" x2="26" y2="20"/></svg></div>
+<h3>Quantum Networking</h3>
+<p>Building the quantum internet through entanglement distribution. The infrastructure for unhackable global communication.</p>
+</div>
+<div class="pillar fade-in">
+<div class="pillar-icon"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="5"/><circle cx="20" cy="20" r="10"/><circle cx="20" cy="20" r="15"/></svg></div>
+<h3>Quantum Sensing</h3>
+<p>GPS-denied navigation and ultra-precise atomic clocks. Redefining precision for defense and critical infrastructure.</p>
+</div>
+<div class="pillar fade-in">
+<div class="pillar-icon"><svg viewBox="0 0 40 40"><path d="M20 5 L30 11 L30 25 L20 31 L10 25 L10 11Z"/><line x1="20" y1="15" x2="20" y2="23"/><circle cx="20" cy="26" r="1.2" fill="var(--accent)" stroke="none"/></svg></div>
+<h3>Quantum Security</h3>
+<p>Quantum Key Distribution and Blind Quantum Computing. National security at the fundamental level of physics.</p>
+</div>
+<div class="pillar fade-in">
+<div class="pillar-icon"><svg viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="15" ry="5"/><circle cx="20" cy="20" r="2.5"/><ellipse cx="20" cy="20" rx="15" ry="5" transform="rotate(60 20 20)"/></svg></div>
+<h3>Space Infrastructure</h3>
+<p>Optical communications, sensing, and Earth observation. The orbital layer of quantum-enabled operations.</p>
+</div>
+<div class="pillar fade-in">
+<div class="pillar-icon"><svg viewBox="0 0 40 40"><polygon points="20,7 25,10 25,16 20,19 15,16 15,10"/><polygon points="25,16 30,19 30,25 25,28 20,25 20,19"/><polygon points="15,16 20,19 20,25 15,28 10,25 10,19"/></svg></div>
+<h3>Merchant Supplies</h3>
+<p>America's trusted quantum supplier. Domestically manufactured components powering the nation's quantum infrastructure.</p>
+</div>
+</div>
+</section>
+
+<!-- EXPERIENCE -->
+<div class="divider"></div>
+<section class="section" id="experience">
+<div class="section-inner">
+<div class="section-label fade-in">05 — THE EXPERIENCE</div>
+<h2 class="section-heading fade-in">Curated for Every Visitor</h2>
+<p class="section-sub fade-in">Every visit is composed for its audience. Select a profile.</p>
+<div class="persona-btns fade-in">
+<button class="persona-btn active" data-p="congress">Member of Congress</button>
+<button class="persona-btn" data-p="lab">Lab Director</button>
+<button class="persona-btn" data-p="cto">Enterprise CTO</button>
+<button class="persona-btn" data-p="investor">Institutional Investor</button>
+</div>
+<div id="persona-panels">
+<div class="persona-panel active" data-panel="congress">
+<div class="journey">
+<div class="journey-stage"><div class="stage-label">Arrival</div><p>Welcomed by Government Affairs. The space communicates scale and American manufacturing strength — no jargon, just authority.</p></div>
+<div class="journey-stage"><div class="stage-label">Orientation</div><p>A 3-minute narrative frames quantum as infrastructure. Economic competitiveness. National security.</p></div>
+<div class="journey-stage"><div class="stage-label">Immersion</div><p>An interactive briefing showing how IonQ protects critical infrastructure — from satellites to power grids.</p></div>
+<div class="journey-stage"><div class="stage-label">Discovery</div><p>Hands-on with real hardware: ion traps, quantum chips manufactured domestically. The conversation shifts to jobs and regional impact.</p></div>
+<div class="journey-stage"><div class="stage-label">Departure</div><p>A personalized briefing document. The ask: continued support for quantum investment.</p></div>
+</div>
+</div>
+<div class="persona-panel" data-panel="lab">
+<div class="journey">
+<div class="journey-stage"><div class="stage-label">Arrival</div><p>Greeted by the CTO. Hardware on display is immediately recognizable — this audience knows what they're looking at.</p></div>
+<div class="journey-stage"><div class="stage-label">Orientation</div><p>Technical deep-dive: gate fidelities, qubit counts, error correction. Real data.</p></div>
+<div class="journey-stage"><div class="stage-label">Immersion</div><p>Live demonstration — a quantum circuit executed in real-time with benchmarks against competing modalities.</p></div>
+<div class="journey-stage"><div class="stage-label">Discovery</div><p>Integration pathways: HPC infrastructure, cloud platforms, mission-specific workflows.</p></div>
+<div class="journey-stage"><div class="stage-label">Departure</div><p>Technical documentation and direct access to applications engineering.</p></div>
+</div>
+</div>
+<div class="persona-panel" data-panel="cto">
+<div class="journey">
+<div class="journey-stage"><div class="stage-label">Arrival</div><p>Met by enterprise sales in the boardroom. The environment communicates maturity and readiness.</p></div>
+<div class="journey-stage"><div class="stage-label">Orientation</div><p>Industry use cases: drug discovery, financial modeling, supply chain. Real partner results.</p></div>
+<div class="journey-stage"><div class="stage-label">Immersion</div><p>Quantum advantage demonstrated in their specific vertical. 20x performance data.</p></div>
+<div class="journey-stage"><div class="stage-label">Discovery</div><p>Cloud integration via AWS, Azure, GCP. Total cost of ownership modeling.</p></div>
+<div class="journey-stage"><div class="stage-label">Departure</div><p>Custom ROI analysis. Commercial follow-up within 48 hours.</p></div>
+</div>
+</div>
+<div class="persona-panel" data-panel="investor">
+<div class="journey">
+<div class="journey-stage"><div class="stage-label">Arrival</div><p>Welcomed by the CFO. The lobby reinforces the platform narrative immediately.</p></div>
+<div class="journey-stage"><div class="stage-label">Orientation</div><p>The thesis: $130M revenue, 202% growth, path to $245M. Five minutes.</p></div>
+<div class="journey-stage"><div class="stage-label">Immersion</div><p>8 acquisitions visualized. The only vertically integrated quantum platform. The moat, visible.</p></div>
+<div class="journey-stage"><div class="stage-label">Discovery</div><p>Manufacturing capability, domestic supply chain, SkyWater foundry. Capex made tangible.</p></div>
+<div class="journey-stage"><div class="stage-label">Departure</div><p>Investor materials and quarterly briefing invitation. Platform bet, not science experiment.</p></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DESIGN LANGUAGE -->
+<div class="divider"></div>
+<section class="section" id="design-language">
+<div class="section-inner centered">
+<div class="section-label fade-in">06 — DESIGN LANGUAGE</div>
+<h2 class="section-heading fade-in">Metallic Diffusion. Curated Stillness.</h2>
+<div style="height:40px"></div>
+</div>
+<div class="mood-block">
+<img src="mood-concept.png" alt="Concept imagery" loading="lazy" class="fade-in">
+<img src="mood-materials.png" alt="Material palette" loading="lazy" class="fade-in">
+<div style="height:16px"></div>
+<p class="body-text centered fade-in" style="max-width:720px;margin-left:auto;margin-right:auto">Warm metallics, diffused light, organic geometry, and tactile materials create an atmosphere of grounded authority — a space as consequential as the decisions made within it.</p>
+</div>
+</section>
+
+<!-- CREDENTIALS -->
+<div class="divider"></div>
+<section class="section" id="credentials">
+<div class="section-inner centered">
+<div class="section-label fade-in">07 — CREDENTIALS</div>
+<h2 class="section-heading fade-in">Proven at the Highest Level</h2>
+<div style="height:40px"></div>
+</div>
+<div class="cred-grid">
+<div class="cred-card fade-in">
+<h3>Jaeger-LeCoultre — "Reverso Stories"</h3>
+<p>Immersive luxury experience translating invisible craftsmanship into a multisensory journey. The parallel — making the invisible awe-inspiring — is exact.</p>
+<div class="tags">Experiential Design &middot; 3D Animation &middot; Interactive Installation &middot; Narrative</div>
+</div>
+<div class="cred-card fade-in">
+<h3>United Nations Foundation</h3>
+<p>A decade-long partnership. Strategic communications and data visualization earning trust with global decision-makers.</p>
+<div class="tags">Digital Strategy &middot; Data Viz &middot; Content &middot; Institutional Communications</div>
+</div>
+</div>
+<div class="method-flow fade-in">
+<div class="method-step">Discovery</div><div class="method-line"></div><div class="method-dot"></div><div class="method-line"></div>
+<div class="method-step">Narrative Design</div><div class="method-line"></div><div class="method-dot"></div><div class="method-line"></div>
+<div class="method-step">Spatial Concepting</div><div class="method-line"></div><div class="method-dot"></div><div class="method-line"></div>
+<div class="method-step">Content Production</div><div class="method-line"></div><div class="method-dot"></div><div class="method-line"></div>
+<div class="method-step">Technical Integration</div><div class="method-line"></div><div class="method-dot"></div><div class="method-line"></div>
+<div class="method-step">Commissioning</div>
+</div>
+</section>
+
+<!-- TIMELINE -->
+<div class="divider"></div>
+<section class="section" id="timeline">
+<div class="section-inner">
+<div class="section-label fade-in">08 — TIMELINE</div>
+<h2 class="section-heading fade-in">From Vision to Opening Night</h2>
+<div style="height:40px"></div>
+<div class="timeline fade-in">
+<div class="timeline-item"><div class="tl-date">April 2026</div><div class="tl-text">Agency Selection</div></div>
+<div class="timeline-item"><div class="tl-date">May 2026</div><div class="tl-text">Discovery &amp; Kickoff</div></div>
+<div class="timeline-item"><div class="tl-date">Summer 2026</div><div class="tl-text">Concept &amp; Design Development</div></div>
+<div class="timeline-item"><div class="tl-date">Fall 2026</div><div class="tl-text">Content Production</div></div>
+<div class="timeline-item"><div class="tl-date">2027</div><div class="tl-text">Technical Integration &amp; Fabrication</div></div>
+<div class="timeline-item"><div class="tl-date">December 2028</div><div class="tl-text">Grand Opening</div></div>
+</div>
+</div>
+</section>
+
+<!-- INVESTMENT -->
+<div class="divider"></div>
+<section class="section" id="investment">
+<div class="section-inner centered">
+<div class="section-label fade-in">09 — INVESTMENT</div>
+<h2 class="section-heading fade-in">Three Tiers of Ambition</h2>
+<div style="height:40px"></div>
+</div>
+<div class="invest-grid">
+<div class="invest-card fade-in">
+<h3>Essential</h3>
+<p class="desc">The foundation. Core experiential design for primary zones with narrative content and key installations.</p>
+<div class="scope">Narrative Development &middot; 6&ndash;8 Visual Assets &middot; 2 Installations &middot; Hardware Specs &middot; Scalability Framework</div>
+</div>
+<div class="invest-card featured fade-in">
+<div class="invest-badge">Recommended</div>
+<h3>Signature</h3>
+<p class="desc">The complete vision. Full narrative ecosystem, premium content, advanced interactives, modular global system.</p>
+<div class="scope">All Essential + 12&ndash;15 Visual Assets &middot; 4&ndash;6 Installations &middot; Adaptive Content &middot; Video Production &middot; Multi-Language &middot; CMS</div>
+</div>
+<div class="invest-card fade-in">
+<h3>Landmark</h3>
+<p class="desc">The statement. No-compromise, category-defining. A new global standard.</p>
+<div class="scope">All Signature + Custom 3D Environments &middot; Live Quantum Demo &middot; Immersive Theater &middot; Content Retainer &middot; Global Adaptation</div>
+</div>
+</div>
+<p class="invest-note fade-in">Detailed pricing with phase breakdowns upon scope alignment.</p>
+</section>
+
+<!-- CLOSING -->
+<div class="divider"></div>
+<section id="closing">
+<div class="fade-in">
+<div class="closing-rule"></div>
+<p class="closing-quote">The future is not built in laboratories alone.</p>
+<p class="closing-quote">It is built in the rooms where decisions are made.</p>
+<div class="closing-spacer"></div>
+<p class="closing-cta">We would be honored to build that room with you.</p>
+<p class="closing-brand">Futureman Digital &times; SketchDeck &middot; April 2026</p>
+<p class="closing-conf">Confidential — Prepared for IonQ</p>
+</div>
+</section>
+
+<div style="height:60px"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ===== THREE.JS HERO SHADER =====
+(function(){
+const canvas = document.getElementById('hero-canvas');
+const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:false});
+renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+const mouse = {x:0.5, y:0.5};
+document.addEventListener('mousemove', e=>{
+  mouse.x += (e.clientX/window.innerWidth - mouse.x)*0.03;
+  mouse.y += (1-e.clientY/window.innerHeight - mouse.y)*0.03;
+});
+
+const frag = `
+uniform float uTime;
+uniform vec2 uMouse;
+uniform vec2 uRes;
+
+// Simplex-style noise
+vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
+vec2 mod289(vec2 x){return x-floor(x*(1.0/289.0))*289.0;}
+vec3 permute(vec3 x){return mod289(((x*34.0)+1.0)*x);}
+float snoise(vec2 v){
+  const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
+  vec2 i=floor(v+dot(v,C.yy));
+  vec2 x0=v-i+dot(i,C.xx);
+  vec2 i1;i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);
+  vec4 x12=x0.xyxy+C.xxzz;x12.xy-=i1;
+  i=mod289(i);
+  vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));
+  vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);
+  m=m*m;m=m*m;
+  vec3 x=2.0*fract(p*C.www)-1.0;
+  vec3 h=abs(x)-0.5;
+  vec3 ox=floor(x+0.5);
+  vec3 a0=x-ox;
+  m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);
+  vec3 g;
+  g.x=a0.x*x0.x+h.x*x0.y;
+  g.yz=a0.yz*x12.xz+h.yz*x12.yw;
+  return 130.0*dot(m,g);
+}
+
+void main(){
+  vec2 uv=gl_FragCoord.xy/uRes;
+  float aspect=uRes.x/uRes.y;
+  vec2 p=vec2(uv.x*aspect,uv.y);
+  float t=uTime*0.04;
+  vec2 m=uMouse*0.08;
+
+  float v=0.0;
+  // Layer multiple noise octaves for organic smoke
+  v+=snoise(p*1.2+vec2(t*0.7+m.x,t*0.5+m.y))*0.5;
+  v+=snoise(p*2.4+vec2(-t*0.4,t*0.3))*0.3;
+  v+=snoise(p*4.0+vec2(t*0.2,-t*0.6))*0.15;
+
+  // Create distinct warm glowing areas
+  float g=0.0;
+  for(int i=0;i<4;i++){
+    float fi=float(i);
+    vec2 c=vec2(
+      sin(t*(0.5+fi*0.15)+fi*1.8+m.x)*0.35+0.5*aspect,
+      cos(t*(0.3+fi*0.12)+fi*2.3+m.y)*0.3+0.5
+    );
+    float d=length(p-c);
+    g+=0.008/(d*d+0.005);
+  }
+  g=clamp(g*0.08,0.0,1.0);
+
+  // Combine noise and glow
+  float intensity=clamp(v*0.5+0.5,0.0,1.0)*0.4+g*0.8;
+  intensity=smoothstep(0.1,0.9,intensity);
+
+  // Color palette: charcoal -> copper -> amber -> gold
+  vec3 charcoal=vec3(0.102,0.086,0.071);
+  vec3 copper=vec3(0.545,0.369,0.204);
+  vec3 amber=vec3(0.769,0.569,0.243);
+  vec3 gold=vec3(0.831,0.659,0.325);
+
+  vec3 col=charcoal;
+  col=mix(col,copper,smoothstep(0.15,0.4,intensity));
+  col=mix(col,amber,smoothstep(0.4,0.65,intensity));
+  col=mix(col,gold,smoothstep(0.65,0.9,intensity));
+
+  // Vignette
+  vec2 vc=uv-0.5;
+  float vig=1.0-dot(vc,vc)*1.2;
+  col*=vig;
+
+  gl_FragColor=vec4(col,intensity*0.85*vig);
+}`;
+
+const mat = new THREE.ShaderMaterial({
+  uniforms:{
+    uTime:{value:0},
+    uMouse:{value:new THREE.Vector2(0.5,0.5)},
+    uRes:{value:new THREE.Vector2(canvas.clientWidth*Math.min(window.devicePixelRatio,2),canvas.clientHeight*Math.min(window.devicePixelRatio,2))}
+  },
+  vertexShader:'void main(){gl_Position=vec4(position,1.0);}',
+  fragmentShader:frag,
+  transparent:true
+});
+scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),mat));
+
+window.addEventListener('resize',()=>{
+  renderer.setSize(canvas.clientWidth,canvas.clientHeight);
+  const pr=Math.min(window.devicePixelRatio,2);
+  mat.uniforms.uRes.value.set(canvas.clientWidth*pr,canvas.clientHeight*pr);
+});
+
+(function loop(t){
+  mat.uniforms.uTime.value=t*0.001;
+  mat.uniforms.uMouse.value.set(mouse.x,mouse.y);
+  renderer.render(scene,camera);
+  requestAnimationFrame(loop);
+})(0);
+})();
+
+// ===== INTERSECTION OBSERVER =====
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+// ===== STICKY NAV =====
+const nav = document.getElementById('sticky-nav');
+const hero = document.getElementById('hero');
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = nav.querySelectorAll('a');
+
+const navObserver = new IntersectionObserver(([e])=>{
+  nav.classList.toggle('show',!e.isIntersecting);
+},{threshold:0});
+navObserver.observe(hero);
+
+// Active section tracking
+const sectionObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(a=>a.classList.remove('active'));
+      const link = nav.querySelector('a[href="#'+e.target.id+'"]');
+      if(link) link.classList.add('active');
+    }
+  });
+},{threshold:0.2, rootMargin:'-50px 0px -50% 0px'});
+sections.forEach(s=>sectionObserver.observe(s));
+
+// ===== FLOOR PLAN ZONES =====
+const zoneData = {
+  experience:{
+    title:'Experience Center',
+    img:'render-prefunction.png',
+    text:'The centerpiece. An immersive, configurable environment adapting its narrative to each visitor. A curved LED wall supports audience-specific content tracks. Physical hardware — ion traps, quantum chips — displayed in museum-grade vitrines.',
+    installs:'Curved LED Narrative Wall &middot; Hardware Vitrine Gallery &middot; Ambient Sound Design &middot; Adaptive Content System'
+  },
+  boardroom:{
+    title:'Board Room',
+    img:'render-boardroom.png',
+    text:'CEO-grade briefing environment for the highest-stakes meetings. Dual displays for live data visualization. Ceiling installation inspired by the trapped-ion lattice reinforces IonQ\'s narrative.',
+    installs:'Dual 4K Displays &middot; Ceiling Lattice Installation &middot; Configurable Lighting'
+  },
+  arrival:{
+    title:'Arrival / Lobby',
+    img:'render-arrival.png',
+    text:'The first 30 seconds define the visit. Ambient displays transition visitors into the narrative. The environment communicates scale, permanence, and American strength.',
+    installs:'Signature Floor Treatment &middot; Ambient Displays &middot; Brand Moment Wall'
+  },
+  dining:{
+    title:'Private Dining',
+    img:null,
+    text:'Intimate relationship-building after the tour. Commissioned art referencing quantum phenomena. Subtle brand presence without overwhelming a social environment.',
+    installs:'Commissioned Art &middot; Integrated AV &middot; Curated Materials'
+  },
+  bistro:{
+    title:'Bistro',
+    img:null,
+    text:'Transitional space bridging the EBC and working office. Digital signage rotates milestones and partner recognition.',
+    installs:'Milestone Display &middot; Partner Wall &middot; Ambient Brand Integration'
+  }
+};
+
+let activeZone = null;
+const detail = document.getElementById('zone-detail');
+const detailInner = document.getElementById('zone-detail-inner');
+
+document.querySelectorAll('.hotspot').forEach(hs=>{
+  hs.addEventListener('click',()=>{
+    const z = hs.dataset.zone;
+    document.querySelectorAll('.hotspot').forEach(h=>h.classList.remove('active'));
+
+    if(activeZone === z){
+      detail.classList.remove('open');
+      activeZone=null;
+      return;
+    }
+
+    hs.classList.add('active');
+    activeZone=z;
+    const d=zoneData[z];
+    detailInner.innerHTML=
+      (d.img?'<img src="'+d.img+'" alt="'+d.title+'" loading="lazy">':'')+
+      '<div><h3>'+d.title+'</h3><p>'+d.text+'</p><div class="installs">'+d.installs+'</div></div>';
+    detail.classList.add('open');
+  });
+});
+
+// ===== PERSONAS =====
+document.querySelectorAll('.persona-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.persona-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.persona-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelector('[data-panel="'+btn.dataset.p+'"]').classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
