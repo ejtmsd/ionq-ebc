@@ -10,7 +10,8 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#1A1612;--text:#F0E6D6;--accent:#C4913E;--copper:#8B5E34;
+  --bg:#1A1612;--bg-alt:#1E1A15;--bg-dark:#151210;
+  --text:#F0E6D6;--accent:#C4913E;--copper:#8B5E34;
   --muted:#9A8B7A;--ionq:#E84D0E;
   --card-bg:rgba(26,22,18,0.9);--card-border:rgba(196,145,62,0.12);
   --serif:'Cormorant Garamond',serif;--sans:'Inter',sans-serif;
@@ -24,6 +25,13 @@ img{display:block;max-width:100%}
 /* Scroll offset for sticky nav */
 [id]{scroll-margin-top:calc(var(--nav-h) + 16px)}
 
+/* Alternating section backgrounds */
+.section-light{background:var(--bg)}
+.section-dark{background:var(--bg-dark)}
+.section-alt{background:var(--bg-alt)}
+.section-ruled{border-top:1px solid rgba(196,145,62,0.08);border-bottom:1px solid rgba(196,145,62,0.08)}
+.section-grain{background:var(--bg-alt);background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")}
+
 /* Fade-in observer */
 .fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
@@ -34,22 +42,35 @@ img{display:block;max-width:100%}
 .hero-content{position:relative;z-index:1;text-align:center;padding:24px;max-width:720px}
 .hero-rule{width:60px;height:1px;background:var(--accent);margin:0 auto 32px;animation:heroFade 1s 0.2s both}
 .hero-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;animation:heroFade 0.8s 0.5s both}
-.hero-title{font-family:var(--serif);font-size:clamp(34px,5.5vw,56px);font-weight:400;line-height:1.1;margin-bottom:20px;animation:heroFade 0.8s 0.8s both}
-.hero-sub{font-size:clamp(14px,1.8vw,18px);color:var(--muted);line-height:1.6;max-width:560px;margin:0 auto 24px;animation:heroFade 0.8s 1.1s both}
-.hero-body{font-size:16px;color:rgba(240,230,214,0.75);line-height:1.8;max-width:620px;margin:0 auto 16px;text-align:left;animation:heroFade 0.8s 1.3s both}
-.hero-body:last-of-type{margin-bottom:0}
+.hero-title{font-family:var(--serif);font-size:clamp(40px,7vw,72px);font-weight:300;line-height:1.05;margin-bottom:24px;animation:heroFade 0.8s 0.8s both;letter-spacing:-0.5px}
+.hero-sub{font-size:clamp(14px,1.8vw,18px);color:var(--muted);line-height:1.6;max-width:560px;margin:0 auto;animation:heroFade 0.8s 1.1s both}
 @keyframes heroFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Floating particles overlay */
+.hero-particles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.hero-particle{position:absolute;width:2px;height:2px;background:var(--accent);border-radius:50%;opacity:0;animation:particleFloat linear infinite}
+@keyframes particleFloat{
+  0%{opacity:0;transform:translateY(100vh) scale(0)}
+  10%{opacity:0.6}
+  90%{opacity:0.6}
+  100%{opacity:0;transform:translateY(-20vh) scale(1)}
+}
+
 .scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;animation:heroFade 0.8s 1.8s both}
 .scroll-hint span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
 .scroll-hint i{width:1px;height:28px;background:linear-gradient(to bottom,var(--accent),transparent);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:1;transform:translateY(8px)}}
 
 /* ---- STICKY NAV ---- */
-#sticky-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;justify-content:center;background:rgba(26,22,18,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(196,145,62,0.08);transform:translateY(-100%);transition:transform 0.35s ease;overflow-x:auto;-webkit-overflow-scrolling:touch}
+#sticky-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;background:rgba(26,22,18,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(196,145,62,0.08);transform:translateY(-100%);transition:transform 0.35s ease;overflow-x:auto;-webkit-overflow-scrolling:touch}
 #sticky-nav.show{transform:translateY(0)}
+.nav-brand{display:flex;align-items:center;gap:8px;padding:0 20px 0 16px;flex-shrink:0;border-right:1px solid rgba(196,145,62,0.12);margin-right:8px;height:100%}
+.nav-brand img{height:18px;opacity:0.8;filter:brightness(1.5)}
+.nav-brand span{font-size:11px;color:var(--muted);margin:0 4px}
+.nav-links{display:flex;align-items:center;justify-content:center;flex:1}
 #sticky-nav a{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:0 16px;white-space:nowrap;transition:color 0.2s}
 #sticky-nav a:hover,#sticky-nav a.active{color:var(--accent)}
-@media(max-width:768px){#sticky-nav{justify-content:flex-start;padding:0 8px}#sticky-nav a{padding:0 10px;font-size:10px}}
+@media(max-width:768px){#sticky-nav{padding:0}.nav-brand{padding:0 12px 0 10px;margin-right:4px}.nav-brand img{height:14px}#sticky-nav a{padding:0 10px;font-size:10px}}
 
 /* ---- SECTIONS ---- */
 .section{padding:120px 24px;position:relative}
@@ -64,14 +85,24 @@ img{display:block;max-width:100%}
 .centered{text-align:center;margin-left:auto;margin-right:auto}
 .divider{width:60px;height:1px;background:rgba(196,145,62,0.2);margin:0 auto}
 
+/* ---- EXEC SUMMARY ---- */
+.exec-summary{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px}
+@media(max-width:768px){.exec-summary{grid-template-columns:1fr;gap:20px}}
+.exec-card{padding:28px 0;border-top:2px solid var(--accent)}
+.exec-card p{color:rgba(240,230,214,0.75);font-size:15px;line-height:1.7}
+.exec-card strong{color:var(--text);font-weight:500}
+
 /* ---- THREE-COL BLOCK (What We Heard) ---- */
 .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto}
 @media(max-width:768px){.three-col{grid-template-columns:1fr;gap:16px}}
-.three-col-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:32px}
-.three-col-card h3{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:10px;color:var(--text)}
-.three-col-card p{font-size:14px;color:rgba(240,230,214,0.7);line-height:1.7}
+.three-col-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:32px;position:relative;overflow:hidden}
+.three-col-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);opacity:0;transition:opacity 0.3s}
+.three-col-card:hover::before{opacity:1}
+.three-col-card h3{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:12px;color:var(--text)}
+.three-col-card p{font-size:15px;color:rgba(240,230,214,0.7);line-height:1.7}
+.three-col-card .card-icon{font-size:28px;margin-bottom:16px;color:var(--accent);opacity:0.6}
 
-/* ---- CALLOUT BLOCK (Disclaimer, Content Architecture) ---- */
+/* ---- CALLOUT BLOCK ---- */
 .callout{max-width:800px;margin:0 auto;border-left:2px solid var(--accent);padding:32px 32px 32px 40px;background:rgba(196,145,62,0.04);border-radius:0 4px 4px 0}
 .callout p{color:rgba(240,230,214,0.75);font-size:15px;line-height:1.8;margin-bottom:20px}
 .callout p:last-child{margin-bottom:0}
@@ -92,19 +123,25 @@ img{display:block;max-width:100%}
 .zone-module-header p{color:rgba(240,230,214,0.7);font-size:15px;line-height:1.8}
 
 /* ---- TAB SYSTEM (shared) ---- */
-.tab-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;border-bottom:1px solid rgba(196,145,62,0.12);padding-bottom:16px}
-.tab-btn{font-family:var(--sans);font-size:13px;padding:10px 18px;border-radius:3px;cursor:pointer;border:1px solid rgba(196,145,62,0.3);background:transparent;color:var(--muted);transition:all 0.2s;display:flex;align-items:center;gap:8px;white-space:nowrap}
-.tab-btn:hover{color:var(--accent);border-color:var(--accent)}
-.tab-btn[aria-selected="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.tab-bar{display:flex;gap:0;margin-bottom:32px;background:rgba(196,145,62,0.06);border-radius:6px;padding:4px;border:1px solid rgba(196,145,62,0.12);flex-wrap:wrap}
+.tab-btn{font-family:var(--sans);font-size:13px;padding:12px 20px;border-radius:4px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all 0.25s;display:flex;align-items:center;gap:8px;white-space:nowrap;flex:1;justify-content:center;min-width:0;position:relative}
+.tab-btn:hover{color:var(--text);background:rgba(196,145,62,0.08)}
+.tab-btn[aria-selected="true"]{background:var(--accent);color:var(--bg);box-shadow:0 2px 8px rgba(196,145,62,0.3)}
 .tab-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .tier-chip{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:2px;background:rgba(196,145,62,0.15);color:var(--accent);font-weight:600;white-space:nowrap}
 .tab-btn[aria-selected="true"] .tier-chip{background:rgba(26,22,18,0.25);color:var(--bg)}
+@media(max-width:768px){.tab-bar{flex-direction:column}.tab-btn{justify-content:flex-start;text-align:left}}
 .tab-panel{display:none}
-.tab-panel.active{display:block}
+.tab-panel.active{display:block;animation:tabReveal 0.3s ease}
+@keyframes tabReveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .tab-panel h4{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:8px}
 .tab-panel .tier-label{display:inline-block;margin-bottom:16px}
 .tab-panel p{color:rgba(240,230,214,0.75);font-size:15px;line-height:1.8;margin-bottom:16px}
 .tab-panel p:last-child{margin-bottom:0}
+
+/* Tab instruction hint */
+.tab-hint{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.tab-hint svg{width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2}
 
 /* Zone 3 brief block */
 .zone-brief p{color:rgba(240,230,214,0.7);font-size:15px;line-height:1.8}
@@ -117,17 +154,15 @@ img{display:block;max-width:100%}
 .process-intro{max-width:800px;margin:0 auto 48px}
 .process-wrap{position:relative;max-width:1000px;margin:0 auto}
 
-/* Sticky diagram - desktop */
-.process-diagram{position:sticky;top:var(--nav-h);z-index:10;background:var(--bg);border-bottom:1px solid rgba(196,145,62,0.12);padding:20px 0;display:flex;align-items:center;justify-content:center;gap:0}
+.process-diagram{position:sticky;top:var(--nav-h);z-index:10;background:var(--bg-alt);border-bottom:1px solid rgba(196,145,62,0.12);padding:20px 0;display:flex;align-items:center;justify-content:center;gap:0}
 .process-node{display:flex;align-items:center;gap:0;cursor:pointer;transition:opacity 0.2s}
-.process-node-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--muted);background:var(--bg);transition:all 0.3s;flex-shrink:0}
-.process-node.active .process-node-dot{background:var(--accent);border-color:var(--accent)}
+.process-node-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--muted);background:var(--bg-alt);transition:all 0.3s;flex-shrink:0}
+.process-node.active .process-node-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px rgba(196,145,62,0.4)}
 .process-node-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-left:8px;transition:color 0.3s;white-space:nowrap}
 .process-node.active .process-node-label{color:var(--accent);font-weight:600}
 .process-node-sub{display:none}
 .process-connector{width:32px;height:1px;background:rgba(196,145,62,0.2);flex-shrink:0;margin:0 4px}
 
-/* Sticky diagram - mobile */
 @media(max-width:768px){
   .process-diagram{gap:0;padding:14px 16px;justify-content:flex-start;overflow:hidden}
   .process-node-label{display:none}
@@ -138,7 +173,6 @@ img{display:block;max-width:100%}
 .process-mobile-label{display:none}
 @media(max-width:768px){.process-mobile-label{display:block}}
 
-/* Phase detail panels */
 .phase-detail{padding:48px 0;max-width:800px;margin:0 auto;min-height:50vh}
 .phase-detail h3{font-family:var(--serif);font-size:clamp(24px,3vw,32px);font-weight:400;margin-bottom:16px}
 .phase-detail>p{color:rgba(240,230,214,0.75);font-size:15px;line-height:1.8;margin-bottom:24px}
@@ -160,23 +194,30 @@ img{display:block;max-width:100%}
 .tier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto}
 @media(max-width:1024px){.tier-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.tier-grid{grid-template-columns:1fr}}
-.tier-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;transition:border-color 0.3s}
+.tier-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s;cursor:pointer}
 .tier-card:hover{border-color:rgba(196,145,62,0.3)}
-.tier-card-header{padding:28px;cursor:pointer;position:relative}
-.tier-card-header::after{content:'';position:absolute;right:20px;top:50%;width:8px;height:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-60%) rotate(45deg);transition:transform 0.3s,border-color 0.3s}
-.tier-card.open .tier-card-header::after{transform:translateY(-30%) rotate(-135deg);border-color:var(--accent)}
+.tier-card.selected{border-color:var(--accent);box-shadow:0 0 16px rgba(196,145,62,0.15)}
+.tier-card-header{padding:28px;position:relative}
 .tier-card-header h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:4px}
 .tier-card-price{font-size:14px;color:var(--accent);font-weight:500;margin-bottom:8px}
 .tier-card-oneliner{font-size:13px;color:var(--muted);font-style:italic;line-height:1.5}
-.tier-card-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
-.tier-card.open .tier-card-body{max-height:2000px}
-.tier-card-inner{padding:0 28px 28px;border-top:1px solid var(--card-border)}
-.tier-card-inner h4{font-family:var(--serif);font-size:18px;font-weight:400;margin:20px 0 10px;color:var(--text)}
-.tier-card-inner p{font-size:14px;color:rgba(240,230,214,0.7);line-height:1.7;margin-bottom:12px}
-.tier-card-inner ul{list-style:none;padding:0;margin-bottom:16px}
-.tier-card-inner li{font-size:13px;color:rgba(240,230,214,0.7);line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
-.tier-card-inner li::before{content:'';position:absolute;left:0;top:9px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
-.tier-card-inner .not-included li::before{background:var(--muted)}
+.tier-card-cta{display:block;margin-top:14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);transition:color 0.2s}
+.tier-card.selected .tier-card-cta{color:var(--text)}
+
+/* Tier detail panel (full-width below cards) */
+.tier-detail{max-width:1100px;margin:24px auto 0;max-height:0;overflow:hidden;transition:max-height 0.4s ease,opacity 0.3s ease;opacity:0}
+.tier-detail.open{max-height:3000px;opacity:1}
+.tier-detail-inner{background:var(--card-bg);border:1px solid var(--accent);border-radius:6px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:768px){.tier-detail-inner{grid-template-columns:1fr;padding:28px;gap:24px}}
+.tier-detail-header{grid-column:1/-1;border-bottom:1px solid var(--card-border);padding-bottom:20px;margin-bottom:0}
+.tier-detail-header h3{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:4px}
+.tier-detail-header .tier-card-price{font-size:16px}
+.tier-detail-inner h4{font-family:var(--serif);font-size:18px;font-weight:400;margin-bottom:12px;color:var(--text)}
+.tier-detail-inner p{font-size:14px;color:rgba(240,230,214,0.7);line-height:1.7;margin-bottom:12px}
+.tier-detail-inner ul{list-style:none;padding:0;margin-bottom:16px}
+.tier-detail-inner li{font-size:13px;color:rgba(240,230,214,0.7);line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
+.tier-detail-inner li::before{content:'';position:absolute;left:0;top:9px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.tier-detail-inner .not-included li::before{background:var(--muted)}
 .not-included-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:20px}
 
 /* ---- TEAM CARDS ---- */
@@ -234,6 +275,12 @@ img{display:block;max-width:100%}
 
 <!-- STICKY NAV -->
 <nav id="sticky-nav">
+<div class="nav-brand">
+  <img src="logos/futureman-logo.png" alt="Futureman">
+  <span>&times;</span>
+  <img src="logos/IonQ_corp_logo.svg.png" alt="IonQ">
+</div>
+<div class="nav-links">
 <a href="#hero">Hero</a>
 <a href="#concepts">Concepts</a>
 <a href="#video-content">Video</a>
@@ -243,46 +290,69 @@ img{display:block;max-width:100%}
 <a href="#pricing">Pricing</a>
 <a href="#team">Team</a>
 <a href="#portfolio">Portfolio</a>
+</div>
 </nav>
 
 <!-- ============================================ -->
-<!-- 1. HERO / EXECUTIVE SUMMARY                  -->
+<!-- 1. HERO (motion + particles, no body copy)   -->
 <!-- ============================================ -->
 <section id="hero">
 <canvas id="hero-canvas"></canvas>
+<div class="hero-particles" id="hero-particles"></div>
 <div class="hero-content">
   <div class="hero-rule"></div>
   <div class="hero-label">A Proposal for IonQ</div>
-  <h1 class="hero-title">Make visitors feel the shift.</h1>
+  <h1 class="hero-title">Make visitors<br>feel the shift.</h1>
   <p class="hero-sub">A content and interactive system for IonQ's Washington DC Executive Business Center.</p>
-  <p class="hero-body">IonQ's DC EBC will host Members of Congress, enterprise buyers, and quantum PhDs in the same room. The content has to land for all of them.</p>
-  <p class="hero-body">Futureman is a creative and production studio built for spaces like this&mdash;CGI, 3D, motion, interactive systems, and AV integration under one roof. Partnered with SketchDeck (via 24 Seven Agencies) for this engagement.</p>
-  <p class="hero-body">Four tiers, $250k to $1.5m. Evergreen spine, swappable skin. Built to last, built to update.</p>
 </div>
 <div class="scroll-hint"><span>Scroll</span><i></i></div>
 </section>
 
 <!-- ============================================ -->
+<!-- 1b. EXECUTIVE SUMMARY                        -->
+<!-- ============================================ -->
+<section class="section section-dark" id="exec-summary">
+<div class="section-inner centered">
+  <div class="section-label fade-in">01 &mdash; Executive Summary</div>
+  <div style="height:32px"></div>
+</div>
+<div class="exec-summary">
+  <div class="exec-card fade-in">
+    <p><strong>The scenario.</strong> IonQ's DC EBC will host Members of Congress, enterprise buyers, and quantum PhDs in the same room. The content has to land for all of them.</p>
+  </div>
+  <div class="exec-card fade-in">
+    <p><strong>Who we are.</strong> Futureman is a creative and production studio built for spaces like this&mdash;CGI, 3D, motion, interactive systems, and AV integration under one roof. Partnered with SketchDeck (via 24 Seven Agencies) for this engagement.</p>
+  </div>
+  <div class="exec-card fade-in">
+    <p><strong>What we're proposing.</strong> Four tiers, $250k to $1.5m. Evergreen spine, swappable skin. Built to last, built to update.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
 <!-- 2. WHAT WE HEARD                             -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="what-we-heard">
+<section class="section section-alt section-ruled" id="what-we-heard">
 <div class="section-inner centered">
   <div class="section-label fade-in">02 &mdash; What We Heard</div>
-  <div style="height:32px"></div>
+  <h2 class="section-heading fade-in centered">Three framing statements</h2>
+  <p class="section-sub centered fade-in" style="margin-left:auto;margin-right:auto">Before concepts, scope, or pricing, we want to confirm we heard IonQ correctly.</p>
 </div>
 <div class="three-col">
   <div class="three-col-card fade-in">
+    <div class="card-icon">&#9679;</div>
     <h3>What this project is</h3>
-    <p>On-screen and interactive content for the DC EBC.</p>
+    <p>On-screen and interactive content for the DC EBC. The storytelling layer that sits on top of whatever physical infrastructure IonQ's facilities vendors build.</p>
   </div>
   <div class="three-col-card fade-in">
+    <div class="card-icon">&#9675;</div>
     <h3>What it isn't</h3>
-    <p>Interior design, architecture, or AV hardware procurement.</p>
+    <p>Interior design, architecture, or AV hardware procurement. Futureman designs and produces the content. We consult on the hardware. We don't buy it.</p>
   </div>
   <div class="three-col-card fade-in">
-    <h3>What success looks like for IonQ</h3>
-    <p>Every visitor&mdash;Congress to PhD&mdash;leaves understanding what IonQ does, why it matters, and why IonQ specifically.</p>
+    <div class="card-icon">&#9670;</div>
+    <h3>What success looks like</h3>
+    <p>Every visitor&mdash;Congress to PhD&mdash;leaves understanding what IonQ does, why it matters, and why IonQ specifically. Not impressed. Convinced.</p>
   </div>
 </div>
 </section>
@@ -290,10 +360,9 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <!-- 3. GENERAL DISCLAIMER                        -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="disclaimer">
+<section class="section section-light" id="disclaimer">
 <div class="section-inner centered">
-  <div class="section-label fade-in">03 &mdash; Our Approach to Discovery</div>
+  <div class="section-label fade-in">03 &mdash; General Disclaimer</div>
   <div style="height:32px"></div>
 </div>
 <div class="callout fade-in">
@@ -306,14 +375,12 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <!-- 4. CONCEPT IDEAS                             -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="concepts">
+<section class="section section-dark" id="concepts">
 <div class="section-inner centered">
   <div class="section-label fade-in">04 &mdash; Concept Ideas</div>
   <div style="height:16px"></div>
 </div>
 
-<!-- Framing copy -->
 <div class="section-inner fade-in">
   <p class="body-text">IonQ is selling a fundamental shift in what's computationally possible. The EBC should make visitors <em>feel</em> that shift&mdash;not just understand it.</p>
   <p class="body-text">What follows are directional concepts organized by zone. Each is tagged to indicate which pricing tier it falls within. Concepts without a tier tag are foundational to the experience at every level.</p>
@@ -321,7 +388,6 @@ img{display:block;max-width:100%}
 
 <div style="height:48px"></div>
 
-<!-- Floor Plan Map -->
 <div class="floorplan-container fade-in">
   <img src="floorplan-level3.png" alt="Level 3 Floor Plan" loading="lazy">
   <div class="hotspot" data-zone="zone-1" style="top:40%;left:3%">Zone 1: Lobby LED</div>
@@ -329,12 +395,13 @@ img{display:block;max-width:100%}
   <div class="hotspot" data-zone="zone-3" style="top:62%;left:12%">Zone 3: Experience Center</div>
 </div>
 
-<!-- Zone 1: Lobby LED Wall -->
+<!-- Zone 1 -->
 <div class="zone-module fade-in" id="zone-1">
   <div class="zone-module-header">
     <h3>Zone 1: Lobby LED Wall</h3>
     <p>The lobby is the first moment. It needs to do something before anyone opens their mouth. Our instinct is to make it immediately personal&mdash;and to turn the act of walking in the door into a demonstration of quantum thinking.</p>
   </div>
+  <div class="tab-hint"><svg viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg> Select a concept</div>
   <div class="tab-bar" role="tablist" aria-label="Zone 1 concepts">
     <button class="tab-btn" role="tab" aria-selected="true" aria-controls="z1-tab1" id="z1-btn1">Quantum Shadow Wall <span class="tier-chip">Small / All Tiers</span></button>
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="z1-tab2" id="z1-btn2">Live Quantum Pulse Feed <span class="tier-chip">Small / All Tiers</span></button>
@@ -348,12 +415,13 @@ img{display:block;max-width:100%}
   </div>
 </div>
 
-<!-- Zone 2: Dome Experience -->
+<!-- Zone 2 -->
 <div class="zone-module fade-in" id="zone-2">
   <div class="zone-module-header">
     <h3>Zone 2: Dome Experience</h3>
     <p>The dome is the moment the EBC earns its existence. It should be the thing visitors describe when they leave. Our concepts here start from IonQ's actual technology&mdash;the trapped ion&mdash;because it's genuinely extraordinary and most visitors have never encountered it.</p>
   </div>
+  <div class="tab-hint"><svg viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg> Select a concept</div>
   <div class="tab-bar" role="tablist" aria-label="Zone 2 concepts">
     <button class="tab-btn" role="tab" aria-selected="true" aria-controls="z2-tab1" id="z2-btn1">The Ion Trap <span class="tier-chip">Medium / Large</span></button>
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="z2-tab2" id="z2-btn2">Entanglement Across Distance <span class="tier-chip">Medium / Large</span></button>
@@ -368,7 +436,7 @@ img{display:block;max-width:100%}
   </div>
 </div>
 
-<!-- Zone 3: Experience Center -->
+<!-- Zone 3 -->
 <div class="zone-module fade-in" id="zone-3">
   <div class="zone-module-header">
     <h3>Zone 3: Experience Center</h3>
@@ -382,8 +450,7 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <!-- 5. VIDEO CONTENT                             -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="video-content">
+<section class="section section-alt section-ruled" id="video-content">
 <div class="section-inner">
   <div class="section-label fade-in">05 &mdash; Video Content</div>
   <div style="height:16px"></div>
@@ -392,6 +459,7 @@ img{display:block;max-width:100%}
   <p class="body-text fade-in">This is the piece that plays on a loop and still stops people mid-stride on their fifth pass through the space. Below are four directional concepts. The right answer depends on what we learn in Discovery&mdash;specifically which register resonates most with IonQ's primary visitor profile and which narrative the brand is most ready to own.</p>
   <div class="section-tier"><span class="tier-chip">All Tiers</span></div>
   <div style="height:24px"></div>
+  <div class="tab-hint fade-in"><svg viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg> Select a concept to explore</div>
   <div class="tab-bar fade-in" role="tablist" aria-label="Video concepts">
     <button class="tab-btn" role="tab" aria-selected="true" aria-controls="v-tab1" id="v-btn1">The Universe Running Its Own Code <span class="tier-chip">All Tiers</span></button>
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="v-tab2" id="v-btn2">One Problem. Two Clocks. <span class="tier-chip">All Tiers</span></button>
@@ -416,8 +484,7 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <!-- 6. EXTRA ORDINARY EXPERIENCES                -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="extra-ordinary">
+<section class="section section-light" id="extra-ordinary">
 <div class="section-inner">
   <div class="section-label fade-in">06 &mdash; Extra Ordinary Experiences</div>
   <div style="height:16px"></div>
@@ -426,6 +493,7 @@ img{display:block;max-width:100%}
   <p class="body-text fade-in">Three installation concepts that extend the interactive layer beyond any single zone. Large-tier additions&mdash;these ride on top of the foundational content and sensor systems already in scope at lower tiers.</p>
   <div class="section-tier"><span class="tier-chip">Large / Upgrade</span></div>
   <div style="height:24px"></div>
+  <div class="tab-hint fade-in"><svg viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg> Select an experience</div>
   <div class="tab-bar fade-in" role="tablist" aria-label="Experience concepts">
     <button class="tab-btn" role="tab" aria-selected="true" aria-controls="x-tab1" id="x-btn1">The Decoherence Room <span class="tier-chip">Large / Upgrade</span></button>
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="x-tab2" id="x-btn2">Use Case Portals <span class="tier-chip">Large / Upgrade</span></button>
@@ -447,8 +515,7 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <!-- 7. CONTENT ARCHITECTURE APPROACH             -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="content-architecture">
+<section class="section section-dark" id="content-architecture">
 <div class="section-inner centered">
   <div class="section-label fade-in">07 &mdash; Content Architecture</div>
   <div style="height:16px"></div>
@@ -463,8 +530,7 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <!-- 8. PROCESS                                   -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="process">
+<section class="section section-alt section-ruled" id="process">
 <div class="section-inner centered">
   <div class="section-label fade-in">08 &mdash; Process</div>
   <div style="height:16px"></div>
@@ -474,7 +540,6 @@ img{display:block;max-width:100%}
 </div>
 
 <div class="process-wrap">
-  <!-- Sticky diagram -->
   <div class="process-diagram" id="process-diagram">
     <div class="process-node active" data-phase="1"><div class="process-node-dot"></div><div class="process-node-label">Discovery</div></div>
     <div class="process-connector"></div>
@@ -490,7 +555,6 @@ img{display:block;max-width:100%}
   </div>
   <div class="process-mobile-label" id="process-mobile-label">Phase 1: Discovery</div>
 
-  <!-- Phase 1 -->
   <div class="phase-detail" data-phase="1">
     <h3>Phase 1 &mdash; Discovery</h3>
     <p>Before we write a word or render a frame, we spend dedicated time with IonQ's scientists, marketers, and space. The most compelling content IonQ can show the world is the story only IonQ can tell. Discovery is how we find it.</p>
@@ -503,7 +567,6 @@ img{display:block;max-width:100%}
     </ul>
   </div>
 
-  <!-- Phase 2 -->
   <div class="phase-detail" data-phase="2">
     <h3>Phase 2 &mdash; Content &amp; Design</h3>
     <p>Discovery outputs become creative direction. Narrative becomes script. Audience matrix becomes content hierarchy. Site alignment becomes a spatial content map.</p>
@@ -515,7 +578,6 @@ img{display:block;max-width:100%}
     </ul>
   </div>
 
-  <!-- Phase 3 -->
   <div class="phase-detail" data-phase="3">
     <h3>Phase 3 &mdash; Production</h3>
     <p>The longest phase. Everything approved in Phase 2 gets built.</p>
@@ -528,7 +590,6 @@ img{display:block;max-width:100%}
     </ul>
   </div>
 
-  <!-- Phase 4 -->
   <div class="phase-detail" data-phase="4">
     <h3>Phase 4 &mdash; QA &amp; Review</h3>
     <p>The phase most agencies underscope. For an EBC with multiple surfaces, interactive systems, sensor triggers, and personalization logic, QA is a critical phase in the process.</p>
@@ -540,7 +601,6 @@ img{display:block;max-width:100%}
     </ul>
   </div>
 
-  <!-- Phase 5 -->
   <div class="phase-detail" data-phase="5">
     <h3>Phase 5 &mdash; Installation</h3>
     <p>The work leaves Futureman's systems and enters the physical space. Coordination-heavy and time-sensitive.</p>
@@ -552,7 +612,6 @@ img{display:block;max-width:100%}
     </ul>
   </div>
 
-  <!-- Phase 6 -->
   <div class="phase-detail" data-phase="6">
     <h3>Phase 6 &mdash; Commissioning &amp; Sign Off</h3>
     <p>The space is built, the content is loaded. Everything gets tested together as a complete system for the first time.</p>
@@ -564,14 +623,13 @@ img{display:block;max-width:100%}
       <li><strong>Defined post-launch support window.</strong> Commissioning doesn't mean Futureman disappears. The proposal includes a defined support window&mdash;typically 30 days&mdash;during which Futureman is available for issues that emerge once the space opens to real visitors. After that, a retainer or refresh engagement can be scoped separately.</li>
     </ul>
   </div>
-</div><!-- /process-wrap -->
+</div>
 </section>
 
 <!-- ============================================ -->
 <!-- 9. TECHNICAL SCOPE & VENDOR COORDINATION     -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="tech-scope">
+<section class="section section-light" id="tech-scope">
 <div class="section-inner centered">
   <div class="section-label fade-in">09 &mdash; Technical Scope &amp; Vendor Coordination</div>
   <div style="height:16px"></div>
@@ -596,8 +654,7 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <!-- 10. TECHNICAL CAPABILITIES                   -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="capabilities">
+<section class="section section-dark" id="capabilities">
 <div class="section-inner centered">
   <div class="section-label fade-in">10 &mdash; Technical Capabilities</div>
   <div style="height:16px"></div>
@@ -607,78 +664,19 @@ img{display:block;max-width:100%}
 </div>
 <div style="height:40px"></div>
 <div class="cap-grid">
-  <div class="cap-card fade-in">
-    <h3>Content Production</h3>
-    <ul>
-      <li>Custom CGI and 3D development (ion trap visualization, quantum circuit animation, use case environments, large-format ambient loops)</li>
-      <li>Motion design for extended loop and transition systems</li>
-      <li>Scriptwriting and narrative development for multi-register audiences</li>
-      <li>Storyboarding and visual language development</li>
-      <li>AI-assisted content integration, b-roll grading, and footage integration</li>
-      <li>Cinematic and spatial sound design</li>
-    </ul>
-  </div>
-  <div class="cap-card fade-in">
-    <h3>Interactive &amp; Sensor Systems</h3>
-    <ul>
-      <li>Real-time camera-based visitor processing (TensorFlow and equivalent video processing libraries)</li>
-      <li>Motion, thermal, and acoustic sensor integration</li>
-      <li>Gesture recognition and multi-user gesture interaction (Minority Report-style)</li>
-      <li>Presence detection and reactive content triggering</li>
-      <li>Digital twin and biometric feedback layers</li>
-      <li>Simultaneous multi-visitor state management across shared surfaces</li>
-    </ul>
-  </div>
-  <div class="cap-card fade-in">
-    <h3>Content Delivery Infrastructure</h3>
-    <ul>
-      <li>Media server configuration and show control (Disguise, Pixera, and equivalent pro-AV platforms)</li>
-      <li>Large-format LED calibration and color management</li>
-      <li>Floor projection and tabletop projection mapping</li>
-      <li>Surround screen and dome-scale playback systems</li>
-      <li>Spatial audio design and multi-zone audio routing</li>
-      <li>Playback queue logic and module sequencing</li>
-    </ul>
-  </div>
-  <div class="cap-card fade-in">
-    <h3>Content Architecture &amp; Management</h3>
-    <ul>
-      <li>Evergreen spine / swappable skin content system design</li>
-      <li>Visitor personalization logic and audience-profile content queuing</li>
-      <li>Content management framework built for low-lift IonQ-side updates</li>
-      <li>Module swap architecture enabling content refresh without rebuild</li>
-      <li>Multi-EBC portability (spine reusable across sites, skin localized per site)</li>
-    </ul>
-  </div>
-  <div class="cap-card fade-in">
-    <h3>AV &amp; Site Coordination</h3>
-    <ul>
-      <li>Direct integration with AV and facilities vendors (Seneca Group, Perkins Will, and equivalents)</li>
-      <li>Equipment specification and procurement consultation</li>
-      <li>Architectural and spatial constraint resolution (ceiling heights, sightlines, ambient light)</li>
-      <li>Network topology, file format, and playback spec alignment</li>
-      <li>Early-stage technical alignment (concurrent with Discovery)</li>
-    </ul>
-  </div>
-  <div class="cap-card fade-in">
-    <h3>QA, Commissioning &amp; Handoff</h3>
-    <ul>
-      <li>Functional testing of sensor triggers, state changes, and edge cases</li>
-      <li>Cross-surface visual and audio review in context</li>
-      <li>On-site calibration (brightness, color, audio, sensor sensitivity)</li>
-      <li>Presenter training and content system walkthroughs</li>
-      <li>Full handoff documentation (asset library, update protocols, vendor contact map)</li>
-      <li>Defined 30-day post-launch support window</li>
-    </ul>
-  </div>
+  <div class="cap-card fade-in"><h3>Content Production</h3><ul><li>Custom CGI and 3D development (ion trap visualization, quantum circuit animation, use case environments, large-format ambient loops)</li><li>Motion design for extended loop and transition systems</li><li>Scriptwriting and narrative development for multi-register audiences</li><li>Storyboarding and visual language development</li><li>AI-assisted content integration, b-roll grading, and footage integration</li><li>Cinematic and spatial sound design</li></ul></div>
+  <div class="cap-card fade-in"><h3>Interactive &amp; Sensor Systems</h3><ul><li>Real-time camera-based visitor processing (TensorFlow and equivalent video processing libraries)</li><li>Motion, thermal, and acoustic sensor integration</li><li>Gesture recognition and multi-user gesture interaction (Minority Report-style)</li><li>Presence detection and reactive content triggering</li><li>Digital twin and biometric feedback layers</li><li>Simultaneous multi-visitor state management across shared surfaces</li></ul></div>
+  <div class="cap-card fade-in"><h3>Content Delivery Infrastructure</h3><ul><li>Media server configuration and show control (Disguise, Pixera, and equivalent pro-AV platforms)</li><li>Large-format LED calibration and color management</li><li>Floor projection and tabletop projection mapping</li><li>Surround screen and dome-scale playback systems</li><li>Spatial audio design and multi-zone audio routing</li><li>Playback queue logic and module sequencing</li></ul></div>
+  <div class="cap-card fade-in"><h3>Content Architecture &amp; Management</h3><ul><li>Evergreen spine / swappable skin content system design</li><li>Visitor personalization logic and audience-profile content queuing</li><li>Content management framework built for low-lift IonQ-side updates</li><li>Module swap architecture enabling content refresh without rebuild</li><li>Multi-EBC portability (spine reusable across sites, skin localized per site)</li></ul></div>
+  <div class="cap-card fade-in"><h3>AV &amp; Site Coordination</h3><ul><li>Direct integration with AV and facilities vendors (Seneca Group, Perkins Will, and equivalents)</li><li>Equipment specification and procurement consultation</li><li>Architectural and spatial constraint resolution (ceiling heights, sightlines, ambient light)</li><li>Network topology, file format, and playback spec alignment</li><li>Early-stage technical alignment (concurrent with Discovery)</li></ul></div>
+  <div class="cap-card fade-in"><h3>QA, Commissioning &amp; Handoff</h3><ul><li>Functional testing of sensor triggers, state changes, and edge cases</li><li>Cross-surface visual and audio review in context</li><li>On-site calibration (brightness, color, audio, sensor sensitivity)</li><li>Presenter training and content system walkthroughs</li><li>Full handoff documentation (asset library, update protocols, vendor contact map)</li><li>Defined 30-day post-launch support window</li></ul></div>
 </div>
 </section>
 
 <!-- ============================================ -->
 <!-- 11. PRICING TIERS                            -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="pricing">
+<section class="section section-alt section-ruled" id="pricing">
 <div class="section-inner centered">
   <div class="section-label fade-in">11 &mdash; Pricing</div>
   <div style="height:16px"></div>
@@ -687,149 +685,51 @@ img{display:block;max-width:100%}
   <p class="body-text centered">The right tier depends on the depth of experience IonQ wants to deliver and the infrastructure that will be in place to support it.</p>
 </div>
 <div style="height:40px"></div>
-<div class="tier-grid">
-
-  <!-- Micro -->
-  <div class="tier-card fade-in">
-    <div class="tier-card-header" onclick="this.parentElement.classList.toggle('open')">
+<div class="tier-grid" id="tier-grid">
+  <div class="tier-card fade-in" data-tier="micro">
+    <div class="tier-card-header">
       <h3>Micro</h3>
       <div class="tier-card-price">$250k</div>
       <div class="tier-card-oneliner">You're getting screens. Let's make sure they're worth looking at.</div>
-    </div>
-    <div class="tier-card-body">
-      <div class="tier-card-inner">
-        <h4>Overview</h4>
-        <p>IonQ is installing large-format displays regardless of what agency is selected. This tier is a focused content engagement built around that reality&mdash;no interactive systems, no sensor integration, no dome experience. Just world-class passive content, developed to the quality standard IonQ's audience expects, ready to play from day one.</p>
-        <p>Futureman works from IonQ's existing sales materials, technical resources, and a compressed strategy session with Marketing to develop a core suite of screen-ready assets: one large-format ambient hero video for the 1st floor lobby LED and a supporting graphic asset suite scaled for 3rd floor screens. The visual language and asset architecture established here are built to be compatible with higher tiers&mdash;so if IonQ expands the experience down the road, nothing gets replaced. It gets built on.</p>
-        <h4>Included</h4>
-        <ul>
-          <li>Compressed content strategy and discovery session with IonQ Marketing</li>
-          <li>One large-format ambient hero video, custom CGI and 3D</li>
-          <li>Evergreen static graphic asset suite scaled for all available screen formats</li>
-          <li>Basic content documentation enabling IonQ to self-manage updates independently</li>
-          <li>Footage-based elements leveraging existing b-roll and AI-assisted production</li>
-        </ul>
-        <div class="not-included-label">Not Included</div>
-        <ul class="not-included">
-          <li>Full SME interview series</li>
-          <li>Interactive or sensor-driven content of any kind</li>
-          <li>Dome experience</li>
-          <li>Custom narrative framework workshop</li>
-          <li>On-site commissioning support</li>
-          <li>Additional video production beyond the hero piece</li>
-        </ul>
-      </div>
+      <span class="tier-card-cta">View details</span>
     </div>
   </div>
-
-  <!-- Small -->
-  <div class="tier-card fade-in">
-    <div class="tier-card-header" onclick="this.parentElement.classList.toggle('open')">
+  <div class="tier-card fade-in" data-tier="small">
+    <div class="tier-card-header">
       <h3>Small</h3>
       <div class="tier-card-price">$320k&ndash;$450k</div>
       <div class="tier-card-oneliner">Ambient video content + evergreen static graphics.</div>
-    </div>
-    <div class="tier-card-body">
-      <div class="tier-card-inner">
-        <h4>Overview</h4>
-        <p>Large-format video production for the 1st floor lobby LED and 3rd floor screens&mdash;designed for ambient, looping playback that sustains repeated exposure without fatigue. Content developed in direct collaboration with IonQ technical SMEs and Marketing, translating quantum capabilities into education-first storytelling that works for a mixed-expertise audience, from PhDs to Members of Congress.</p>
-        <p>Deliverables include a core narrative video, a suite of evergreen static graphic assets scaled for all available screen formats across the EBC, and a modular asset structure that enables IonQ to transfer select screen content to existing EBCs independently. Real-time camera-based processing&mdash;using TensorFlow or similar libraries&mdash;can be incorporated to allow visitor presence in the lobby to influence the LED content dynamically, adding a layer of responsiveness without the full sensor integration of higher tiers.</p>
-        <p>All content is custom developed using CGI and 3D. Footage-based elements leverage existing b-roll and AI-assisted production.</p>
-        <h4>Included</h4>
-        <ul>
-          <li>Full SME interview series and narrative framework session</li>
-          <li>Core narrative video (custom CGI + 3D)</li>
-          <li>Evergreen static graphic asset suite across all screen formats</li>
-          <li>Modular asset structure for multi-EBC transfer</li>
-          <li>Optional real-time camera overlays in the lobby (TensorFlow-based presence response)</li>
-        </ul>
-        <div class="not-included-label">Not Included</div>
-        <ul class="not-included">
-          <li>Dome sensor system</li>
-          <li>Gesture-based interactions</li>
-          <li>Visitor personalization system</li>
-          <li>Experience Center interactive installations</li>
-        </ul>
-      </div>
+      <span class="tier-card-cta">View details</span>
     </div>
   </div>
-
-  <!-- Medium -->
-  <div class="tier-card fade-in">
-    <div class="tier-card-header" onclick="this.parentElement.classList.toggle('open')">
+  <div class="tier-card fade-in" data-tier="medium">
+    <div class="tier-card-header">
       <h3>Medium</h3>
       <div class="tier-card-price">$675k&ndash;$750k</div>
       <div class="tier-card-oneliner">Everything in Small, plus sensor-driven content in the dome.</div>
-    </div>
-    <div class="tier-card-body">
-      <div class="tier-card-inner">
-        <h4>Overview</h4>
-        <p>The dome transforms from a display into an environment. A sensor-activated content system responds to visitor presence and movement&mdash;visitors trigger state changes in the dome through where they stand, how they move, and how they interact with the space. The experience is designed to support both self-guided and presenter-led tour modes, with the presenter able to trigger specific states and sequences on demand.</p>
-        <p>Advanced camera systems enable gesture-based interaction&mdash;visitors influencing content through movement rather than touch, with multiple visitors able to affect different sections of the visualization simultaneously. A digital twin layer adds biometric feedback, giving visitors a sense of their own presence within the quantum environment. Think Flight of Passage at Animal Kingdom.</p>
-        <p>Content architecture is built to accommodate future refreshes as IonQ's use case library and business context evolve. Full AV coordination and handoff documentation for IonQ's facilities and integration vendors is included.</p>
-        <p>All content is custom developed using CGI and 3D. Footage-based elements leverage existing b-roll, AI-assisted production, and an optional additional production shoot if needed.</p>
-        <h4>Included</h4>
-        <ul>
-          <li>Everything in Small</li>
-          <li>Dome sensor integration (presence, motion, gesture)</li>
-          <li>Multi-visitor simultaneous interaction logic</li>
-          <li>Digital twin / biometric feedback layer</li>
-          <li>Self-guided and presenter-led mode support</li>
-          <li>Full AV coordination and handoff documentation</li>
-          <li>Optional additional production shoot</li>
-        </ul>
-        <div class="not-included-label">Not Included</div>
-        <ul class="not-included">
-          <li>Interactive content beyond the dome</li>
-          <li>Visitor personalization system</li>
-          <li>Experience Center floor-wide sensor integration</li>
-        </ul>
-      </div>
+      <span class="tier-card-cta">View details</span>
     </div>
   </div>
-
-  <!-- Large -->
-  <div class="tier-card fade-in">
-    <div class="tier-card-header" onclick="this.parentElement.classList.toggle('open')">
+  <div class="tier-card fade-in" data-tier="large">
+    <div class="tier-card-header">
       <h3>Large</h3>
       <div class="tier-card-price">$1.15m&ndash;$1.5m</div>
       <div class="tier-card-oneliner">Everything in Medium, plus interactive content throughout the Experience Center and a visitor-personalized content system.</div>
-    </div>
-    <div class="tier-card-body">
-      <div class="tier-card-inner">
-        <h4>Overview</h4>
-        <p>Sensor and interactive content extends beyond the dome into key zones across the Experience Center floor&mdash;including tabletop projections and gesture-based interactions that give visitors direct physical engagement with the content. Additional screens are integrated across activation areas on the 3rd floor, coordinated with facilities vendors.</p>
-        <p>The defining feature of the Large tier is the visitor personalization system: the ability to surface tailored content tracks based on audience profile configured in advance of each visit. Tracks might include frameworks like <em>Quantum is Now</em>, <em>National Security Through Innovation</em>, or <em>Healthcare and Life Sciences</em>&mdash;the specific tracks are determined in Discovery based on IonQ's primary visitor profiles. IonQ Marketing configures and queues audience-specific modules before each visit through a custom content management framework built for low-lift operation.</p>
-        <p>The full content suite is paired with a defined refresh model: evergreen architecture designed for longevity, with an update process that IonQ's team can execute without agency involvement for routine changes.</p>
-        <p>All content is custom developed using CGI and 3D. Footage-based elements leverage existing b-roll, AI-assisted production, and additional production shoot(s) as needed.</p>
-        <h4>Included</h4>
-        <ul>
-          <li>Everything in Medium</li>
-          <li>Experience Center floor sensor and interactive integration</li>
-          <li>Tabletop and floor projection systems</li>
-          <li>Multi-zone gesture-based interaction</li>
-          <li>Visitor personalization system (audience-profile-driven content tracks)</li>
-          <li>Custom content management framework for IonQ Marketing</li>
-          <li>Evergreen refresh architecture and update protocols</li>
-          <li>Extended production (additional shoots as needed)</li>
-        </ul>
-        <div class="not-included-label">Not Included</div>
-        <ul class="not-included">
-          <li>Post-launch retainer beyond the 30-day support window (available as a separate engagement)</li>
-          <li>Hardware procurement (that sits with IonQ's AV vendors)</li>
-        </ul>
-      </div>
+      <span class="tier-card-cta">View details</span>
     </div>
   </div>
+</div>
 
+<!-- Full-width tier detail panel -->
+<div class="tier-detail" id="tier-detail">
+  <div class="tier-detail-inner" id="tier-detail-inner"></div>
 </div>
 </section>
 
 <!-- ============================================ -->
 <!-- 12. TEAM                                     -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="team">
+<section class="section section-light" id="team">
 <div class="section-inner centered">
   <div class="section-label fade-in">12 &mdash; Team</div>
   <div style="height:16px"></div>
@@ -837,38 +737,17 @@ img{display:block;max-width:100%}
 </div>
 <div style="height:40px"></div>
 <div class="team-grid">
-  <div class="team-card fade-in">
-    <div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div>
-    <h3>Tate Stafford</h3>
-    <div class="team-role">VP &amp; Creative Director, Futureman</div>
-    <div class="team-bio">Bio TBD. Placeholder until final copy delivered.</div>
-  </div>
-  <div class="team-card fade-in">
-    <div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div>
-    <h3>Derek <span style="color:var(--muted)">[TBD]</span></h3>
-    <div class="team-role">Executive Producer, Futureman</div>
-    <div class="team-bio">Bio TBD. Placeholder until final copy delivered.</div>
-  </div>
-  <div class="team-card fade-in">
-    <div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div>
-    <h3>Conrad <span style="color:var(--muted)">[TBD]</span></h3>
-    <div class="team-role">CTO, Futureman</div>
-    <div class="team-bio">Bio TBD. Placeholder until final copy delivered.</div>
-  </div>
-  <div class="team-card fade-in">
-    <div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div>
-    <h3>Elliot Miller</h3>
-    <div class="team-role">Senior Director, 24 Seven Agency Partnerships (SketchDeck)</div>
-    <div class="team-bio">Bio TBD. Placeholder until final copy delivered.</div>
-  </div>
+  <div class="team-card fade-in"><div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div><h3>Tate Stafford</h3><div class="team-role">VP &amp; Creative Director, Futureman</div><div class="team-bio">Bio TBD. Placeholder until final copy delivered.</div></div>
+  <div class="team-card fade-in"><div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div><h3>Derek <span style="color:var(--muted)">[TBD]</span></h3><div class="team-role">Executive Producer, Futureman</div><div class="team-bio">Bio TBD. Placeholder until final copy delivered.</div></div>
+  <div class="team-card fade-in"><div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div><h3>Conrad <span style="color:var(--muted)">[TBD]</span></h3><div class="team-role">CTO, Futureman</div><div class="team-bio">Bio TBD. Placeholder until final copy delivered.</div></div>
+  <div class="team-card fade-in"><div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div><h3>Elliot Miller</h3><div class="team-role">Senior Director, 24 Seven Agency Partnerships (SketchDeck)</div><div class="team-bio">Bio TBD. Placeholder until final copy delivered.</div></div>
 </div>
 </section>
 
 <!-- ============================================ -->
 <!-- 13. PORTFOLIO                                -->
 <!-- ============================================ -->
-<div class="divider"></div>
-<section class="section" id="portfolio">
+<section class="section section-dark" id="portfolio">
 <div class="section-inner centered">
   <div class="section-label fade-in">13 &mdash; Portfolio</div>
   <div style="height:16px"></div>
@@ -876,27 +755,9 @@ img{display:block;max-width:100%}
 </div>
 <div style="height:40px"></div>
 <div class="portfolio-grid">
-  <div class="portfolio-tile fade-in" data-lightbox="1">
-    <div class="portfolio-thumb"><span>Media TBD</span></div>
-    <div class="portfolio-tile-info">
-      <h3>Project One</h3>
-      <p>Placeholder&mdash;media + story TBD</p>
-    </div>
-  </div>
-  <div class="portfolio-tile fade-in" data-lightbox="2">
-    <div class="portfolio-thumb"><span>Media TBD</span></div>
-    <div class="portfolio-tile-info">
-      <h3>Project Two</h3>
-      <p>Placeholder&mdash;media + story TBD</p>
-    </div>
-  </div>
-  <div class="portfolio-tile fade-in" data-lightbox="3">
-    <div class="portfolio-thumb"><span>Media TBD</span></div>
-    <div class="portfolio-tile-info">
-      <h3>Project Three</h3>
-      <p>Placeholder&mdash;media + story TBD</p>
-    </div>
-  </div>
+  <div class="portfolio-tile fade-in" data-lightbox="1"><div class="portfolio-thumb"><span>Media TBD</span></div><div class="portfolio-tile-info"><h3>Project One</h3><p>Placeholder&mdash;media + story TBD</p></div></div>
+  <div class="portfolio-tile fade-in" data-lightbox="2"><div class="portfolio-thumb"><span>Media TBD</span></div><div class="portfolio-tile-info"><h3>Project Two</h3><p>Placeholder&mdash;media + story TBD</p></div></div>
+  <div class="portfolio-tile fade-in" data-lightbox="3"><div class="portfolio-thumb"><span>Media TBD</span></div><div class="portfolio-tile-info"><h3>Project Three</h3><p>Placeholder&mdash;media + story TBD</p></div></div>
 </div>
 </section>
 
@@ -956,85 +817,62 @@ vec2 mod289(vec2 x){return x-floor(x*(1.0/289.0))*289.0;}
 vec3 permute(vec3 x){return mod289(((x*34.0)+1.0)*x);}
 float snoise(vec2 v){
   const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
-  vec2 i=floor(v+dot(v,C.yy));
-  vec2 x0=v-i+dot(i,C.xx);
+  vec2 i=floor(v+dot(v,C.yy));vec2 x0=v-i+dot(i,C.xx);
   vec2 i1;i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);
-  vec4 x12=x0.xyxy+C.xxzz;x12.xy-=i1;
-  i=mod289(i);
+  vec4 x12=x0.xyxy+C.xxzz;x12.xy-=i1;i=mod289(i);
   vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));
   vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);
   m=m*m;m=m*m;
-  vec3 x=2.0*fract(p*C.www)-1.0;
-  vec3 h=abs(x)-0.5;
-  vec3 ox=floor(x+0.5);
-  vec3 a0=x-ox;
+  vec3 x=2.0*fract(p*C.www)-1.0;vec3 h=abs(x)-0.5;vec3 ox=floor(x+0.5);vec3 a0=x-ox;
   m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);
-  vec3 g;
-  g.x=a0.x*x0.x+h.x*x0.y;
-  g.yz=a0.yz*x12.xz+h.yz*x12.yw;
+  vec3 g;g.x=a0.x*x0.x+h.x*x0.y;g.yz=a0.yz*x12.xz+h.yz*x12.yw;
   return 130.0*dot(m,g);
 }
 void main(){
-  vec2 uv=gl_FragCoord.xy/uRes;
-  float aspect=uRes.x/uRes.y;
-  vec2 p=vec2(uv.x*aspect,uv.y);
-  float t=uTime*0.04;
-  vec2 m=uMouse*0.08;
+  vec2 uv=gl_FragCoord.xy/uRes;float aspect=uRes.x/uRes.y;
+  vec2 p=vec2(uv.x*aspect,uv.y);float t=uTime*0.04;vec2 m=uMouse*0.08;
   float v=0.0;
   v+=snoise(p*1.2+vec2(t*0.7+m.x,t*0.5+m.y))*0.5;
   v+=snoise(p*2.4+vec2(-t*0.4,t*0.3))*0.3;
   v+=snoise(p*4.0+vec2(t*0.2,-t*0.6))*0.15;
   float g=0.0;
-  for(int i=0;i<4;i++){
-    float fi=float(i);
-    vec2 c=vec2(
-      sin(t*(0.5+fi*0.15)+fi*1.8+m.x)*0.35+0.5*aspect,
-      cos(t*(0.3+fi*0.12)+fi*2.3+m.y)*0.3+0.5
-    );
-    float d=length(p-c);
-    g+=0.008/(d*d+0.005);
-  }
+  for(int i=0;i<4;i++){float fi=float(i);
+    vec2 c=vec2(sin(t*(0.5+fi*0.15)+fi*1.8+m.x)*0.35+0.5*aspect,cos(t*(0.3+fi*0.12)+fi*2.3+m.y)*0.3+0.5);
+    float d=length(p-c);g+=0.008/(d*d+0.005);}
   g=clamp(g*0.08,0.0,1.0);
   float intensity=clamp(v*0.5+0.5,0.0,1.0)*0.4+g*0.8;
   intensity=smoothstep(0.1,0.9,intensity);
-  vec3 charcoal=vec3(0.102,0.086,0.071);
-  vec3 copper=vec3(0.545,0.369,0.204);
-  vec3 amber=vec3(0.769,0.569,0.243);
-  vec3 gold=vec3(0.831,0.659,0.325);
+  vec3 charcoal=vec3(0.102,0.086,0.071);vec3 copper=vec3(0.545,0.369,0.204);
+  vec3 amber=vec3(0.769,0.569,0.243);vec3 gold=vec3(0.831,0.659,0.325);
   vec3 col=charcoal;
   col=mix(col,copper,smoothstep(0.15,0.4,intensity));
   col=mix(col,amber,smoothstep(0.4,0.65,intensity));
   col=mix(col,gold,smoothstep(0.65,0.9,intensity));
-  vec2 vc=uv-0.5;
-  float vig=1.0-dot(vc,vc)*1.2;
-  col*=vig;
+  vec2 vc=uv-0.5;float vig=1.0-dot(vc,vc)*1.2;col*=vig;
   gl_FragColor=vec4(col,intensity*0.85*vig);
 }`;
-
 const mat = new THREE.ShaderMaterial({
-  uniforms:{
-    uTime:{value:0},
-    uMouse:{value:new THREE.Vector2(0.5,0.5)},
-    uRes:{value:new THREE.Vector2(canvas.clientWidth*Math.min(window.devicePixelRatio,2),canvas.clientHeight*Math.min(window.devicePixelRatio,2))}
-  },
-  vertexShader:'void main(){gl_Position=vec4(position,1.0);}',
-  fragmentShader:frag,
-  transparent:true
+  uniforms:{uTime:{value:0},uMouse:{value:new THREE.Vector2(0.5,0.5)},
+    uRes:{value:new THREE.Vector2(canvas.clientWidth*Math.min(window.devicePixelRatio,2),canvas.clientHeight*Math.min(window.devicePixelRatio,2))}},
+  vertexShader:'void main(){gl_Position=vec4(position,1.0);}',fragmentShader:frag,transparent:true
 });
 scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),mat));
+window.addEventListener('resize',()=>{renderer.setSize(canvas.clientWidth,canvas.clientHeight);const pr=Math.min(window.devicePixelRatio,2);mat.uniforms.uRes.value.set(canvas.clientWidth*pr,canvas.clientHeight*pr)});
+(function loop(t){mat.uniforms.uTime.value=t*0.001;mat.uniforms.uMouse.value.set(mouse.x,mouse.y);renderer.render(scene,camera);requestAnimationFrame(loop)})(0);
+})();
 
-window.addEventListener('resize',()=>{
-  renderer.setSize(canvas.clientWidth,canvas.clientHeight);
-  const pr=Math.min(window.devicePixelRatio,2);
-  mat.uniforms.uRes.value.set(canvas.clientWidth*pr,canvas.clientHeight*pr);
-});
-
-(function loop(t){
-  mat.uniforms.uTime.value=t*0.001;
-  mat.uniforms.uMouse.value.set(mouse.x,mouse.y);
-  renderer.render(scene,camera);
-  requestAnimationFrame(loop);
-})(0);
+// ===== HERO PARTICLES =====
+(function(){
+  const container = document.getElementById('hero-particles');
+  for(let i=0;i<30;i++){
+    const p = document.createElement('div');
+    p.className='hero-particle';
+    p.style.left = Math.random()*100+'%';
+    p.style.animationDuration = (8+Math.random()*12)+'s';
+    p.style.animationDelay = Math.random()*10+'s';
+    p.style.width = p.style.height = (1+Math.random()*2)+'px';
+    container.appendChild(p);
+  }
 })();
 
 // ===== INTERSECTION OBSERVER (fade-in) =====
@@ -1053,140 +891,163 @@ const navObserver = new IntersectionObserver(([e])=>{
 },{threshold:0});
 navObserver.observe(heroEl);
 
-// Active section tracking
+// Active section tracking - use scrollY-based approach for accuracy
 const sectionIds = ['hero','concepts','video-content','extra-ordinary','process','capabilities','pricing','team','portfolio'];
-const trackedSections = sectionIds.map(id=>document.getElementById(id)).filter(Boolean);
-
-const sectionObserver = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      navLinks.forEach(a=>a.classList.remove('active'));
-      const link = nav.querySelector('a[href="#'+e.target.id+'"]');
-      if(link) link.classList.add('active');
-    }
+function updateActiveNav(){
+  const scrollY = window.scrollY + 120;
+  let current = 'hero';
+  for(const id of sectionIds){
+    const el = document.getElementById(id);
+    if(el && el.offsetTop <= scrollY) current = id;
+  }
+  navLinks.forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('href') === '#'+current);
   });
-},{threshold:0.15, rootMargin:'-50px 0px -50% 0px'});
-trackedSections.forEach(s=>sectionObserver.observe(s));
+}
+window.addEventListener('scroll', updateActiveNav, {passive:true});
+updateActiveNav();
 
 // ===== TAB SYSTEM =====
 document.querySelectorAll('[role="tablist"]').forEach(tablist=>{
   const tabs = tablist.querySelectorAll('[role="tab"]');
   const container = tablist.closest('.zone-module, .tabbed-section, section');
-
   tabs.forEach(tab=>{
     tab.addEventListener('click',()=>{
-      tabs.forEach(t=>{
-        t.setAttribute('aria-selected','false');
-        t.tabIndex = -1;
-      });
-      tab.setAttribute('aria-selected','true');
-      tab.tabIndex = 0;
+      tabs.forEach(t=>{t.setAttribute('aria-selected','false');t.tabIndex=-1});
+      tab.setAttribute('aria-selected','true');tab.tabIndex=0;
       container.querySelectorAll('[role="tabpanel"]').forEach(p=>p.classList.remove('active'));
       document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
     });
-
     tab.addEventListener('keydown',(e)=>{
-      const tabArr = Array.from(tabs);
-      const idx = tabArr.indexOf(tab);
-      let newIdx = idx;
-      if(e.key==='ArrowRight') newIdx = (idx+1)%tabArr.length;
-      else if(e.key==='ArrowLeft') newIdx = (idx-1+tabArr.length)%tabArr.length;
+      const tabArr=Array.from(tabs);const idx=tabArr.indexOf(tab);let newIdx=idx;
+      if(e.key==='ArrowRight') newIdx=(idx+1)%tabArr.length;
+      else if(e.key==='ArrowLeft') newIdx=(idx-1+tabArr.length)%tabArr.length;
       else return;
-      e.preventDefault();
-      tabArr[newIdx].click();
-      tabArr[newIdx].focus();
+      e.preventDefault();tabArr[newIdx].click();tabArr[newIdx].focus();
     });
   });
-
-  // Set initial tabindex
-  tabs.forEach((t,i)=>{t.tabIndex = i===0?0:-1});
+  tabs.forEach((t,i)=>{t.tabIndex=i===0?0:-1});
 });
 
 // ===== FLOOR PLAN HOTSPOTS =====
 document.querySelectorAll('.hotspot').forEach(hs=>{
   hs.addEventListener('click',()=>{
-    const zoneId = hs.dataset.zone;
-    const zoneEl = document.getElementById(zoneId);
+    const zoneId=hs.dataset.zone;const zoneEl=document.getElementById(zoneId);
     if(!zoneEl) return;
-
-    // Highlight hotspot
     document.querySelectorAll('.hotspot').forEach(h=>h.classList.remove('active'));
     hs.classList.add('active');
-
-    // Scroll to zone
     zoneEl.scrollIntoView({behavior:'smooth'});
-
-    // Flash highlight on zone module
     zoneEl.classList.add('highlight');
-    setTimeout(()=>zoneEl.classList.remove('highlight'), 2000);
+    setTimeout(()=>zoneEl.classList.remove('highlight'),2000);
   });
 });
 
 // ===== PROCESS SCROLLER =====
 (function(){
-  const phases = document.querySelectorAll('.phase-detail');
-  const nodes = document.querySelectorAll('.process-node');
-  const mobileLabel = document.getElementById('process-mobile-label');
-  const phaseNames = ['Discovery','Content & Design','Production','QA & Review','Installation','Commissioning'];
-
-  const phaseObserver = new IntersectionObserver((entries)=>{
+  const phases=document.querySelectorAll('.phase-detail');
+  const nodes=document.querySelectorAll('.process-node');
+  const mobileLabel=document.getElementById('process-mobile-label');
+  const phaseNames=['Discovery','Content & Design','Production','QA & Review','Installation','Commissioning'];
+  const phaseObserver=new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
-        const phaseNum = e.target.dataset.phase;
+        const phaseNum=e.target.dataset.phase;
         nodes.forEach(n=>n.classList.remove('active'));
-        const activeNode = document.querySelector('.process-node[data-phase="'+phaseNum+'"]');
+        const activeNode=document.querySelector('.process-node[data-phase="'+phaseNum+'"]');
         if(activeNode) activeNode.classList.add('active');
-        if(mobileLabel) mobileLabel.textContent = 'Phase '+phaseNum+': '+phaseNames[phaseNum-1];
+        if(mobileLabel) mobileLabel.textContent='Phase '+phaseNum+': '+phaseNames[phaseNum-1];
       }
     });
   },{threshold:0.2, rootMargin:'-80px 0px -60% 0px'});
-
   phases.forEach(p=>phaseObserver.observe(p));
+  nodes.forEach(n=>{n.addEventListener('click',()=>{
+    const target=document.querySelector('.phase-detail[data-phase="'+n.dataset.phase+'"]');
+    if(target) target.scrollIntoView({behavior:'smooth'});
+  })});
+})();
 
-  // Click on node to scroll to phase
-  nodes.forEach(n=>{
-    n.addEventListener('click',()=>{
-      const phaseNum = n.dataset.phase;
-      const target = document.querySelector('.phase-detail[data-phase="'+phaseNum+'"]');
-      if(target) target.scrollIntoView({behavior:'smooth'});
+// ===== TIER CARDS (full-width detail panel) =====
+(function(){
+  const tierData = {
+    micro:{
+      name:'Micro', price:'$250k',
+      overview:'<p>IonQ is installing large-format displays regardless of what agency is selected. This tier is a focused content engagement built around that reality&mdash;no interactive systems, no sensor integration, no dome experience. Just world-class passive content, developed to the quality standard IonQ\'s audience expects, ready to play from day one.</p><p>Futureman works from IonQ\'s existing sales materials, technical resources, and a compressed strategy session with Marketing to develop a core suite of screen-ready assets: one large-format ambient hero video for the 1st floor lobby LED and a supporting graphic asset suite scaled for 3rd floor screens. The visual language and asset architecture established here are built to be compatible with higher tiers&mdash;so if IonQ expands the experience down the road, nothing gets replaced. It gets built on.</p>',
+      included:['Compressed content strategy and discovery session with IonQ Marketing','One large-format ambient hero video, custom CGI and 3D','Evergreen static graphic asset suite scaled for all available screen formats','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leveraging existing b-roll and AI-assisted production'],
+      notIncluded:['Full SME interview series','Interactive or sensor-driven content of any kind','Dome experience','Custom narrative framework workshop','On-site commissioning support','Additional video production beyond the hero piece']
+    },
+    small:{
+      name:'Small', price:'$320k&ndash;$450k',
+      overview:'<p>Large-format video production for the 1st floor lobby LED and 3rd floor screens&mdash;designed for ambient, looping playback that sustains repeated exposure without fatigue. Content developed in direct collaboration with IonQ technical SMEs and Marketing, translating quantum capabilities into education-first storytelling that works for a mixed-expertise audience, from PhDs to Members of Congress.</p><p>Deliverables include a core narrative video, a suite of evergreen static graphic assets scaled for all available screen formats across the EBC, and a modular asset structure that enables IonQ to transfer select screen content to existing EBCs independently. Real-time camera-based processing&mdash;using TensorFlow or similar libraries&mdash;can be incorporated to allow visitor presence in the lobby to influence the LED content dynamically, adding a layer of responsiveness without the full sensor integration of higher tiers.</p><p>All content is custom developed using CGI and 3D. Footage-based elements leverage existing b-roll and AI-assisted production.</p>',
+      included:['Full SME interview series and narrative framework session','Core narrative video (custom CGI + 3D)','Evergreen static graphic asset suite across all screen formats','Modular asset structure for multi-EBC transfer','Optional real-time camera overlays in the lobby (TensorFlow-based presence response)'],
+      notIncluded:['Dome sensor system','Gesture-based interactions','Visitor personalization system','Experience Center interactive installations']
+    },
+    medium:{
+      name:'Medium', price:'$675k&ndash;$750k',
+      overview:'<p>The dome transforms from a display into an environment. A sensor-activated content system responds to visitor presence and movement&mdash;visitors trigger state changes in the dome through where they stand, how they move, and how they interact with the space. The experience is designed to support both self-guided and presenter-led tour modes, with the presenter able to trigger specific states and sequences on demand.</p><p>Advanced camera systems enable gesture-based interaction&mdash;visitors influencing content through movement rather than touch, with multiple visitors able to affect different sections of the visualization simultaneously. A digital twin layer adds biometric feedback, giving visitors a sense of their own presence within the quantum environment. Think Flight of Passage at Animal Kingdom.</p><p>Content architecture is built to accommodate future refreshes as IonQ\'s use case library and business context evolve. Full AV coordination and handoff documentation for IonQ\'s facilities and integration vendors is included.</p><p>All content is custom developed using CGI and 3D. Footage-based elements leverage existing b-roll, AI-assisted production, and an optional additional production shoot if needed.</p>',
+      included:['Everything in Small','Dome sensor integration (presence, motion, gesture)','Multi-visitor simultaneous interaction logic','Digital twin / biometric feedback layer','Self-guided and presenter-led mode support','Full AV coordination and handoff documentation','Optional additional production shoot'],
+      notIncluded:['Interactive content beyond the dome','Visitor personalization system','Experience Center floor-wide sensor integration']
+    },
+    large:{
+      name:'Large', price:'$1.15m&ndash;$1.5m',
+      overview:'<p>Sensor and interactive content extends beyond the dome into key zones across the Experience Center floor&mdash;including tabletop projections and gesture-based interactions that give visitors direct physical engagement with the content. Additional screens are integrated across activation areas on the 3rd floor, coordinated with facilities vendors.</p><p>The defining feature of the Large tier is the visitor personalization system: the ability to surface tailored content tracks based on audience profile configured in advance of each visit. Tracks might include frameworks like <em>Quantum is Now</em>, <em>National Security Through Innovation</em>, or <em>Healthcare and Life Sciences</em>&mdash;the specific tracks are determined in Discovery based on IonQ\'s primary visitor profiles. IonQ Marketing configures and queues audience-specific modules before each visit through a custom content management framework built for low-lift operation.</p><p>The full content suite is paired with a defined refresh model: evergreen architecture designed for longevity, with an update process that IonQ\'s team can execute without agency involvement for routine changes.</p><p>All content is custom developed using CGI and 3D. Footage-based elements leverage existing b-roll, AI-assisted production, and additional production shoot(s) as needed.</p>',
+      included:['Everything in Medium','Experience Center floor sensor and interactive integration','Tabletop and floor projection systems','Multi-zone gesture-based interaction','Visitor personalization system (audience-profile-driven content tracks)','Custom content management framework for IonQ Marketing','Evergreen refresh architecture and update protocols','Extended production (additional shoots as needed)'],
+      notIncluded:['Post-launch retainer beyond the 30-day support window (available as a separate engagement)','Hardware procurement (that sits with IonQ\'s AV vendors)']
+    }
+  };
+
+  const cards = document.querySelectorAll('.tier-card');
+  const detailEl = document.getElementById('tier-detail');
+  const detailInner = document.getElementById('tier-detail-inner');
+  let activeTier = null;
+
+  cards.forEach(card=>{
+    card.addEventListener('click',()=>{
+      const tier = card.dataset.tier;
+      cards.forEach(c=>c.classList.remove('selected'));
+
+      if(activeTier === tier){
+        detailEl.classList.remove('open');
+        activeTier = null;
+        return;
+      }
+
+      card.classList.add('selected');
+      activeTier = tier;
+      const d = tierData[tier];
+      detailInner.innerHTML = `
+        <div class="tier-detail-header">
+          <h3>${d.name}</h3>
+          <div class="tier-card-price">${d.price}</div>
+        </div>
+        <div>
+          <h4>Overview</h4>
+          ${d.overview}
+          <h4>Included</h4>
+          <ul>${d.included.map(i=>'<li>'+i+'</li>').join('')}</ul>
+        </div>
+        <div>
+          <div class="not-included-label">Not Included</div>
+          <ul class="not-included">${d.notIncluded.map(i=>'<li>'+i+'</li>').join('')}</ul>
+        </div>
+      `;
+      detailEl.classList.add('open');
+      setTimeout(()=>detailEl.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
     });
   });
 })();
 
 // ===== PORTFOLIO LIGHTBOX =====
 (function(){
-  const overlay = document.getElementById('lightbox');
-  const titleEl = document.getElementById('lightbox-title');
-  const descEl = document.getElementById('lightbox-desc');
-  const closeBtn = overlay.querySelector('.lightbox-close');
-  const projects = {
-    '1':{title:'Project One', desc:'Placeholder project description. Media and story content to be delivered.'},
-    '2':{title:'Project Two', desc:'Placeholder project description. Media and story content to be delivered.'},
-    '3':{title:'Project Three', desc:'Placeholder project description. Media and story content to be delivered.'}
-  };
-
-  document.querySelectorAll('.portfolio-tile').forEach(tile=>{
-    tile.addEventListener('click',()=>{
-      const id = tile.dataset.lightbox;
-      const proj = projects[id];
-      titleEl.textContent = proj.title;
-      descEl.textContent = proj.desc;
-      overlay.classList.add('open');
-      document.body.style.overflow='hidden';
-    });
-  });
-
-  function closeLightbox(){
-    overlay.classList.remove('open');
-    document.body.style.overflow='';
-  }
-  closeBtn.addEventListener('click', closeLightbox);
-  overlay.addEventListener('click',(e)=>{
-    if(e.target===overlay) closeLightbox();
-  });
-  document.addEventListener('keydown',(e)=>{
-    if(e.key==='Escape' && overlay.classList.contains('open')) closeLightbox();
-  });
+  const overlay=document.getElementById('lightbox');
+  const titleEl=document.getElementById('lightbox-title');
+  const descEl=document.getElementById('lightbox-desc');
+  const closeBtn=overlay.querySelector('.lightbox-close');
+  const projects={'1':{title:'Project One',desc:'Placeholder project description. Media and story content to be delivered.'},'2':{title:'Project Two',desc:'Placeholder project description. Media and story content to be delivered.'},'3':{title:'Project Three',desc:'Placeholder project description. Media and story content to be delivered.'}};
+  document.querySelectorAll('.portfolio-tile').forEach(tile=>{tile.addEventListener('click',()=>{const proj=projects[tile.dataset.lightbox];titleEl.textContent=proj.title;descEl.textContent=proj.desc;overlay.classList.add('open');document.body.style.overflow='hidden'})});
+  function closeLightbox(){overlay.classList.remove('open');document.body.style.overflow=''}
+  closeBtn.addEventListener('click',closeLightbox);
+  overlay.addEventListener('click',(e)=>{if(e.target===overlay) closeLightbox()});
+  document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&overlay.classList.contains('open')) closeLightbox()});
 })();
 </script>
 </body>
