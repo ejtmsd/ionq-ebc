@@ -74,7 +74,14 @@ img{display:block;max-width:100%}
 @media(max-width:768px){.section{padding:60px 16px}}
 .section-inner{max-width:800px;margin:0 auto}
 .section-wide{max-width:1000px;margin:0 auto}
-.section-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.section-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;position:relative}
+.section-label.glitch-active{animation:labelGlitch 0.6s step-end forwards}
+.section-label.glitch-active::before,.section-label.glitch-active::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;overflow:hidden}
+.section-label.glitch-active::before{animation:labelGlitchTop 0.6s step-end forwards;clip-path:inset(0 0 50% 0);color:var(--accent)}
+.section-label.glitch-active::after{animation:labelGlitchBottom 0.6s step-end forwards;clip-path:inset(50% 0 0 0);color:var(--accent)}
+@keyframes labelGlitch{0%,100%{transform:none;opacity:1}10%{transform:translate(4px,0) skewX(-2deg)}20%{transform:translate(-3px,0) skewX(1deg)}30%{transform:translate(2px,1px)}40%{transform:translate(-1px,-1px) skewX(-1deg)}50%{transform:translate(3px,0)}60%{transform:none}100%{transform:none}}
+@keyframes labelGlitchTop{0%,60%,100%{transform:none}10%{transform:translate(-4px,0)}20%{transform:translate(3px,0)}30%{transform:translate(-2px,0)}40%{transform:translate(5px,0)}50%{transform:translate(-1px,0)}60%,100%{transform:none}}
+@keyframes labelGlitchBottom{0%,60%,100%{transform:none}10%{transform:translate(3px,0)}20%{transform:translate(-5px,0)}30%{transform:translate(2px,0)}40%{transform:translate(-3px,0)}50%{transform:translate(4px,0)}60%,100%{transform:none}}
 .section-heading{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.15;margin-bottom:12px}
 .section-sub{font-size:16px;color:var(--muted);margin-bottom:48px;max-width:600px}
 .body-text{color:rgba(240,230,214,0.75);font-size:16px;line-height:1.8;margin-bottom:24px;max-width:720px}
@@ -96,8 +103,14 @@ img{display:block;max-width:100%}
 .three-col-card:hover::before{opacity:1}
 .three-col-card h3{font-family:var(--serif);font-size:22px;font-weight:400;font-style:italic;margin-bottom:12px;color:var(--text)}
 .three-col-card p{font-size:15px;color:rgba(240,230,214,0.7);line-height:1.7}
-.three-col-card .card-icon{font-size:10px;margin-bottom:16px;color:var(--accent);display:inline-block;text-shadow:0 0 6px rgba(196,145,62,0.6),0 0 12px rgba(196,145,62,0.3);animation:protonPulse 3s ease-in-out infinite}
-@keyframes protonPulse{0%,100%{text-shadow:0 0 4px rgba(196,145,62,0.4),0 0 8px rgba(196,145,62,0.2);transform:scale(1)}50%{text-shadow:0 0 8px rgba(196,145,62,0.8),0 0 20px rgba(196,145,62,0.4),0 0 32px rgba(196,145,62,0.15);transform:scale(1.15)}}
+.three-col-card .card-icon{width:48px;height:48px;margin-bottom:20px;position:relative;display:inline-block}
+.card-icon svg{width:48px;height:48px;filter:drop-shadow(0 0 6px rgba(196,145,62,0.4))}
+.card-icon svg path,.card-icon svg line,.card-icon svg circle,.card-icon svg polyline{stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.card-icon::after,.card-icon::before{display:none}
+@keyframes iconPixelShift{0%,85%,100%{transform:translate(0,0);filter:none}86%{transform:translate(2px,0);filter:url(#pixelate)}88%{transform:translate(-1px,1px);filter:url(#pixelate)}90%{transform:translate(1px,-1px);filter:url(#pixelate)}92%{transform:translate(0,0);filter:none}}
+.card-icon svg{animation:iconPixelShift 5s step-end infinite}
+.three-col-card:nth-child(2) .card-icon svg{animation-delay:1.5s}
+.three-col-card:nth-child(3) .card-icon svg{animation-delay:3s}
 
 /* ---- CALLOUT BLOCK ---- */
 .callout{max-width:800px;margin:0 auto;border-left:2px solid var(--accent);padding:32px 32px 32px 40px;background:rgba(196,145,62,0.04);border-radius:0 4px 4px 0}
@@ -112,6 +125,8 @@ img{display:block;max-width:100%}
 .zone-selector.active{border-color:var(--accent);background:rgba(196,145,62,0.1);box-shadow:0 0 16px rgba(196,145,62,0.12)}
 .zone-selector svg{width:36px;height:36px;color:var(--accent);opacity:0.7;transition:opacity 0.2s}
 .zone-selector:hover svg,.zone-selector.active svg{opacity:1}
+.zone-selector svg.pixelate-glitch{animation:zonePixelGlitch 0.4s step-end forwards}
+@keyframes zonePixelGlitch{0%{transform:translate(0,0);filter:none}15%{transform:translate(3px,-2px);filter:url(#pixelate)}30%{transform:translate(-2px,3px);filter:url(#pixelate)}45%{transform:translate(2px,1px);filter:url(#pixelate)}60%{transform:translate(-1px,-2px);filter:url(#pixelate)}75%{transform:translate(1px,0);filter:url(#pixelate)}100%{transform:translate(0,0);filter:none}}
 .zone-selector-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:600}
 .zone-selector-name{font-family:var(--serif);font-size:18px;color:var(--text);font-weight:400;line-height:1.2}
 
@@ -125,7 +140,7 @@ img{display:block;max-width:100%}
 
 /* ---- TAB SYSTEM (shared) ---- */
 .tab-bar{display:flex;gap:0;margin-bottom:32px;background:rgba(196,145,62,0.06);border-radius:6px;padding:4px;border:1px solid rgba(196,145,62,0.12);flex-wrap:wrap}
-.tab-btn{font-family:var(--sans);font-size:13px;padding:12px 20px;border-radius:4px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all 0.25s;display:flex;align-items:center;gap:8px;white-space:nowrap;flex:1;justify-content:center;min-width:0;position:relative}
+.tab-btn{font-family:var(--sans);font-size:13px;padding:12px 20px;border-radius:4px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all 0.25s;display:flex;align-items:center;gap:8px;white-space:normal;text-align:center;flex:1;justify-content:center;min-width:0;position:relative}
 .tab-btn:hover{color:var(--text);background:rgba(196,145,62,0.08)}
 .tab-btn[aria-selected="true"]{background:var(--accent);color:var(--bg);box-shadow:0 2px 8px rgba(196,145,62,0.3)}
 .tab-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -138,6 +153,10 @@ img{display:block;max-width:100%}
 .tab-panel h4{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:8px}
 .tab-panel .tier-label{display:inline-block;margin-bottom:16px}
 .tab-panel p{color:rgba(240,230,214,0.75);font-size:15px;line-height:1.8;margin-bottom:16px}
+.concept-img{width:100%;border-radius:6px;margin-bottom:20px;border:1px solid rgba(196,145,62,0.12)}
+.zone3-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.zone3-gallery img{width:100%;border-radius:6px;border:1px solid rgba(196,145,62,0.12)}
+@media(max-width:600px){.zone3-gallery{grid-template-columns:1fr;gap:8px}}
 .tab-panel p:last-child{margin-bottom:0}
 
 /* Tab instruction hint */
@@ -163,8 +182,13 @@ img{display:block;max-width:100%}
 
 .process-diagram{position:sticky;top:var(--nav-h);z-index:10;background:var(--bg-alt);border-bottom:1px solid rgba(196,145,62,0.12);padding:20px 0;display:flex;align-items:center;justify-content:center;gap:0}
 .process-node{display:flex;align-items:center;gap:0;cursor:pointer;transition:opacity 0.2s}
-.process-node-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--muted);background:var(--bg-alt);transition:all 0.3s;flex-shrink:0}
-.process-node.active .process-node-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px rgba(196,145,62,0.4)}
+.process-node-icon{width:28px;height:28px;flex-shrink:0;transition:all 0.3s}
+.process-node-icon svg{width:28px;height:28px}
+.process-node-icon svg path,.process-node-icon svg circle,.process-node-icon svg line,.process-node-icon svg polyline,.process-node-icon svg rect{stroke:var(--muted);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:all 0.3s}
+.process-node.active .process-node-icon svg path,.process-node.active .process-node-icon svg circle,.process-node.active .process-node-icon svg line,.process-node.active .process-node-icon svg polyline,.process-node.active .process-node-icon svg rect{stroke:var(--accent);filter:drop-shadow(0 0 4px rgba(196,145,62,0.5))}
+.phase-heading-icon{width:32px;height:32px;display:inline-block;vertical-align:middle;margin-right:12px;position:relative;top:-2px}
+.phase-heading-icon svg{width:32px;height:32px}
+.phase-heading-icon svg path,.phase-heading-icon svg circle,.phase-heading-icon svg line,.phase-heading-icon svg polyline,.phase-heading-icon svg rect{stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(196,145,62,0.4))}
 .process-node-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-left:8px;transition:color 0.3s;white-space:nowrap}
 .process-node.active .process-node-label{color:var(--accent);font-weight:600}
 .process-node-sub{display:none}
@@ -181,6 +205,13 @@ img{display:block;max-width:100%}
 }
 .process-mobile-label{display:none}
 @media(max-width:768px){.process-mobile-label{display:block}}
+.phase-list{list-style:none;padding:0;margin:0}
+.phase-list>li{margin-bottom:20px}
+.phase-list>li>strong{font-size:1rem;color:var(--fg)}
+.phase-sub{list-style:none;padding:0;margin:6px 0 0 24px}
+.phase-sub li{position:relative;padding-left:16px;font-size:0.92rem;color:var(--muted);line-height:1.6;margin-bottom:4px}
+.phase-sub li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:rgba(196,145,62,0.4)}
+.process-closing{max-width:800px;margin:32px auto 0;font-size:0.88rem;color:var(--muted);text-align:center;font-style:italic}
 
 .phase-detail{padding:64px 0;max-width:1100px;margin:0 auto;min-height:50vh}
 .phase-detail h3{font-family:var(--serif);font-size:clamp(26px,3.5vw,36px);font-weight:400;margin-bottom:16px;max-width:800px}
@@ -206,6 +237,10 @@ img{display:block;max-width:100%}
 .cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1000px;margin:0 auto}
 @media(max-width:768px){.cap-grid{grid-template-columns:1fr}}
 .cap-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:32px}
+.cap-card-icon{width:36px;height:36px;margin-bottom:14px}
+.cap-card-icon svg{width:36px;height:36px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(196,145,62,0.3))}
+.cap-card-icon.glitching svg{animation:capIconGlitch 0.5s step-end forwards}
+@keyframes capIconGlitch{0%{transform:translate(0,0);filter:drop-shadow(0 0 4px rgba(196,145,62,0.3))}12%{transform:translate(3px,-2px);filter:url(#pixelate) drop-shadow(0 0 8px rgba(196,145,62,0.6))}25%{transform:translate(-2px,3px);filter:url(#pixelate) drop-shadow(0 0 8px rgba(196,145,62,0.6))}37%{transform:translate(2px,1px);filter:url(#pixelate)}50%{transform:translate(-3px,-1px);filter:url(#pixelate) drop-shadow(0 0 12px rgba(196,145,62,0.8))}62%{transform:translate(1px,2px);filter:url(#pixelate)}75%{transform:translate(-1px,0);filter:drop-shadow(0 0 6px rgba(196,145,62,0.5))}100%{transform:translate(0,0);filter:drop-shadow(0 0 4px rgba(196,145,62,0.3))}}
 .cap-card h3{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:14px;color:var(--text)}
 .cap-card ul{list-style:none;padding:0}
 .cap-card li{font-size:14px;color:rgba(240,230,214,0.7);line-height:1.7;padding-left:16px;position:relative;margin-bottom:6px}
@@ -283,23 +318,32 @@ img{display:block;max-width:100%}
 .lightbox-body p{font-size:15px;color:rgba(240,230,214,0.7);line-height:1.7}
 
 /* ---- FOOTER ---- */
-.footer-closing{max-width:700px;margin:0 auto;text-align:center;padding:0 24px 60px}
-.footer-closing-rule{width:60px;height:1px;background:var(--accent);margin:0 auto 40px}
-.footer-closing-quote{font-family:var(--serif);font-size:clamp(24px,3.5vw,36px);font-weight:300;font-style:italic;line-height:1.3;margin-bottom:24px;color:var(--text)}
-.footer-closing-sub{font-size:16px;color:var(--muted);margin-bottom:0}
-.site-footer{border-top:1px solid rgba(196,145,62,0.1);padding:64px 24px;display:flex;align-items:center;justify-content:space-between;max-width:1000px;margin:0 auto;flex-wrap:wrap;gap:32px}
-.footer-logos{display:flex;align-items:center;gap:48px}
-.footer-logos img{opacity:0.7;filter:brightness(1.5) grayscale(0.5)}
-.footer-logos img:first-child{height:36px}
-.footer-logos img:last-child{height:52px}
-.footer-contact{text-align:right}
-@media(max-width:768px){.footer-contact{text-align:left}}
-.footer-contact p{font-size:13px;color:var(--muted);line-height:1.8}
-.footer-contact a{color:var(--accent);text-decoration:none}
-.footer-contact a:hover{text-decoration:underline}
-.footer-date{text-align:center;padding:0 24px 48px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.site-footer-bright{background:#f0e6d6;padding:80px 24px 48px}
+.footer-bright-inner{max-width:900px;margin:0 auto;text-align:center}
+.footer-closing-quote-bright{font-family:var(--serif);font-size:clamp(24px,3.5vw,36px);font-weight:300;font-style:italic;line-height:1.3;margin-bottom:20px;color:#1a1612}
+.footer-closing-sub-bright{font-size:16px;color:#5a4e3e;margin-bottom:0}
+.footer-bright-rule{width:60px;height:1px;background:#c4913e;margin:48px auto;opacity:0.5}
+.footer-bright-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px}
+.footer-logos-bright{display:flex;align-items:center;gap:48px}
+.footer-logos-bright img{opacity:0.8;filter:brightness(0.3)}
+.footer-logos-bright img:first-child{height:36px}
+.footer-logos-bright img:last-child{height:52px}
+.footer-contact-bright{text-align:right}
+@media(max-width:768px){.footer-contact-bright{text-align:left}}
+.footer-contact-bright p{font-size:13px;color:#5a4e3e;line-height:1.8}
+.footer-contact-bright a{color:#8b6914;text-decoration:none}
+.footer-contact-bright a:hover{text-decoration:underline}
+.footer-date-bright{text-align:center;padding-top:40px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#8a7d6b}
 
 /* ---- TWO-COL TEXT ---- */
+.tech-scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:960px;margin:0 auto;padding:0 24px}
+@media(max-width:768px){.tech-scope-grid{grid-template-columns:1fr;gap:16px}}
+.tech-scope-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:32px 28px;transition:border-color 0.3s}
+.tech-scope-card:hover{border-color:rgba(196,145,62,0.35)}
+.tech-scope-icon{width:40px;height:40px;margin-bottom:16px}
+.tech-scope-icon svg{width:40px;height:40px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(196,145,62,0.3))}
+.tech-scope-card h4{font-family:var(--serif);font-size:19px;font-weight:400;margin-bottom:10px;color:var(--text)}
+.tech-scope-card p{font-size:14px;color:rgba(240,230,214,0.65);line-height:1.75}
 .two-col-text{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;margin:0 auto}
 @media(max-width:768px){.two-col-text{grid-template-columns:1fr;gap:24px}}
 .two-col-text h4{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:10px;color:var(--text)}
@@ -322,6 +366,7 @@ img{display:block;max-width:100%}
 </style>
 </head>
 <body>
+<svg style="position:absolute;width:0;height:0"><defs><filter id="pixelate"><feFlood x="2" y="2" height="1" width="1"/><feComposite width="6" height="6"/><feTile result="a"/><feComposite in="SourceGraphic" in2="a" operator="in"/><feMorphology operator="dilate" radius="3"/></filter></defs></svg>
 
 <!-- STICKY NAV -->
 <nav id="sticky-nav">
@@ -373,7 +418,7 @@ img{display:block;max-width:100%}
     <p><strong>Who we are.</strong> Futureman is a creative and production studio built for spaces like this: CGI, 3D, motion, interactive systems, and AV integration under one roof. Partnered with SketchDeck (via 24 Seven Agencies) for this engagement.</p>
   </div>
   <div class="exec-card fade-in">
-    <p><strong>What we're proposing.</strong> Four tiers, $250k to $1.5m. Evergreen spine, swappable skin. Built to last, built to update.</p>
+    <p><strong>What we're proposing.</strong> Four tiers, $275k to $1.5m. Evergreen spine, swappable skin. Built to last, built to update.</p>
   </div>
 </div>
 </section>
@@ -384,22 +429,20 @@ img{display:block;max-width:100%}
 <section class="section section-alt section-ruled" id="what-we-heard">
 <div class="section-inner centered">
   <div class="section-label fade-in">02 / What We Heard</div>
-  <h2 class="section-heading fade-in centered">Three framing statements</h2>
-  <p class="section-sub centered fade-in" style="margin-left:auto;margin-right:auto">Before concepts, scope, or pricing, we want to confirm we heard IonQ correctly.</p>
 </div>
 <div class="three-col">
   <div class="three-col-card fade-in">
-    <div class="card-icon">&#9679;</div>
+    <div class="card-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="8"/><line x1="24" y1="2" x2="24" y2="12"/><line x1="24" y1="36" x2="24" y2="46"/><line x1="2" y1="24" x2="12" y2="24"/><line x1="36" y1="24" x2="46" y2="24"/><circle cx="24" cy="24" r="2" style="fill:var(--accent);stroke:none"/></svg></div>
     <h3>What this project is</h3>
     <p>On-screen and interactive content for the DC EBC. The storytelling layer that sits on top of whatever physical infrastructure IonQ's facilities vendors build.</p>
   </div>
   <div class="three-col-card fade-in">
-    <div class="card-icon">&#9679;</div>
+    <div class="card-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><line x1="11" y1="11" x2="37" y2="37" style="stroke-width:2"/></svg></div>
     <h3>What it isn't</h3>
     <p>Interior design, architecture, or AV hardware procurement. Futureman designs and produces the content. We consult on the hardware. We don't buy it.</p>
   </div>
   <div class="three-col-card fade-in">
-    <div class="card-icon">&#9679;</div>
+    <div class="card-icon"><svg viewBox="0 0 48 48"><polyline points="8,26 18,36 40,12" style="stroke-width:2.5"/></svg></div>
     <h3>What success looks like</h3>
     <p>Every visitor, Congress to PhD, leaves understanding what IonQ does, why it matters, and why IonQ specifically. Not impressed. Convinced.</p>
   </div>
@@ -437,6 +480,7 @@ img{display:block;max-width:100%}
 
 <div style="height:48px"></div>
 
+<div class="tab-hint fade-in"><svg viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg> Select a zone</div>
 <div class="zone-selectors fade-in">
   <button class="zone-selector" data-zone="zone-1">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="12" rx="1"/><line x1="3" y1="18" x2="21" y2="18"/><line x1="8" y1="15" x2="8" y2="18"/><line x1="16" y1="15" x2="16" y2="18"/></svg>
@@ -463,14 +507,16 @@ img{display:block;max-width:100%}
   </div>
   <div class="tab-hint"><svg viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg> Select a concept</div>
   <div class="tab-bar" role="tablist" aria-label="Zone 1 concepts">
-    <button class="tab-btn" role="tab" aria-selected="true" aria-controls="z1-tab1" id="z1-btn1">Quantum Shadow Wall <span class="tier-chip">Small / All Tiers</span></button>
-    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="z1-tab2" id="z1-btn2">Live Quantum Pulse Feed <span class="tier-chip">Small / All Tiers</span></button>
+    <button class="tab-btn" role="tab" aria-selected="true" aria-controls="z1-tab1" id="z1-btn1">Quantum Shadow Wall <span class="tier-chip">All Tiers</span></button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="z1-tab2" id="z1-btn2">Live Quantum Pulse Feed <span class="tier-chip">All Tiers</span></button>
   </div>
   <div class="tab-panel active" role="tabpanel" id="z1-tab1" aria-labelledby="z1-btn1">
+    <img src="concept images/Quantum Shadow Wall.png" alt="Quantum Shadow Wall concept" class="concept-img" loading="lazy">
     <p>Imagine as visitors enter, cameras track their every move as they enter. Their silhouettes are captured, processed through a visual representation of a quantum algorithm, and transformed in real time on the LED wall. Their likeness becomes data, gets superposed, and collapses into something new. It's immediate, personal, and a conversation starter before anyone says a word. No explanation needed.</p>
     <p>At the Small tier, this is achievable through real-time camera processing using TensorFlow or similar video processing libraries. Visitor presence directly influences the content playing on the LED without the complexity of full sensor integration.</p>
   </div>
   <div class="tab-panel" role="tabpanel" id="z1-tab2" aria-labelledby="z1-btn2">
+    <img src="concept images/Live Quantum Pulse Feed.png" alt="Live Quantum Pulse Feed concept" class="concept-img" loading="lazy">
     <p>A persistent ambient visualization drawn from IonQ's actual processing activity: anonymized job queues, gate fidelity, error correction events. Not a dashboard. Something closer to a heartbeat. The machine is always running. Visitors walk in and the first thing they see is proof.</p>
   </div>
 </div>
@@ -487,12 +533,16 @@ img{display:block;max-width:100%}
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="z2-tab2" id="z2-btn2">Entanglement Across Distance <span class="tier-chip">Medium / Large</span></button>
   </div>
   <div class="tab-panel active" role="tabpanel" id="z2-tab1" aria-labelledby="z2-btn1">
+    <img src="concept images/The Ion Trap.png" alt="The Ion Trap concept" class="concept-img" loading="lazy">
     <p>IonQ traps individual ytterbium ions using laser fields. The dome becomes a scaled-up, immersive recreation of that process: individual ions rendered as floating light points, held in place by visualized electromagnetic geometry. Spatial audio hums with the resonant frequencies of the trap. Visitors are standing inside the machine.</p>
     <p>A touch or motion event triggers a measurement. The superposition collapses, the system reconfigures, the ions settle. The core concept of quantum measurement, taught without a single word of explanation.</p>
     <p>At the Medium tier, visitor presence and movement trigger state changes in the dome environment through sensor detection, transforming the space from ambient display to reactive experience. At the Large tier, this expands into Minority Report-style gesture interactions: visitors controlling content with their hands, multiple visitors influencing different sections of the visualization simultaneously. Think Flight of Passage at Animal Kingdom. The environment responds to you.</p>
   </div>
   <div class="tab-panel" role="tabpanel" id="z2-tab2" aria-labelledby="z2-btn2">
-    <p>Split the dome into two zones. Two visitors interact with opposite particles. One touches a point of light, the other sees it respond instantly, regardless of where they're standing in the space. Simple to experience yet philosophically disorienting in the best way. You can narrate quantum entanglement all day, but feeling it is different.</p>
+    <img src="concept images/Entanlement Across Distance.png" alt="Entanglement Across Distance concept" class="concept-img" loading="lazy">
+    <p>Split the dome into two zones. Two visitors interact with opposite particles. One touches a point of light, the other sees it respond instantly, regardless of where they're standing in the space. The correlation is perfect and immediate. Change the spin of your particle, watch the other flip. Move yours, the other tracks. There's no signal crossing the room, no visible connection, just a relationship that shouldn't exist but does.</p>
+    <p>Spatial audio reinforces the effect: each side of the dome carries its own tonal register, and when entanglement locks in, the two sides harmonize into a single resonant tone that visitors feel in their chest. The moment lands physically, not just visually.</p>
+    <p>Simple to experience yet philosophically disorienting in the best way. You can narrate quantum entanglement all day, but feeling it across a room with another person is different. It turns an abstract principle into a shared memory.</p>
   </div>
 </div>
 
@@ -501,6 +551,11 @@ img{display:block;max-width:100%}
   <div class="zone-module-header">
     <h3>Zone 3: Experience Center</h3>
     <p>The Experience Center is where the EBC earns credibility. The lobby creates wonder; the dome creates feeling; this space creates understanding. Our recommendation is a combination of one powerful passive video and one or two interactive installations that reward curiosity without requiring a guide.</p>
+  </div>
+  <div class="zone3-gallery">
+    <img src="concept images/Zone 3 A.png" alt="Experience Center concept A" loading="lazy">
+    <img src="concept images/Zone 3 B.png" alt="Experience Center concept B" loading="lazy">
+    <img src="concept images/Zone 3 C.png" alt="Experience Center concept C" loading="lazy">
   </div>
 
   <!-- Sub-nav for Video / Interactive Installations -->
@@ -585,201 +640,192 @@ img{display:block;max-width:100%}
   <div style="height:16px"></div>
 </div>
 <div class="process-intro fade-in">
-  <p class="body-text">Every engagement begins with Discovery and ends with a commissioned, signed-off experience. Below is the six-phase process Futureman uses for a project of this scope. Each phase has defined deliverables and a formal sign-off gate, not because we like paperwork, but because clear gates protect IonQ's investment and keep scope from drifting.</p>
+  <p class="body-text">Every engagement begins with Discovery and ends with a commissioned, signed-off experience. Five phases. Defined deliverables and a formal sign-off gate at each one.</p>
 </div>
 
 <div class="process-wrap">
   <div class="process-diagram" id="process-diagram">
-    <div class="process-node active" data-phase="1"><div class="process-node-dot"></div><div class="process-node-label">Discovery</div></div>
+    <div class="process-node active" data-phase="1"><div class="process-node-icon"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="21" y2="21"/></svg></div><div class="process-node-label">Discovery</div></div>
     <div class="process-connector"></div>
-    <div class="process-node" data-phase="2"><div class="process-node-dot"></div><div class="process-node-label">Content &amp; Design</div></div>
+    <div class="process-node" data-phase="2"><div class="process-node-icon"><svg viewBox="0 0 24 24"><path d="M15 3l6 6-12 12H3v-6L15 3z"/><line x1="14" y1="7" x2="17" y2="10"/></svg></div><div class="process-node-label">Content &amp; Design</div></div>
     <div class="process-connector"></div>
-    <div class="process-node" data-phase="3"><div class="process-node-dot"></div><div class="process-node-label">Production</div></div>
+    <div class="process-node" data-phase="3"><div class="process-node-icon"><svg viewBox="0 0 24 24"><path d="M12 2l10 6v8l-10 6L2 16V8l10-6z"/><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="8" x2="22" y2="8"/></svg></div><div class="process-node-label">Production</div></div>
     <div class="process-connector"></div>
-    <div class="process-node" data-phase="4"><div class="process-node-dot"></div><div class="process-node-label">QA &amp; Review</div></div>
+    <div class="process-node" data-phase="4"><div class="process-node-icon"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5.5-3.8 10-8 12-4.2-2-8-6.5-8-12V6l8-4z"/><polyline points="8,12 11,15 16,9"/></svg></div><div class="process-node-label">QA &amp; Review</div></div>
     <div class="process-connector"></div>
-    <div class="process-node" data-phase="5"><div class="process-node-dot"></div><div class="process-node-label">Installation</div></div>
-    <div class="process-connector"></div>
-    <div class="process-node" data-phase="6"><div class="process-node-dot"></div><div class="process-node-label">Commissioning</div></div>
+    <div class="process-node" data-phase="5"><div class="process-node-icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="1"/><polyline points="3,7 12,2 21,7"/><line x1="12" y1="11" x2="12" y2="15"/><line x1="10" y1="13" x2="14" y2="13"/></svg></div><div class="process-node-label">Installation &amp; Handoff</div></div>
   </div>
   <div class="process-mobile-label" id="process-mobile-label">Phase 1: Discovery</div>
 
   <!-- Phase 1: Discovery -->
   <div class="phase-detail" data-phase="1">
-    <h3>Phase 1: Discovery</h3>
-    <p>Before we write a word or render a frame, we spend dedicated time with IonQ's scientists, marketers, and space. The most compelling content IonQ can show the world is the story only IonQ can tell. Discovery is how we find it.</p>
+    <h3><span class="phase-heading-icon"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="21" y2="21"/></svg></span>Phase 1: Discovery</h3>
     <div class="phase-border"></div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Technical SME interviews.</strong> Your directive is to "mine the valuable content in collaboration with technical SMEs and Marketing." That's a green light to treat Discovery as a structured excavation. Futureman would run focused sessions with 3&ndash;5 SMEs (quantum scientists, product leads, solutions engineers), not to get a lecture on quantum computing, but to extract the <em>stories</em>: the problems customers actually bring to IonQ, the moments where classical computing fails and quantum succeeds, the use cases that are already working vs. the ones that are a year out. The goal is finding the content that's genuinely IonQ's and no one else's.</div>
-      <div class="z-media"><span>SME Interview Framework</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Audience mapping.</strong> IonQ's visitor mix is unusually wide, Members of Congress to quantum PhDs. Discovery includes building a concrete audience profile matrix: who comes in, what they already know, what they need to leave believing, and what a successful visit looks like for each type. This is what makes the three-register content architecture possible. You can't design for multiple audiences without first defining them precisely.</div>
-      <div class="z-media"><span>Audience Profile Matrix</span></div>
-    </div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Narrative framework session.</strong> A working session with IonQ's Marketing team to align on the core story spine: what's the single thing every visitor should feel when they leave? What's the hierarchy of messages: what's the lead, what's the supporting proof, what's the credibility layer? This is where the content architecture gets decided, not assumed.</div>
-      <div class="z-media"><span>Narrative Spine Diagram</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Content audit.</strong> Discovery also includes a structured review of all existing technical materials and sales resources, not to reuse it, but to understand what's been said, what register it's been said in, and where the gaps are.</div>
-      <div class="z-media"><span>Content Audit Map</span></div>
-    </div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Site + AV alignment.</strong> Given that Futureman will be coordinating with Seneca Group, Perkins Will, and facilities vendors, Discovery includes an early alignment session to understand screen specs, spatial flow, and any technical constraints that affect content design. You don't want to design a dome experience and find out the ceiling height changed.</div>
-      <div class="z-media"><span>AV Alignment Schematic</span></div>
-    </div>
+    <ul class="phase-list">
+      <li><strong>Technical SME interviews</strong>
+        <ul class="phase-sub">
+          <li>Focused sessions with 3 to 5 quantum scientists, product leads, solutions engineers</li>
+          <li>Extracting the stories that matter: real customer problems, classical computing failures, use cases working now vs. a year out</li>
+          <li>Goal: content that is genuinely IonQ's and no one else's</li>
+        </ul>
+      </li>
+      <li><strong>Audience mapping</strong>
+        <ul class="phase-sub">
+          <li>Concrete audience profile matrix across the full visitor range (Members of Congress to quantum PhDs)</li>
+          <li>Who comes in, what they know, what they need to leave believing, what success looks like per type</li>
+        </ul>
+      </li>
+      <li><strong>Narrative framework session</strong>
+        <ul class="phase-sub">
+          <li>Working session with IonQ Marketing</li>
+          <li>Aligning on core story spine: the single feeling every visitor leaves with, hierarchy of messages, content architecture decisions</li>
+        </ul>
+      </li>
+      <li><strong>Content audit</strong>
+        <ul class="phase-sub">
+          <li>Structured review of existing technical materials and sales resources</li>
+          <li>Not to reuse, but to understand what has been said, in what register, and where the gaps are</li>
+        </ul>
+      </li>
+      <li><strong>Site and AV alignment</strong>
+        <ul class="phase-sub">
+          <li>Early coordination with Seneca Group, Perkins Will, and facilities vendors</li>
+          <li>Confirming screen specs, spatial flow, and technical constraints before anything gets designed</li>
+        </ul>
+      </li>
+    </ul>
   </div>
 
   <!-- Phase 2: Content & Design -->
   <div class="phase-detail" data-phase="2">
-    <h3>Phase 2: Content &amp; Design</h3>
-    <p>Discovery outputs become creative direction. Narrative becomes script. Audience matrix becomes content hierarchy. Site alignment becomes a spatial content map.</p>
+    <h3><span class="phase-heading-icon"><svg viewBox="0 0 24 24"><path d="M15 3l6 6-12 12H3v-6L15 3z"/><line x1="14" y1="7" x2="17" y2="10"/></svg></span>Phase 2: Content &amp; Design</h3>
     <div class="phase-border"></div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Scriptwriting &amp; narrative development.</strong> Every piece of content whether video, ambient loop, interactive sequence, use case module etc., starts with a script or written brief. Scripts go through IonQ Marketing and at least one technical SME before anything gets visualized.</div>
-      <div class="z-media"><span>Script Development</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Storyboarding &amp; visual language definition.</strong> Before any 3D gets rendered or motion gets designed, Futureman develops a visual language document: the aesthetic system that governs how IonQ's quantum story looks and moves. Color, typography, spatial metaphors, the visual treatment of data and abstraction. For a brand operating at the intersection of hard science and national-scale ambition, the design is all about credibility. A visual language that feels too commercial undermines the technology. Too academic and it loses the room.</div>
-      <div class="z-media"><span>Visual Language System</span></div>
-    </div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Content architecture mapping.</strong> A master document that maps every piece of content to every surface in the EBC. Which screen plays what, in what mode (ambient vs. presenter-led vs. self-guided), and how content modules connect to each other. At the Large tier this includes the visitor personalization logic: which content tracks surface for which audience profiles and how IonQ Marketing queues them.</div>
-      <div class="z-media"><span>Content Architecture Map</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Client alignment checkpoint.</strong> Design phase ends with a structured presentation to IonQ: scripts, storyboards, visual language, and content map. This is not a soft check-in. It's a formal sign-off gate. Nothing moves to production until this is approved. Changes after this point have scope implications.</div>
-      <div class="z-media"><span>Sign-off Gate</span></div>
-    </div>
+    <ul class="phase-list">
+      <li><strong>Scriptwriting and narrative development</strong>
+        <ul class="phase-sub">
+          <li>Every content piece (video, ambient loop, interactive sequence, use case module) starts with a script or written brief</li>
+          <li>Reviewed by IonQ Marketing and at least one technical SME before visualization begins</li>
+        </ul>
+      </li>
+      <li><strong>Visual language definition</strong>
+        <ul class="phase-sub">
+          <li>The aesthetic system governing how IonQ's quantum story looks and moves</li>
+          <li>Color, typography, spatial metaphors, visual treatment of data and abstraction</li>
+          <li>Design is credibility: too commercial undermines the tech, too academic loses the room</li>
+        </ul>
+      </li>
+      <li><strong>Content architecture mapping</strong>
+        <ul class="phase-sub">
+          <li>Master document mapping every content piece to every surface in the EBC</li>
+          <li>Which screen plays what, in which mode, how modules connect</li>
+          <li>At the Large tier: visitor personalization logic and audience-specific content queuing</li>
+        </ul>
+      </li>
+    </ul>
   </div>
 
   <!-- Phase 3: Production -->
   <div class="phase-detail" data-phase="3">
-    <h3>Phase 3: Production</h3>
-    <p>The longest phase. Everything approved in Phase 2 gets built.</p>
+    <h3><span class="phase-heading-icon"><svg viewBox="0 0 24 24"><path d="M12 2l10 6v8l-10 6L2 16V8l10-6z"/><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="8" x2="22" y2="8"/></svg></span>Phase 3: Production</h3>
     <div class="phase-border"></div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>3D &amp; CGI development.</strong> The visual heavy lifting. For IonQ this likely means: the ion trap visualization, quantum circuit animations, use case environment builds, large-format ambient loops. All custom developed, not stock, not templated. The visual language document from Phase 2 governs every render decision.</div>
-      <div class="z-media"><span>3D / CGI Pipeline</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Motion design.</strong> How things move matters as much as how they look. Motion design covers the kinetic logic of the content: how visuals transition, how data animates, how the experience responds to time and presence. For ambient content especially, motion has to sustain extended loops without becoming irritating or predictable.</div>
-      <div class="z-media"><span>Motion Language</span></div>
-    </div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Interactive development.</strong> <em>(Medium and Large tiers.)</em> The sensor-triggered and visitor-responsive content layers get built here: the dome experience logic, the presence-detection triggers, the visitor personalization system at Large tier. This involves both software development and coordination with AV integration vendors to ensure the content system talks correctly to the hardware it will run on.</div>
-      <div class="z-media"><span>Interactive Systems</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>AI-assisted and existing footage integration.</strong> Where b-roll and AI-generated content supplements custom CGI, it gets integrated and graded here to match the overall visual language. The goal is a seamless content system, not a patchwork.</div>
-      <div class="z-media"><span>Footage Integration</span></div>
-    </div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Internal milestone reviews.</strong> Production runs on a milestone cadence (typically at 30%, 60%, and 90% completion) with IonQ review built in at each gate. This prevents a full production pass going in a wrong direction before anyone catches it.</div>
-      <div class="z-media"><span>Milestone Cadence</span></div>
-    </div>
+    <ul class="phase-list">
+      <li><strong>3D and CGI development</strong>
+        <ul class="phase-sub">
+          <li>Ion trap visualizations, quantum circuit animations, use case environment builds, large-format ambient loops</li>
+          <li>All custom developed, not stock, not templated</li>
+          <li>Visual language document governs every render decision</li>
+        </ul>
+      </li>
+      <li><strong>Motion design</strong>
+        <ul class="phase-sub">
+          <li>Kinetic logic of the full content system: transitions, data animation, response to time and presence</li>
+          <li>Ambient content built to sustain extended loops without becoming predictable</li>
+        </ul>
+      </li>
+      <li><strong>Interactive development</strong> <em>(Medium and Large)</em>
+        <ul class="phase-sub">
+          <li>Sensor integration, dome experience logic, presence-detection triggers, gesture interaction systems</li>
+          <li>Visitor personalization at Large tier</li>
+          <li>Built in direct coordination with AV integration vendors</li>
+        </ul>
+      </li>
+      <li><strong>Footage and AI integration</strong>
+        <ul class="phase-sub">
+          <li>B-roll and AI-generated content integrated and graded to match the overall visual language</li>
+          <li>One seamless system, not a patchwork</li>
+        </ul>
+      </li>
+    </ul>
   </div>
 
   <!-- Phase 4: QA & Review -->
   <div class="phase-detail" data-phase="4">
-    <h3>Phase 4: QA &amp; Review</h3>
-    <p>The phase most agencies underscope. For an EBC with multiple surfaces, interactive systems, sensor triggers, and personalization logic, QA is a critical phase in the process.</p>
+    <h3><span class="phase-heading-icon"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5.5-3.8 10-8 12-4.2-2-8-6.5-8-12V6l8-4z"/><polyline points="8,12 11,15 16,9"/></svg></span>Phase 4: QA &amp; Review</h3>
     <div class="phase-border"></div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Internal Futureman QA.</strong> Before anything goes to IonQ, every content piece goes through internal review: visual quality, technical accuracy, motion integrity, cross-surface consistency. For interactive content this includes functional testing of triggers, state changes, and edge cases. What happens if two visitors interact simultaneously? What happens if a presenter skips a module? What happens if the sensor loses a signal?</div>
-      <div class="z-media"><span>QA Test Matrix</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Client review rounds.</strong> Structured rounds with IonQ Marketing and technical SMEs. Content accuracy is reviewed by people who understand the science. This is non-negotiable for a quantum computing company whose visitors include PhDs. A factually imprecise animation in an EBC is worse than no animation.</div>
-      <div class="z-media"><span>Review Workflow</span></div>
-    </div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Cross-surface review.</strong> Content is reviewed in context: how it looks on the actual screen formats and aspect ratios, how the ambient loops hold up at extended play, how transitions read at scale. File formats, color profiles, and playback specifications are confirmed against the AV integration requirements.</div>
-      <div class="z-media"><span>Surface Specifications</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Revision cycles.</strong> Built into the scope explicitly. The proposal should define how many revision rounds are included per tier (typically two structured rounds) and what constitutes a revision vs. a scope change. Clear revision language protects both Futureman and IonQ and ensures effort is spent on creating the best final product possible.</div>
-      <div class="z-media"><span>Revision Protocol</span></div>
-    </div>
+    <ul class="phase-list">
+      <li><strong>Internal QA</strong>
+        <ul class="phase-sub">
+          <li>Visual quality, technical accuracy, motion integrity, cross-surface consistency</li>
+          <li>All reviewed before IonQ sees anything</li>
+          <li>Interactive content: functional testing of all triggers, state changes, and edge cases (simultaneous visitors, skipped modules, sensor dropout)</li>
+        </ul>
+      </li>
+      <li><strong>Client review rounds</strong>
+        <ul class="phase-sub">
+          <li>Two structured rounds with IonQ Marketing and technical SMEs</li>
+          <li>Content accuracy is non-negotiable for a company whose visitors include PhDs</li>
+          <li>Revision vs. scope change defined upfront</li>
+        </ul>
+      </li>
+      <li><strong>Cross-surface review</strong>
+        <ul class="phase-sub">
+          <li>Content reviewed at actual scale on actual formats</li>
+          <li>File formats, color profiles, and playback specs confirmed against AV integration requirements</li>
+        </ul>
+      </li>
+    </ul>
   </div>
 
-  <!-- Phase 5: Installation -->
+  <!-- Phase 5: Installation & Handoff -->
   <div class="phase-detail" data-phase="5">
-    <h3>Phase 5: Installation</h3>
-    <p>The work leaves Futureman's systems and enters the physical space. Coordination-heavy and time-sensitive.</p>
+    <h3><span class="phase-heading-icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="1"/><polyline points="3,7 12,2 21,7"/><line x1="12" y1="11" x2="12" y2="15"/><line x1="10" y1="13" x2="14" y2="13"/></svg></span>Phase 5: Installation &amp; Handoff</h3>
     <div class="phase-border"></div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>AV vendor coordination.</strong> Futureman works directly with IonQ's facilities and AV integration vendors (Seneca Group and others) to hand off content in the correct formats, at the correct specs, mapped to the correct screens. This includes media server configuration guidance, playback system setup, and content management framework delivery at the Large tier.</div>
-      <div class="z-media"><span>Vendor Handoff</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>On-site presence.</strong> At least one Futureman lead is on-site during installation to focus solely on content performance in the real environment and making tweaks as necessary. A render that looked correct on a calibrated monitor may read differently on a large-format LED in a specific lighting condition. On-site presence is the insurance policy against that.</div>
-      <div class="z-media"><span>On-site Calibration</span></div>
-    </div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Content loading &amp; initial configuration.</strong> All content assets are loaded, organized, and verified on the playback system. At the Large tier, the visitor personalization framework gets configured and the content queue logic gets tested in the actual space with IonQ Marketing present.</div>
-      <div class="z-media"><span>System Configuration</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Presenter training.</strong> If IonQ staff will be running presenter-led tours, Futureman conducts a working session on how to use the content system: how to trigger modules, how to navigate between tracks, how to recover from a technical hiccup mid-tour, and any other contingencies. This is often overlooked and almost always needed.</div>
-      <div class="z-media"><span>Training Protocol</span></div>
-    </div>
+    <ul class="phase-list">
+      <li><strong>AV vendor coordination</strong>
+        <ul class="phase-sub">
+          <li>Content delivered in correct formats, mapped to correct screens</li>
+          <li>Media server configuration and playback setup included</li>
+        </ul>
+      </li>
+      <li><strong>On-site presence</strong>
+        <ul class="phase-sub">
+          <li>At least one Futureman lead on-site during installation</li>
+          <li>Catching issues that only surface in the real environment (calibrated monitor vs. large-format LED under real lighting)</li>
+        </ul>
+      </li>
+      <li><strong>Content loading, testing, and calibration</strong>
+        <ul class="phase-sub">
+          <li>All assets loaded and verified on the playback system</li>
+          <li>Full end-to-end walkthrough of every tour mode (self-guided, presenter-led, and at Large tier, personalized visitor tracks)</li>
+          <li>Every sensor trigger, content transition, and interactive state tested</li>
+          <li>Screen brightness, audio levels, sensor sensitivity tuned to actual space conditions</li>
+        </ul>
+      </li>
+      <li><strong>Presenter training</strong>
+        <ul class="phase-sub">
+          <li>Working session with IonQ staff on triggering modules, navigating content tracks, recovering from technical issues mid-tour</li>
+        </ul>
+      </li>
+      <li><strong>Handoff documentation</strong>
+        <ul class="phase-sub">
+          <li>Complete package: content asset library, playback system docs, content update protocols, AV vendor contacts</li>
+          <li>IonQ Marketing able to operate and refresh the EBC independently from day one</li>
+        </ul>
+      </li>
+    </ul>
   </div>
 
-  <!-- Phase 6: Commissioning & Sign Off -->
-  <div class="phase-detail" data-phase="6">
-    <h3>Phase 6: Commissioning &amp; Sign Off</h3>
-    <p>The space is built, the content is loaded. Everything gets tested together as a complete system for the first time.</p>
-    <div class="phase-border"></div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>End-to-end live testing.</strong> Full walkthroughs of the EBC in every tour mode: self-guided, presenter-led, and for the Large tier, the personalized visitor tracks. Every sensor trigger, every content transition, every interactive state gets tested in sequence and in isolation. Edge cases get stress-tested. The dome experience runs at length to confirm loop integrity.</div>
-      <div class="z-media"><span>Live Test Protocol</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Technical calibration.</strong> Screen brightness, color calibration, audio levels, sensor sensitivity, all tuned to the actual space conditions. What was configured in a lab or during installation will almost always need adjustment once the space is lit, furnished, and occupied.</div>
-      <div class="z-media"><span>Calibration Matrix</span></div>
-    </div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>IonQ sign-off walkthrough.</strong> A formal walkthrough with IonQ stakeholders (Marketing, facilities, and at least one executive sponsor). This is the moment the EBC is handed to its owners. Futureman walks them through every system, every content piece, every control. Questions get answered. Final adjustments get made.</div>
-      <div class="z-media"><span>Stakeholder Walkthrough</span></div>
-    </div>
-
-    <div class="z-row reverse">
-      <div class="z-text"><strong>Handoff documentation.</strong> A complete handoff package: content asset library with naming conventions, playback system documentation, content update protocols (how IonQ refreshes a use case module without agency involvement), and technical contact list for AV vendor support. The goal is that IonQ Marketing can operate and update the EBC independently from day one.</div>
-      <div class="z-media"><span>Handoff Package</span></div>
-    </div>
-
-    <div class="z-row">
-      <div class="z-text"><strong>Defined post-launch support window.</strong> Commissioning doesn't mean Futureman disappears. The proposal should include a defined support window, typically 30 days, during which Futureman is available for issues that emerge once the space opens to real visitors. After that, a retainer or refresh engagement can be scoped separately.</div>
-      <div class="z-media"><span>Support Window</span></div>
-    </div>
-  </div>
+  <p class="process-closing">30-day post-launch support window included. Refresh and retainer engagements scoped separately after that.</p>
 </div>
 </section>
 
@@ -791,21 +837,30 @@ img{display:block;max-width:100%}
   <div class="section-label fade-in">07 / Technical Scope &amp; Vendor Coordination</div>
   <div style="height:16px"></div>
 </div>
-<div class="section-inner fade-in">
-  <p class="body-text">The content and interactive systems Futureman designs must integrate with the physical AV infrastructure IonQ's facilities vendors procure and install. The range of what "infrastructure" means on a project like this is wide: a well-configured media server and show controller at one end; a full Disguise or Pixera server with a dedicated sensor processing rack at the other. These are not the same project. The content architecture, the interactive logic, the sensor integration, all of it has to be designed around what's actually getting installed.</p>
-  <p class="body-text">Until screen hardware, controllers, network topology, and sensor systems are confirmed, some scope elements carry technical dependencies that affect final delivery. This is not a caveat. It's the nature of building a first-of-kind space in a building that doesn't exist yet.</p>
+<div class="section-inner fade-in" style="max-width:800px;margin:0 auto">
+  <p class="body-text centered">Futureman's content and interactive systems must integrate with the physical AV infrastructure IonQ's facilities vendors procure and install. The range is wide: a well-configured media server at one end, a full Disguise or Pixera server with a dedicated sensor processing rack at the other. The content architecture, interactive logic, and sensor integration all have to be designed around what's actually getting installed.</p>
 </div>
-<div style="height:32px"></div>
-<div class="two-col-text fade-in">
-  <div>
-    <h4>What Futureman provides</h4>
-    <p>Full technical consulting as part of every tier. We sit at the table with Seneca Group, Perkins Will, and AV integration vendors, not just at handoff, but from the moment we're engaged. We help specify the right equipment for the experience, ensure procurement decisions support the creative vision, and flag conflicts between the architectural plan and the content requirements before they become expensive. That consulting is included in scope.</p>
-    <p style="margin-top:16px">The content and interactive systems Futureman designs must integrate with the physical AV infrastructure IonQ's facilities vendors procure and install. Until the specific LED walls, controllers, media servers, and sensor hardware are confirmed, some scope elements carry technical dependencies that affect final delivery.</p>
-    <p style="margin-top:16px">Futureman will work directly with Seneca Group, Perkins Will, and AV integration vendors to ensure the right equipment is specified, procured, and configured for the experience to function as designed. That consulting is included.</p>
+<div style="height:48px"></div>
+<div class="tech-scope-grid fade-in">
+  <div class="tech-scope-card">
+    <div class="tech-scope-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="12" x2="15" y2="14"/></svg></div>
+    <h4>Early alignment is critical</h4>
+    <p>Technical alignment meetings should begin in the first two weeks after award, concurrent with Discovery. The sooner Futureman is in the room with facilities vendors, the better the outcome.</p>
   </div>
-  <div>
-    <h4>What we need early</h4>
-    <p>The sooner Futureman is in the room with facilities vendors, the better the outcome. We'd recommend technical alignment meetings begin in the first two weeks after award, concurrent with Discovery, not after it.</p>
+  <div class="tech-scope-card">
+    <div class="tech-scope-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <h4>We sit at the table</h4>
+    <p>Full technical consulting included in every tier. Futureman works directly with Seneca Group, Perkins Will, and AV integration vendors from the moment we're engaged, not just at handoff.</p>
+  </div>
+  <div class="tech-scope-card">
+    <div class="tech-scope-icon"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5.5-3.8 10-8 12-4.2-2-8-6.5-8-12V6l8-4z"/></svg></div>
+    <h4>Protecting the creative vision</h4>
+    <p>We help specify the right equipment, ensure procurement decisions support the experience design, and flag conflicts between the architectural plan and content requirements before they become expensive.</p>
+  </div>
+  <div class="tech-scope-card">
+    <div class="tech-scope-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+    <h4>Hardware dependencies are real</h4>
+    <p>Until screen hardware, controllers, network topology, and sensor systems are confirmed, some scope elements carry technical dependencies. This is the nature of building a first-of-kind space in a building that doesn't exist yet.</p>
   </div>
 </div>
 </section>
@@ -823,12 +878,12 @@ img{display:block;max-width:100%}
 </div>
 <div style="height:40px"></div>
 <div class="cap-grid">
-  <div class="cap-card fade-in"><h3>Content Production</h3><ul><li>Custom CGI and 3D development (ion trap visualization, quantum circuit animation, use case environments, large-format ambient loops)</li><li>Motion design for extended loop and transition systems</li><li>Scriptwriting and narrative development for multi-register audiences (Congress to PhDs)</li><li>Storyboarding and visual language development</li><li>AI-assisted content integration, b-roll grading, and footage integration</li><li>Cinematic and spatial sound design</li></ul></div>
-  <div class="cap-card fade-in"><h3>Interactive &amp; Sensor Systems</h3><ul><li>Real-time camera-based visitor processing (TensorFlow and equivalent video processing libraries)</li><li>Motion, thermal, and acoustic sensor integration</li><li>Gesture recognition and multi-user gesture interaction (Minority Report-style)</li><li>Presence detection and reactive content triggering</li><li>Digital twin and biometric feedback layers</li><li>Simultaneous multi-visitor state management across shared surfaces</li></ul></div>
-  <div class="cap-card fade-in"><h3>Content Delivery Infrastructure</h3><ul><li>Media server configuration and show control (Disguise, Pixera, and equivalent pro-AV platforms)</li><li>Large-format LED calibration and color management</li><li>Floor projection and tabletop projection mapping</li><li>Surround screen and dome-scale playback systems</li><li>Spatial audio design and multi-zone audio routing</li><li>Playback queue logic and module sequencing</li></ul></div>
-  <div class="cap-card fade-in"><h3>Content Architecture &amp; Management</h3><ul><li>Evergreen spine / swappable skin content system design</li><li>Visitor personalization logic and audience-profile content queuing</li><li>Content management framework built for low-lift IonQ-side updates</li><li>Module swap architecture enabling content refresh without rebuild</li><li>Multi-EBC portability (spine reusable across sites, skin localized per site)</li></ul></div>
-  <div class="cap-card fade-in"><h3>AV &amp; Site Coordination</h3><ul><li>Direct integration with AV and facilities vendors (Seneca Group, Perkins Will, and equivalents)</li><li>Equipment specification and procurement consultation</li><li>Architectural and spatial constraint resolution (ceiling heights, sightlines, ambient light)</li><li>Network topology, file format, and playback spec alignment</li><li>Early-stage technical alignment (concurrent with Discovery)</li></ul></div>
-  <div class="cap-card fade-in"><h3>QA, Commissioning &amp; Handoff</h3><ul><li>Functional testing of sensor triggers, state changes, and edge cases</li><li>Cross-surface visual and audio review in context</li><li>On-site calibration (brightness, color, audio, sensor sensitivity)</li><li>Presenter training and content system walkthroughs</li><li>Full handoff documentation (asset library, update protocols, vendor contact map)</li><li>Defined 30-day post-launch support window</li></ul></div>
+  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><h3>Content Production</h3><ul><li>Custom CGI and 3D development (ion trap visualization, quantum circuit animation, use case environments, large-format ambient loops)</li><li>Motion design for extended loop and transition systems</li><li>Scriptwriting and narrative development for multi-register audiences (Congress to PhDs)</li><li>Storyboarding and visual language development</li><li>AI-assisted content integration, b-roll grading, and footage integration</li><li>Cinematic and spatial sound design</li></ul></div>
+  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Interactive &amp; Sensor Systems</h3><ul><li>Real-time camera-based visitor processing (TensorFlow and equivalent video processing libraries)</li><li>Motion, thermal, and acoustic sensor integration</li><li>Gesture recognition and multi-user gesture interaction (Minority Report-style)</li><li>Presence detection and reactive content triggering</li><li>Digital twin and biometric feedback layers</li><li>Simultaneous multi-visitor state management across shared surfaces</li></ul></div>
+  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" style="fill:var(--accent);stroke:none"/><circle cx="6" cy="18" r="1" style="fill:var(--accent);stroke:none"/></svg></div><h3>Content Delivery Infrastructure</h3><ul><li>Media server configuration and show control (Disguise, Pixera, and equivalent pro-AV platforms)</li><li>Large-format LED calibration and color management</li><li>Floor projection and tabletop projection mapping</li><li>Surround screen and dome-scale playback systems</li><li>Spatial audio design and multi-zone audio routing</li><li>Playback queue logic and module sequencing</li></ul></div>
+  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z" style="fill:none"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg></div><h3>Content Architecture &amp; Management</h3><ul><li>Evergreen spine / swappable skin content system design</li><li>Visitor personalization logic and audience-profile content queuing</li><li>Content management framework built for low-lift IonQ-side updates</li><li>Module swap architecture enabling content refresh without rebuild</li><li>Multi-EBC portability (spine reusable across sites, skin localized per site)</li></ul></div>
+  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>AV &amp; Site Coordination</h3><ul><li>Direct integration with AV and facilities vendors (Seneca Group, Perkins Will, and equivalents)</li><li>Equipment specification and procurement consultation</li><li>Architectural and spatial constraint resolution (ceiling heights, sightlines, ambient light)</li><li>Network topology, file format, and playback spec alignment</li><li>Early-stage technical alignment (concurrent with Discovery)</li></ul></div>
+  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5.5-3.8 10-8 12-4.2-2-8-6.5-8-12V6l8-4z"/><polyline points="8,12 11,15 16,9"/></svg></div><h3>QA, Commissioning &amp; Handoff</h3><ul><li>Functional testing of sensor triggers, state changes, and edge cases</li><li>Cross-surface visual and audio review in context</li><li>On-site calibration (brightness, color, audio, sensor sensitivity)</li><li>Presenter training and content system walkthroughs</li><li>Full handoff documentation (asset library, update protocols, vendor contact map)</li><li>Defined 30-day post-launch support window</li></ul></div>
 </div>
 </section>
 
@@ -847,34 +902,25 @@ img{display:block;max-width:100%}
 <div class="tier-grid" id="tier-grid">
   <div class="tier-card fade-in" data-tier="micro">
     <div class="tier-card-header">
-      <div class="tier-dots"><div class="tier-dot filled"></div><div class="tier-dot"></div><div class="tier-dot"></div><div class="tier-dot"></div></div>
+      <div class="tier-dots"><div class="tier-dot filled"></div><div class="tier-dot"></div><div class="tier-dot"></div></div>
       <h3>Micro</h3>
       <div class="tier-card-price">$250k</div>
       <div class="tier-card-oneliner">You're investing in world-class screens. Let's make sure what's on them lives up to the tech.</div>
       <span class="tier-card-cta">View details</span>
     </div>
   </div>
-  <div class="tier-card fade-in" data-tier="small">
-    <div class="tier-card-header">
-      <div class="tier-dots"><div class="tier-dot filled"></div><div class="tier-dot filled"></div><div class="tier-dot"></div><div class="tier-dot"></div></div>
-      <h3>Small</h3>
-      <div class="tier-card-price">$320k&ndash;$450k</div>
-      <div class="tier-card-oneliner">Ambient video content + evergreen static graphics.</div>
-      <span class="tier-card-cta">View details</span>
-    </div>
-  </div>
   <div class="tier-card fade-in" data-tier="medium">
     <div class="tier-card-header">
-      <div class="tier-dots"><div class="tier-dot filled"></div><div class="tier-dot filled"></div><div class="tier-dot filled"></div><div class="tier-dot"></div></div>
+      <div class="tier-dots"><div class="tier-dot filled"></div><div class="tier-dot filled"></div><div class="tier-dot"></div></div>
       <h3>Medium</h3>
       <div class="tier-card-price">$675k&ndash;$750k</div>
-      <div class="tier-card-oneliner">Everything in Small, plus sensor-driven content in the dome.</div>
+      <div class="tier-card-oneliner">Sensor-driven content in the dome, plus full ambient video suite.</div>
       <span class="tier-card-cta">View details</span>
     </div>
   </div>
   <div class="tier-card fade-in" data-tier="large">
     <div class="tier-card-header">
-      <div class="tier-dots"><div class="tier-dot filled"></div><div class="tier-dot filled"></div><div class="tier-dot filled"></div><div class="tier-dot filled"></div></div>
+      <div class="tier-dots"><div class="tier-dot filled"></div><div class="tier-dot filled"></div><div class="tier-dot filled"></div></div>
       <h3>Large</h3>
       <div class="tier-card-price">$1.15m&ndash;$1.5m</div>
       <div class="tier-card-oneliner">Everything in Medium, plus interactive content throughout the Experience Center floor and a visitor-personalized content system.</div>
@@ -940,26 +986,24 @@ img{display:block;max-width:100%}
 <!-- ============================================ -->
 <!-- 15. FOOTER                                   -->
 <!-- ============================================ -->
-<section class="section section-dark">
-  <div class="footer-closing">
-    <div class="footer-closing-rule"></div>
-    <div class="footer-closing-quote">The future is not built in laboratories alone.<br>It is built in the rooms where decisions are made.</div>
-    <p class="footer-closing-sub">We would be honored to build that room with you.</p>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <div class="footer-logos">
-    <img src="logos/futureman-logo.png" alt="Futureman" loading="lazy">
-    <img src="logos/24sa-logo.png" alt="24 Seven Agencies" loading="lazy">
-  </div>
-  <div class="footer-contact">
-    <p>Elliot Miller, Senior Director, 24 Seven Agency Partnerships:<a href="mailto:elliot.miller@sketchdeck.com">elliot.miller@sketchdeck.com</a></p>
-    <p>Tate Stafford, VP, Futureman:<a href="mailto:tate@futuremandigital.com">tate@futuremandigital.com</a></p>
+<footer class="site-footer-bright">
+  <div class="footer-bright-inner">
+    <div class="footer-closing-quote-bright">The future is not built in laboratories alone.<br>It is built in the rooms where decisions are made.</div>
+    <p class="footer-closing-sub-bright">We would be honored to build that room with you.</p>
+    <div class="footer-bright-rule"></div>
+    <div class="footer-bright-bottom">
+      <div class="footer-logos-bright">
+        <img src="logos/futureman-logo.png" alt="Futureman" loading="lazy">
+        <img src="logos/24sa-logo.png" alt="24 Seven Agencies" loading="lazy">
+      </div>
+      <div class="footer-contact-bright">
+        <p>Elliot Miller, Senior Director, 24 Seven Agency Partnerships: <a href="mailto:elliot.miller@sketchdeck.com">elliot.miller@sketchdeck.com</a></p>
+        <p>Tate Stafford, VP, Futureman: <a href="mailto:tate@futuremandigital.com">tate@futuremandigital.com</a></p>
+      </div>
+    </div>
+    <div class="footer-date-bright">April 2026 | Confidential</div>
   </div>
 </footer>
-
-<div class="footer-date">April 2026 | Confidential</div>
 
 <!-- ============================================ -->
 <!-- SCRIPTS                                      -->
@@ -1045,7 +1089,7 @@ document.querySelectorAll('[role="tablist"]').forEach(tablist=>{
 // ===== ZONE 3 SUB-NAV =====
 document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    const subnav = btn.closest('.zone-subnav');
+    const subnav = btn.closest('.tab-bar');
     subnav.querySelectorAll('.zone-subnav-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     const module = btn.closest('.zone-module');
@@ -1064,6 +1108,8 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
     btn.addEventListener('click',()=>{
       selectors.forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
+      const svg=btn.querySelector('svg');
+      if(svg){svg.classList.remove('pixelate-glitch');void svg.offsetWidth;svg.classList.add('pixelate-glitch');svg.addEventListener('animationend',()=>svg.classList.remove('pixelate-glitch'),{once:true})}
       zones.forEach(z=>z.classList.remove('active'));
       const zoneEl = document.getElementById(btn.dataset.zone);
       if(zoneEl) zoneEl.classList.add('active');
@@ -1076,7 +1122,7 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
   const phases=document.querySelectorAll('.phase-detail');
   const nodes=document.querySelectorAll('.process-node');
   const mobileLabel=document.getElementById('process-mobile-label');
-  const phaseNames=['Discovery','Content & Design','Production','QA & Review','Installation','Commissioning'];
+  const phaseNames=['Discovery','Content & Design','Production','QA & Review','Installation & Handoff'];
   const connectors=document.querySelectorAll('.process-connector');
   function updateProcessState(phaseNum){
     nodes.forEach(n=>n.classList.remove('active'));
@@ -1099,6 +1145,43 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
   })});
 })();
 
+// ===== CAPABILITY ICON SEQUENTIAL GLITCH =====
+(function(){
+  const icons=document.querySelectorAll('.cap-card-icon');
+  if(!icons.length) return;
+  let idx=0;let running=false;
+  function glitchNext(){
+    icons.forEach(i=>i.classList.remove('glitching'));
+    icons[idx].classList.add('glitching');
+    icons[idx].querySelector('svg').addEventListener('animationend',()=>{
+      icons[idx].classList.remove('glitching');
+      idx=(idx+1)%icons.length;
+      setTimeout(glitchNext,800);
+    },{once:true});
+  }
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting&&!running){running=true;setTimeout(glitchNext,500);obs.disconnect()}
+    });
+  },{threshold:0.2});
+  icons.forEach(i=>obs.observe(i));
+})();
+
+// ===== SECTION LABEL GLITCH =====
+(function(){
+  const labels=document.querySelectorAll('.section-label');
+  labels.forEach(l=>l.setAttribute('data-text',l.textContent));
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('glitch-active');
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.8});
+  labels.forEach(l=>obs.observe(l));
+})();
+
 // ===== TIER CARDS (full-width detail panel) =====
 (function(){
   const tierData = {
@@ -1106,12 +1189,6 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
       name:'Micro', price:'$250k',
       overview:'<p>IonQ is installing large-format displays regardless of what agency is selected. This tier is a focused content engagement built around that reality. Despite not including interactive systems, sensor integration, or dome experience, we\'ll display world-class passive content, developed to the quality standard IonQ\'s audience expects, ready to play from day one.</p><p>Futureman works from IonQ\'s existing sales materials, technical resources, and a compressed strategy session with Marketing to develop a core suite of screen-ready assets: one large-format ambient video for the 1st floor lobby LED and a supporting graphic asset suite scaled for 3rd floor screens. The visual language and asset architecture established here are built to be compatible with higher tiers, so if IonQ expands the experience down the road, nothing gets replaced. It gets built on.</p>',
       included:['Compressed content strategy and discovery session with IonQ Marketing','One large-format ambient hero video developed in custom CGI and 3D','Evergreen static graphic asset suite scaled for frames or wall displays','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leverage existing b-roll and AI-assisted production'],
-      notIncluded:['Full SME interview series','Interactive or sensor-driven content of any kind','Dome experience','Custom narrative framework workshop','On-site commissioning support','Additional video production beyond the hero piece']
-    },
-    small:{
-      name:'Small', price:'$320k&ndash;$450k',
-      overview:'<p>In this tier, we develop large-format video assets for the 1st floor lobby LED and 3rd floor screens, designed for ambient, looping playback that sustains repeated exposure without fatigue. Content developed in direct collaboration with IonQ technical SMEs and Marketing, translating quantum capabilities into education-first storytelling that works for a mixed-expertise audience, from PhDs to Members of Congress.</p><p>In addition to the core narrative video, this tier includes a suite of evergreen static graphic assets scaled for all available screen formats across the EBC, and a modular asset structure that enables IonQ to transfer select screen content to existing EBCs independently. Real-time camera-based processing (using TensorFlow or similar libraries) can be incorporated to allow visitor presence in the lobby to influence the LED content dynamically, adding a layer of responsiveness without the full sensor integration of higher tiers.</p><p>All content is custom developed using CGI and 3D. Footage-based elements leverage existing b-roll and AI-assisted production.</p>',
-      included:['Standard content strategy and discovery session with IonQ Marketing','One large-format ambient hero video developed in custom CGI and 3D','Evergreen static graphic asset suite scaled for frames or wall displays','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leverage existing b-roll and AI-assisted production'],
       notIncluded:['Full SME interview series','Interactive or sensor-driven content of any kind','Dome experience','Custom narrative framework workshop','On-site commissioning support','Additional video production beyond the hero piece']
     },
     medium:{
