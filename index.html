@@ -3,11 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IonQ EBC Proposal — Futureman × SketchDeck</title>
+<title>IonQ EBC Proposal | Futureman × SketchDeck</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+.access-gate{position:fixed;inset:0;z-index:9999;background:#151210;display:flex;align-items:center;justify-content:center;transition:opacity 0.5s,visibility 0.5s}
+.access-gate.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.access-gate-inner{text-align:center;max-width:400px;padding:24px}
+.access-logo{height:72px;margin-bottom:48px;filter:invert(1)}
+.access-label{display:block;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(240,230,214,0.5);margin-bottom:16px}
+.access-input{width:100%;max-width:320px;padding:16px 20px;background:rgba(240,230,214,0.05);border:2px solid #c4913e;border-radius:8px;color:#f0e6d6;font-family:'Inter',sans-serif;font-size:18px;letter-spacing:8px;text-align:center;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.access-input:focus{box-shadow:0 0 16px rgba(196,145,62,0.2)}
+.access-input.shake{animation:accessShake 0.4s ease}
+@keyframes accessShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.access-error{font-family:'Inter',sans-serif;font-size:13px;color:#c45a3e;margin-top:12px;min-height:20px}
+.access-note{font-family:'Inter',sans-serif;font-size:14px;color:rgba(240,230,214,0.35);margin-top:48px;line-height:1.6}
+.page-locked{overflow:hidden}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#1A1612;--bg-alt:#1E1A15;--bg-dark:#151210;
@@ -56,7 +68,7 @@ img{display:block;max-width:100%}
 /* ---- STICKY NAV ---- */
 #sticky-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;background:rgba(26,22,18,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(196,145,62,0.08);transform:translateY(-100%);transition:transform 0.35s ease;overflow-x:auto;-webkit-overflow-scrolling:touch}
 #sticky-nav.show{transform:translateY(0)}
-.nav-brand{display:flex;align-items:center;gap:8px;padding:0 20px 0 16px;flex-shrink:0;border-right:1px solid rgba(196,145,62,0.12);margin-right:8px;height:100%}
+.nav-brand{display:flex;align-items:center;gap:8px;padding:4px 20px 0 28px;flex-shrink:0;border-right:1px solid rgba(196,145,62,0.12);margin-right:8px;height:100%}
 .nav-brand img{opacity:0.8;filter:brightness(1.5)}
 .nav-brand img:first-child{height:20px}
 .nav-brand img:last-child{height:32px}
@@ -113,7 +125,8 @@ img{display:block;max-width:100%}
 .three-col-card:nth-child(3) .card-icon svg{animation-delay:3s}
 
 /* ---- CALLOUT BLOCK ---- */
-.callout{max-width:800px;margin:0 auto;border-left:2px solid var(--accent);padding:32px 32px 32px 40px;background:rgba(196,145,62,0.04);border-radius:0 4px 4px 0}
+.callout{max-width:800px;margin:0 auto;border-left:3px solid var(--accent);padding:32px 32px 32px 40px;background:linear-gradient(135deg,rgba(196,145,62,0.06),rgba(196,145,62,0.02));border-radius:0 4px 4px 0;position:relative}
+.callout::before{content:'\2666';position:absolute;left:16px;top:28px;font-size:14px;color:var(--accent);opacity:0.5}
 .callout p{color:rgba(240,230,214,0.75);font-size:15px;line-height:1.8;margin-bottom:20px}
 .callout p:last-child{margin-bottom:0}
 
@@ -148,7 +161,7 @@ img{display:block;max-width:100%}
 .tab-btn[aria-selected="true"] .tier-chip{background:rgba(26,22,18,0.25);color:var(--bg)}
 @media(max-width:768px){.tab-bar{flex-direction:column}.tab-btn{justify-content:flex-start;text-align:left}}
 .tab-panel{display:none}
-.tab-panel.active{display:block;animation:tabReveal 0.3s ease}
+.tab-panel.active{display:block;animation:tabReveal 0.3s ease;border-left:2px solid rgba(196,145,62,0.2);padding-left:20px}
 @keyframes tabReveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .tab-panel h4{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:8px}
 .tab-panel .tier-label{display:inline-block;margin-bottom:16px}
@@ -157,6 +170,7 @@ img{display:block;max-width:100%}
 .zone3-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
 .zone3-gallery img{width:100%;border-radius:6px;border:1px solid rgba(196,145,62,0.12)}
 @media(max-width:600px){.zone3-gallery{grid-template-columns:1fr;gap:8px}}
+.tab-panel p+p{border-top:1px solid rgba(196,145,62,0.06);padding-top:14px}
 .tab-panel p:last-child{margin-bottom:0}
 
 /* Tab instruction hint */
@@ -206,7 +220,7 @@ img{display:block;max-width:100%}
 .process-mobile-label{display:none}
 @media(max-width:768px){.process-mobile-label{display:block}}
 .phase-list{list-style:none;padding:0;margin:0}
-.phase-list>li{margin-bottom:20px}
+.phase-list>li{margin-bottom:20px;background:rgba(196,145,62,0.03);border-radius:6px;padding:16px 20px;border:1px solid rgba(196,145,62,0.06)}
 .phase-list>li>strong{font-size:1rem;color:var(--fg)}
 .phase-sub{list-style:none;padding:0;margin:6px 0 0 24px}
 .phase-sub li{position:relative;padding-left:16px;font-size:0.92rem;color:var(--muted);line-height:1.6;margin-bottom:4px}
@@ -236,7 +250,8 @@ img{display:block;max-width:100%}
 /* ---- CAPABILITY CARDS ---- */
 .cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1000px;margin:0 auto}
 @media(max-width:768px){.cap-grid{grid-template-columns:1fr}}
-.cap-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:32px}
+.cap-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:32px;transition:border-color 0.3s,transform 0.3s}
+.cap-card:hover{border-color:rgba(196,145,62,0.3);transform:translateY(-2px)}
 .cap-card-icon{width:36px;height:36px;margin-bottom:14px}
 .cap-card-icon svg{width:36px;height:36px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(196,145,62,0.3))}
 .cap-card h3{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:14px;color:var(--text)}
@@ -297,7 +312,7 @@ img{display:block;max-width:100%}
 /* ---- PORTFOLIO ---- */
 .portfolio-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:900px;margin:0 auto}
 .portfolio-tile{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color 0.3s,transform 0.3s}
-.portfolio-tile:hover{border-color:rgba(196,145,62,0.3);transform:translateY(-2px)}
+.portfolio-tile:hover{border-color:rgba(196,145,62,0.3);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
 .portfolio-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative}
 .portfolio-thumb span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);position:relative;z-index:1}
 .portfolio-tile:nth-child(1) .portfolio-thumb{background:linear-gradient(135deg,rgba(196,145,62,0.12) 0%,rgba(26,22,18,0.95) 60%,rgba(139,94,52,0.08) 100%)}
@@ -314,11 +329,18 @@ img{display:block;max-width:100%}
 @keyframes lightboxIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
 .lightbox-close{position:absolute;top:16px;right:16px;width:32px;height:32px;background:rgba(0,0,0,0.5);border:1px solid rgba(196,145,62,0.3);border-radius:3px;color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10}
 .lightbox-close:hover{color:var(--accent);border-color:var(--accent)}
-.lightbox-carousel{position:relative;width:100%;height:360px;overflow:hidden;background:#111}
+.lightbox-carousel{position:relative;width:100%;height:360px;overflow:hidden;background:var(--bg)}
 .carousel-track{display:flex;height:100%;gap:12px;padding:0 12px}
 .carousel-slide{height:100%;flex-shrink:0}
 .carousel-slide img{height:100%;width:auto;display:block;border-radius:3px}
-.carousel-arrow,.carousel-dots{display:none}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.4);border:1px solid rgba(196,145,62,0.3);border-radius:3px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:5}
+.carousel-arrow:hover{border-color:var(--accent);background:rgba(0,0,0,0.6)}
+.carousel-arrow svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.carousel-prev{left:12px}
+.carousel-next{right:12px}
+.carousel-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(240,230,214,0.3);cursor:pointer;transition:all 0.2s;border:none}
+.carousel-dot.active{background:var(--accent)}
 .lightbox-body{padding:32px;max-width:800px;margin:0 auto}
 .lightbox-body h3{font-family:var(--serif);font-size:clamp(22px,3vw,28px);font-weight:400;margin-bottom:16px}
 .lightbox-body p{font-size:15px;color:rgba(240,230,214,0.7);line-height:1.8;margin-bottom:14px}
@@ -334,10 +356,12 @@ img{display:block;max-width:100%}
 .footer-bright-rule{width:60px;height:1px;background:#c4913e;margin:48px auto;opacity:0.5}
 .footer-parent-logo{display:flex;justify-content:center;margin-bottom:40px}
 .footer-parent-logo img{height:64px;filter:brightness(0.2)}
-.footer-sub-logos{display:flex;align-items:flex-end;justify-content:center;gap:64px;flex-wrap:wrap}
+.footer-sub-logos{display:flex;align-items:center;justify-content:center;gap:80px;flex-wrap:wrap}
 .footer-sub-logo{display:flex;flex-direction:column;align-items:center;gap:8px}
-.footer-sub-logo img{height:32px;filter:brightness(0.2)}
-.footer-sub-logo img.footer-logo-sketchdeck{height:48px}
+.footer-sub-logo img{filter:brightness(0.2)}
+.footer-sub-logo:nth-child(1) img{height:28px}
+.footer-sub-logo:nth-child(2) img{height:40px}
+.footer-sub-logo:nth-child(3) img{height:42px}
 .footer-sub-tagline{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#5a4e3e}
 .footer-contacts-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#8a7d6b;text-align:center;margin-bottom:20px}
 .footer-contact-bright{text-align:center}
@@ -374,9 +398,117 @@ img{display:block;max-width:100%}
   .tier-card{transition:none}
   @keyframes heroFade{from{opacity:1;transform:none}to{opacity:1;transform:none}}
 }
+
+/* ---- MOBILE OPTIMIZATIONS ---- */
+@media(max-width:480px){
+  /* Hero: tighten padding, ensure video containment */
+  .hero-content{padding:16px}
+  .hero-label{font-size:11px;letter-spacing:3px}
+  .hero-sub{font-size:14px}
+  .scroll-hint{bottom:20px}
+
+  /* Exec summary cards */
+  .exec-card{padding:20px 0}
+
+  /* Zone selectors: larger touch targets */
+  .zone-selector{padding:20px 16px;min-height:44px}
+
+  /* Zone modules */
+  .zone-module{padding:24px 16px;margin-top:32px}
+
+  /* Tab bars: min touch target */
+  .tab-btn{padding:14px 16px;min-height:44px;font-size:12px}
+
+  /* Portfolio: friendlier aspect ratio on narrow screens */
+  .portfolio-thumb{aspect-ratio:4/3}
+  .portfolio-tile-info{padding:16px}
+
+  /* Lightbox: near full-screen */
+  .lightbox-overlay{padding:8px}
+  .lightbox{max-height:95vh;border-radius:4px}
+  .lightbox-carousel{height:200px}
+  .lightbox-body{padding:20px 16px}
+  .lightbox-close{top:8px;right:8px;width:44px;height:44px;font-size:20px}
+  .lightbox-callout{padding:16px}
+
+  /* Footer: stack logos, center text */
+  .site-footer-bright{padding:48px 16px 32px}
+  .footer-sub-logos{flex-direction:column;gap:32px;align-items:center}
+  .footer-contact-bright p{font-size:14px}
+  .footer-parent-logo img{height:48px}
+
+  /* Process diagram: disable sticky to prevent overlap */
+  .process-diagram{position:relative;top:auto;flex-wrap:wrap;gap:4px}
+  .phase-detail{padding:32px 0;min-height:auto}
+
+  /* Tier cards: tighten padding */
+  .tier-card-header{padding:20px}
+  .tier-detail-inner{padding:20px}
+
+  /* Team grid */
+  .team-avatar{width:80px;height:80px}
+
+  /* Callout block */
+  .callout{padding:20px 20px 20px 24px}
+
+  /* Section headings */
+  .section-sub{font-size:14px;margin-bottom:32px}
+
+  /* General: prevent horizontal overflow */
+  .section{padding:48px 12px}
+
+  /* Z-pattern rows */
+  .z-row{gap:16px;margin-bottom:32px}
+
+  /* Tech scope cards */
+  .tech-scope-grid{padding:0 12px}
+  .tech-scope-card{padding:24px 20px}
+
+  /* Cap grid cards */
+  .cap-card{padding:24px}
+}
+
+/* Tablet and mobile shared improvements */
+@media(max-width:768px){
+  /* Lightbox */
+  .lightbox-overlay{padding:12px}
+  .lightbox-carousel{height:240px}
+  .lightbox-close{width:44px;height:44px;font-size:20px}
+
+  /* Footer logo stacking */
+  .footer-sub-logos{gap:32px}
+
+  /* Process sticky: disable to prevent overlap */
+  .process-diagram{position:relative;top:auto}
+  .phase-detail{min-height:auto}
+
+  /* Prevent horizontal overflow */
+  body{overflow-x:hidden}
+  .process-wrap{overflow:hidden}
+
+  /* Nav touch targets */
+  #sticky-nav a{padding:8px 10px;min-height:44px;display:inline-flex;align-items:center}
+
+  /* Zone module padding */
+  .zone-module{padding:28px 20px}
+
+  /* Tier detail */
+  .tier-detail-inner{padding:24px}
+}
 </style>
 </head>
 <body>
+<!-- ACCESS GATE -->
+<div class="access-gate" id="access-gate">
+  <div class="access-gate-inner">
+    <img src="logos/24sa-logo.png" alt="24 Seven Agencies" class="access-logo">
+    <label class="access-label" for="access-input">Enter Access Code</label>
+    <input type="password" id="access-input" class="access-input" autocomplete="off" autofocus>
+    <p class="access-error" id="access-error"></p>
+    <p class="access-note">Confidential proposal. Access restricted to authorized recipients.</p>
+  </div>
+</div>
+
 <svg style="position:absolute;width:0;height:0"><defs><filter id="pixelate"><feFlood x="2" y="2" height="1" width="1"/><feComposite width="6" height="6"/><feTile result="a"/><feComposite in="SourceGraphic" in2="a" operator="in"/><feMorphology operator="dilate" radius="3"/></filter></defs></svg>
 
 <!-- STICKY NAV -->
@@ -1041,6 +1173,29 @@ img{display:block;max-width:100%}
 <!-- SCRIPTS                                      -->
 <!-- ============================================ -->
 <script>
+// ===== ACCESS GATE =====
+(function(){
+  const CODE='9999';
+  const gate=document.getElementById('access-gate');
+  const input=document.getElementById('access-input');
+  const error=document.getElementById('access-error');
+  if(sessionStorage.getItem('ionq-access')==='granted'){
+    gate.classList.add('hidden');return;
+  }
+  document.body.classList.add('page-locked');
+  input.addEventListener('input',()=>{
+    if(input.value===CODE){
+      sessionStorage.setItem('ionq-access','granted');
+      gate.classList.add('hidden');
+      document.body.classList.remove('page-locked');
+    } else if(input.value.length>=4){
+      error.textContent='Invalid code';
+      input.classList.add('shake');
+      setTimeout(()=>{input.classList.remove('shake');input.value='';error.textContent=''},600);
+    }
+  });
+})();
+
 // ===== SCROLL HINT AUTO-FADE =====
 (function(){
   const hint = document.querySelector('.scroll-hint');
@@ -1268,6 +1423,10 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
   const nextBtn=document.getElementById('carousel-next');
   const closeBtn=overlay.querySelector('.lightbox-close');
   let scrollAnim=null;
+  let currentIdx=0;
+  let slideCount=0;
+  let scrollPos=0;
+  let resumeTimer=null;
 
   const projects={
     jaeger:{
@@ -1290,7 +1449,7 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
         'Futureman led the creative development of a fleet of interactive kiosks that put LifeWave\'s full product ecosystem at guests\' fingertips. Built with a custom responsive system, the kiosks deliver lightning-fast interactivity and the ability to instantly transform into any of 18 languages, reprogramming the entire experience based on who steps up to the screen.',
         'To extend the journey, the video and 3D teams engineered a hero "hyperspace tunnel" spanning three seamless OLED screens. Futureman curated two decades of archival footage, designed cinematic 3D environments, and crafted an immersive narrative moment composed of a multi-zone soundscape that shifts across four distinct environments within the Welcome Center. The result: a truly transportive world that envelops visitors in the LifeWave story the moment they arrive.'
       ],
-      callout:'This is the closest analog to the IonQ EBC in Futureman\'s portfolio. A permanent visitor center, built end-to-end: interactive kiosks, immersive environments, multi-zone content, dynamic sound design, and a visitor journey architected from first step to last. The production capability demonstrated here (custom interactive systems, large-format OLED content, spatial audio, multi-language support) maps directly to what IonQ\'s EBC requires. Different aesthetic, same production muscle.',
+      callout:'This is a direct analog to the IonQ EBC in Futureman\'s portfolio. A permanent visitor center, built end-to-end: interactive kiosks, immersive environments, multi-zone content, dynamic sound design, and a visitor journey architected from first step to last. The production capability demonstrated here (custom interactive systems, large-format OLED content, spatial audio, multi-language support) maps directly to what IonQ\'s EBC requires. Different aesthetic, same production muscle.',
       images:['portfolio/lifewave/experiencelarge2.jpeg','portfolio/lifewave/kiosk1.jpeg','portfolio/lifewave/kiosk2.jpeg','portfolio/lifewave/kiosk3.jpeg','portfolio/lifewave/kioskphoto.jpeg','portfolio/lifewave/largeexperienceimage.jpeg','portfolio/lifewave/lifewaveeventspace.jpeg','portfolio/lifewave/lifewavetablet1.jpg','portfolio/lifewave/lifewavetablet2.jpg','portfolio/lifewave/startreksmall2.jpeg','portfolio/lifewave/startrekvibes.jpeg']
     },
     unf:{
@@ -1305,14 +1464,30 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
     }
   };
 
+  function updateDots(){
+    dotsWrap.querySelectorAll('.carousel-dot').forEach((d,i)=>d.classList.toggle('active',i===currentIdx));
+  }
+
+  function jumpToSlide(idx){
+    stopAutoScroll();
+    currentIdx=idx;
+    const slides=track.querySelectorAll('.carousel-slide');
+    if(!slides[idx]) return;
+    scrollPos=slides[idx].offsetLeft-12;
+    track.style.transform='translateX(-'+scrollPos+'px)';
+    updateDots();
+    clearTimeout(resumeTimer);
+    resumeTimer=setTimeout(startAutoScroll,3000);
+  }
+
   function startAutoScroll(){
     if(scrollAnim) cancelAnimationFrame(scrollAnim);
     const carousel=document.getElementById('lightbox-carousel');
-    let scrollPos=0;
-    const speed=0.5;
+    const speed=1.5;
     function step(){
-      scrollPos+=speed;
       const maxScroll=track.scrollWidth-carousel.clientWidth;
+      if(maxScroll<=0) return;
+      scrollPos+=speed;
       if(scrollPos>=maxScroll) scrollPos=0;
       track.style.transform='translateX(-'+scrollPos+'px)';
       scrollAnim=requestAnimationFrame(step);
@@ -1324,22 +1499,39 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
     if(scrollAnim){cancelAnimationFrame(scrollAnim);scrollAnim=null}
   }
 
+  prevBtn.addEventListener('click',()=>jumpToSlide((currentIdx-1+slideCount)%slideCount));
+  nextBtn.addEventListener('click',()=>jumpToSlide((currentIdx+1)%slideCount));
+
   function openLightbox(key){
     const proj=projects[key];
     titleEl.textContent=proj.title;
     contentEl.innerHTML=proj.body.map(p=>'<p>'+p+'</p>').join('');
     calloutText.textContent=proj.callout;
     track.innerHTML='';
-    proj.images.forEach(src=>{
+    dotsWrap.innerHTML='';
+    proj.images.forEach((src,i)=>{
       const slide=document.createElement('div');
       slide.className='carousel-slide';
-      slide.innerHTML='<img src="'+src+'" alt="">';
+      slide.innerHTML='<img src="'+src+'" alt="'+proj.title+' image '+(i+1)+'">';
       track.appendChild(slide);
+      const dot=document.createElement('button');
+      dot.className='carousel-dot'+(i===0?' active':'');
+      dot.addEventListener('click',()=>jumpToSlide(i));
+      dotsWrap.appendChild(dot);
     });
+    slideCount=proj.images.length;
+    currentIdx=0;
+    scrollPos=0;
     track.style.transform='translateX(0)';
+    prevBtn.style.display=slideCount>1?'flex':'none';
+    nextBtn.style.display=slideCount>1?'flex':'none';
+    dotsWrap.style.display=slideCount>1?'flex':'none';
     overlay.classList.add('open');
     document.body.style.overflow='hidden';
     setTimeout(startAutoScroll,500);
+    const carouselEl=document.getElementById('lightbox-carousel');
+    carouselEl.addEventListener('mouseenter',()=>{stopAutoScroll();clearTimeout(resumeTimer)});
+    carouselEl.addEventListener('mouseleave',()=>startAutoScroll());
   }
 
   document.querySelectorAll('.portfolio-tile').forEach(tile=>{
