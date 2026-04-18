@@ -239,16 +239,14 @@ img{display:block;max-width:100%}
 .cap-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:32px}
 .cap-card-icon{width:36px;height:36px;margin-bottom:14px}
 .cap-card-icon svg{width:36px;height:36px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(196,145,62,0.3))}
-.cap-card-icon.glitching svg{animation:capIconGlitch 0.5s step-end forwards}
-@keyframes capIconGlitch{0%{transform:translate(0,0);filter:drop-shadow(0 0 4px rgba(196,145,62,0.3))}12%{transform:translate(3px,-2px);filter:url(#pixelate) drop-shadow(0 0 8px rgba(196,145,62,0.6))}25%{transform:translate(-2px,3px);filter:url(#pixelate) drop-shadow(0 0 8px rgba(196,145,62,0.6))}37%{transform:translate(2px,1px);filter:url(#pixelate)}50%{transform:translate(-3px,-1px);filter:url(#pixelate) drop-shadow(0 0 12px rgba(196,145,62,0.8))}62%{transform:translate(1px,2px);filter:url(#pixelate)}75%{transform:translate(-1px,0);filter:drop-shadow(0 0 6px rgba(196,145,62,0.5))}100%{transform:translate(0,0);filter:drop-shadow(0 0 4px rgba(196,145,62,0.3))}}
 .cap-card h3{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:14px;color:var(--text)}
 .cap-card ul{list-style:none;padding:0}
 .cap-card li{font-size:14px;color:rgba(240,230,214,0.7);line-height:1.7;padding-left:16px;position:relative;margin-bottom:6px}
 .cap-card li::before{content:'';position:absolute;left:0;top:9px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
 
 /* ---- TIER CARDS ---- */
-.tier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto}
-@media(max-width:1024px){.tier-grid{grid-template-columns:repeat(2,1fr)}}
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:960px;margin:0 auto}
+@media(max-width:900px){.tier-grid{grid-template-columns:1fr}}
 @media(max-width:600px){.tier-grid{grid-template-columns:1fr}}
 .tier-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s;cursor:pointer}
 .tier-card:hover{border-color:rgba(196,145,62,0.3);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
@@ -266,9 +264,9 @@ img{display:block;max-width:100%}
 /* Tier detail panel (full-width below cards) */
 .tier-detail{max-width:1100px;margin:24px auto 0;max-height:0;overflow:hidden;transition:max-height 0.4s ease,opacity 0.3s ease;opacity:0}
 .tier-detail.open{max-height:3000px;opacity:1}
-.tier-detail-inner{background:var(--card-bg);border:1px solid var(--accent);border-radius:6px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
-@media(max-width:768px){.tier-detail-inner{grid-template-columns:1fr;padding:28px;gap:24px}}
-.tier-detail-header{grid-column:1/-1;border-bottom:1px solid var(--card-border);padding-bottom:20px;margin-bottom:0}
+.tier-detail-inner{background:var(--card-bg);border:1px solid var(--accent);border-radius:6px;padding:40px;display:flex;flex-direction:column;gap:24px}
+@media(max-width:768px){.tier-detail-inner{padding:28px;gap:20px}}
+.tier-detail-header{border-bottom:1px solid var(--card-border);padding-bottom:20px;margin-bottom:0}
 .tier-detail-header h3{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:4px}
 .tier-detail-header .tier-card-price{font-size:16px}
 .tier-detail-inner h4{font-family:var(--serif);font-size:18px;font-weight:400;margin-bottom:12px;color:var(--text)}
@@ -277,7 +275,7 @@ img{display:block;max-width:100%}
 .tier-detail-inner li{font-size:13px;color:rgba(240,230,214,0.7);line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
 .tier-detail-inner li::before{content:'';position:absolute;left:0;top:9px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
 .tier-detail-inner .not-included li::before{background:var(--muted)}
-.not-included-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:20px}
+.not-included-label{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--text);margin-bottom:12px;margin-top:24px;text-transform:none;letter-spacing:0}
 
 /* ---- TEAM CARDS ---- */
 .team-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;max-width:1100px;margin:0 auto}
@@ -285,18 +283,22 @@ img{display:block;max-width:100%}
 @media(max-width:768px){.team-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.team-grid{grid-template-columns:1fr}}
 .team-card{text-align:center}
-.team-avatar{width:100px;height:100px;border-radius:50%;background:rgba(196,145,62,0.1);border:1px solid var(--card-border);margin:0 auto 16px;display:flex;align-items:center;justify-content:center}
+.team-avatar{width:100px;height:100px;border-radius:50%;background:rgba(196,145,62,0.1);border:1px solid var(--card-border);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.team-avatar img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
 .team-avatar svg{width:40px;height:40px;stroke:var(--muted);fill:none;stroke-width:1}
 .team-card h3{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:4px}
 .team-card .team-role{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
 .team-card .team-bio{font-size:14px;color:var(--muted);line-height:1.6;font-style:italic}
+.team-card-accent{background:rgba(196,145,62,0.1);border:1px solid rgba(196,145,62,0.25);border-radius:6px;display:flex;align-items:center;justify-content:center;min-height:220px}
+.team-accent-content{display:flex;flex-direction:column;align-items:center;gap:8px;padding:32px 20px}
+.team-accent-number{font-family:var(--serif);font-size:48px;font-weight:300;color:var(--accent);line-height:1}
+.team-accent-text{font-size:14px;color:rgba(240,230,214,0.7);text-align:center;line-height:1.5}
 
 /* ---- PORTFOLIO ---- */
-.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto}
-@media(max-width:768px){.portfolio-grid{grid-template-columns:1fr}}
+.portfolio-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:900px;margin:0 auto}
 .portfolio-tile{background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color 0.3s,transform 0.3s}
 .portfolio-tile:hover{border-color:rgba(196,145,62,0.3);transform:translateY(-2px)}
-.portfolio-thumb{width:100%;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;position:relative}
+.portfolio-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative}
 .portfolio-thumb span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);position:relative;z-index:1}
 .portfolio-tile:nth-child(1) .portfolio-thumb{background:linear-gradient(135deg,rgba(196,145,62,0.12) 0%,rgba(26,22,18,0.95) 60%,rgba(139,94,52,0.08) 100%)}
 .portfolio-tile:nth-child(2) .portfolio-thumb{background:linear-gradient(135deg,rgba(139,94,52,0.1) 0%,rgba(21,18,16,0.95) 50%,rgba(196,145,62,0.1) 100%)}
@@ -308,14 +310,21 @@ img{display:block;max-width:100%}
 /* Lightbox */
 .lightbox-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;padding:24px}
 .lightbox-overlay.open{display:flex}
-.lightbox{background:var(--bg);border:1px solid var(--card-border);border-radius:6px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
-.lightbox-close{position:absolute;top:16px;right:16px;width:32px;height:32px;background:none;border:1px solid rgba(196,145,62,0.3);border-radius:3px;color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:1}
+.lightbox{background:var(--bg);border:1px solid var(--card-border);border-radius:6px;max-width:800px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:lightboxIn 0.3s ease}
+@keyframes lightboxIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+.lightbox-close{position:absolute;top:16px;right:16px;width:32px;height:32px;background:rgba(0,0,0,0.5);border:1px solid rgba(196,145,62,0.3);border-radius:3px;color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10}
 .lightbox-close:hover{color:var(--accent);border-color:var(--accent)}
-.lightbox-media{width:100%;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center}
-.lightbox-media span{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-.lightbox-body{padding:28px}
-.lightbox-body h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:12px}
-.lightbox-body p{font-size:15px;color:rgba(240,230,214,0.7);line-height:1.7}
+.lightbox-carousel{position:relative;width:100%;height:360px;overflow:hidden;background:#111}
+.carousel-track{display:flex;height:100%;gap:12px;padding:0 12px}
+.carousel-slide{height:100%;flex-shrink:0}
+.carousel-slide img{height:100%;width:auto;display:block;border-radius:3px}
+.carousel-arrow,.carousel-dots{display:none}
+.lightbox-body{padding:32px;max-width:800px;margin:0 auto}
+.lightbox-body h3{font-family:var(--serif);font-size:clamp(22px,3vw,28px);font-weight:400;margin-bottom:16px}
+.lightbox-body p{font-size:15px;color:rgba(240,230,214,0.7);line-height:1.8;margin-bottom:14px}
+.lightbox-callout{border-left:2px solid var(--accent);background:rgba(196,145,62,0.04);padding:20px 24px;margin-top:24px;border-radius:0 4px 4px 0}
+.lightbox-callout-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;font-weight:600}
+.lightbox-callout p{margin-bottom:0}
 
 /* ---- FOOTER ---- */
 .site-footer-bright{background:#f0e6d6;padding:80px 24px 48px}
@@ -323,16 +332,18 @@ img{display:block;max-width:100%}
 .footer-closing-quote-bright{font-family:var(--serif);font-size:clamp(24px,3.5vw,36px);font-weight:300;font-style:italic;line-height:1.3;margin-bottom:20px;color:#1a1612}
 .footer-closing-sub-bright{font-size:16px;color:#5a4e3e;margin-bottom:0}
 .footer-bright-rule{width:60px;height:1px;background:#c4913e;margin:48px auto;opacity:0.5}
-.footer-bright-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px}
-.footer-logos-bright{display:flex;align-items:center;gap:48px}
-.footer-logos-bright img{opacity:0.8;filter:brightness(0.3)}
-.footer-logos-bright img:first-child{height:36px}
-.footer-logos-bright img:last-child{height:52px}
-.footer-contact-bright{text-align:right}
-@media(max-width:768px){.footer-contact-bright{text-align:left}}
-.footer-contact-bright p{font-size:13px;color:#5a4e3e;line-height:1.8}
-.footer-contact-bright a{color:#8b6914;text-decoration:none}
-.footer-contact-bright a:hover{text-decoration:underline}
+.footer-parent-logo{display:flex;justify-content:center;margin-bottom:40px}
+.footer-parent-logo img{height:64px;filter:brightness(0.2)}
+.footer-sub-logos{display:flex;align-items:flex-end;justify-content:center;gap:64px;flex-wrap:wrap}
+.footer-sub-logo{display:flex;flex-direction:column;align-items:center;gap:8px}
+.footer-sub-logo img{height:32px;filter:brightness(0.2)}
+.footer-sub-logo img.footer-logo-sketchdeck{height:48px}
+.footer-sub-tagline{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#5a4e3e}
+.footer-contacts-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#8a7d6b;text-align:center;margin-bottom:20px}
+.footer-contact-bright{text-align:center}
+.footer-contact-bright p{font-size:15px;color:#3a3228;line-height:2}
+.footer-contact-bright a{color:#3a3228;text-decoration:underline;text-decoration-color:rgba(58,50,40,0.3)}
+.footer-contact-bright a:hover{text-decoration-color:#3a3228}
 .footer-date-bright{text-align:center;padding-top:40px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#8a7d6b}
 
 /* ---- TWO-COL TEXT ---- */
@@ -480,7 +491,9 @@ img{display:block;max-width:100%}
 
 <div style="height:48px"></div>
 
+<div style="max-width:900px;margin:0 auto">
 <div class="tab-hint fade-in"><svg viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg> Select a zone</div>
+</div>
 <div class="zone-selectors fade-in">
   <button class="zone-selector" data-zone="zone-1">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="12" rx="1"/><line x1="3" y1="18" x2="21" y2="18"/><line x1="8" y1="15" x2="8" y2="18"/><line x1="16" y1="15" x2="16" y2="18"/></svg>
@@ -900,11 +913,11 @@ img{display:block;max-width:100%}
 </div>
 <div style="height:40px"></div>
 <div class="tier-grid" id="tier-grid">
-  <div class="tier-card fade-in" data-tier="micro">
+  <div class="tier-card fade-in" data-tier="small">
     <div class="tier-card-header">
       <div class="tier-dots"><div class="tier-dot filled"></div><div class="tier-dot"></div><div class="tier-dot"></div></div>
-      <h3>Micro</h3>
-      <div class="tier-card-price">$250k</div>
+      <h3>Small</h3>
+      <div class="tier-card-price">$275k</div>
       <div class="tier-card-oneliner">You're investing in world-class screens. Let's make sure what's on them lives up to the tech.</div>
       <span class="tier-card-cta">View details</span>
     </div>
@@ -946,9 +959,9 @@ img{display:block;max-width:100%}
 </div>
 <div style="height:40px"></div>
 <div class="portfolio-grid">
-  <div class="portfolio-tile fade-in" data-lightbox="1"><div class="portfolio-thumb"><span>Media TBD</span></div><div class="portfolio-tile-info"><h3>Immersive Brand Experience</h3><p>Large-format CGI content and interactive environment for a Fortune 500 headquarters visitor center.</p></div></div>
-  <div class="portfolio-tile fade-in" data-lightbox="2"><div class="portfolio-thumb"><span>Media TBD</span></div><div class="portfolio-tile-info"><h3>Experiential Technology Showcase</h3><p>Sensor-driven dome installation and motion content for a national science and technology client.</p></div></div>
-  <div class="portfolio-tile fade-in" data-lightbox="3"><div class="portfolio-thumb"><span>Media TBD</span></div><div class="portfolio-tile-info"><h3>Executive Briefing Center</h3><p>End-to-end content production, AV coordination, and commissioning for a technology company EBC.</p></div></div>
+  <div class="portfolio-tile fade-in" data-lightbox="jaeger"><div class="portfolio-thumb" style="background:url('portfolio/jaeger-lecoultre/jaeger-1.png') center/cover"><span></span></div><div class="portfolio-tile-info"><h3>Jaeger-LeCoultre</h3><p>Immersive pop-up experience bringing 190 years of watchmaking to life in Manhattan.</p></div></div>
+  <div class="portfolio-tile fade-in" data-lightbox="lifewave"><div class="portfolio-thumb" style="background:url('portfolio/lifewave/lifewaveeventspace.jpeg') center/cover"><span></span></div><div class="portfolio-tile-info"><h3>LifeWave</h3><p>$5MM Welcome Center with interactive kiosks, immersive OLED environments, and a full visitor journey.</p></div></div>
+  <div class="portfolio-tile fade-in" data-lightbox="unf"><div class="portfolio-thumb" style="background:url('portfolio/united nations/undesktop.jpeg') center/cover"><span></span></div><div class="portfolio-tile-info"><h3>United Nations Foundation</h3><p>A decade-long digital partnership evolving the brand and platform for a global institution.</p></div></div>
 </div>
 </section>
 
@@ -963,11 +976,11 @@ img{display:block;max-width:100%}
 </div>
 <div style="height:40px"></div>
 <div class="team-grid">
-  <div class="team-card fade-in"><div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div><h3>Tate Stafford</h3><div class="team-role">VP &amp; Creative Director, Futureman</div><div class="team-bio">Leads creative vision and narrative development for immersive brand experiences. Over a decade of work in CGI, motion, and experiential content for Fortune 500 and government clients.</div></div>
-  <div class="team-card fade-in"><div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div><h3>Derek <span style="color:var(--muted)">[TBD]</span></h3><div class="team-role">Executive Producer, Futureman</div><div class="team-bio">Manages production timelines, vendor coordination, and client delivery from Discovery through Commissioning. Ensures every phase hits its gates on time and on spec.</div></div>
-  <div class="team-card fade-in"><div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div><h3>Conrad <span style="color:var(--muted)">[TBD]</span></h3><div class="team-role">CTO, Futureman</div><div class="team-bio">Oversees interactive systems architecture, sensor integration, and content delivery infrastructure. The technical lead ensuring the creative vision is buildable and maintainable.</div></div>
-  <div class="team-card fade-in"><div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div><h3>Elliot Miller</h3><div class="team-role">Senior Director, 24 Seven Agency Partnerships (SketchDeck)</div><div class="team-bio">Manages the agency partnership and client relationship for this engagement. The primary point of contact between IonQ's team and the Futureman production floor.</div></div>
-  <div class="team-card fade-in"><div class="team-avatar"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M8 36c0-8 5-13 12-13s12 5 12 13"/></svg></div><h3><span style="color:var(--muted)">[Name TBD]</span></h3><div class="team-role"><span style="color:var(--muted)">[Role TBD]</span>, Futureman</div><div class="team-bio">Bio TBD. Placeholder for fifth team member.</div></div>
+  <div class="team-card fade-in"><div class="team-avatar"><img src="headshots/tate.jpeg" alt="Tate Stafford"></div><h3>Tate Stafford</h3><div class="team-role">VP &amp; Creative Director, Futureman</div><div class="team-bio">Leads creative vision and narrative development for immersive brand experiences. Over a decade of work in CGI, motion, and experiential content for Fortune 500 and government clients.</div></div>
+  <div class="team-card fade-in"><div class="team-avatar"><img src="headshots/derek.jpeg" alt="Derek Kornhiser"></div><h3>Derek Kornhiser</h3><div class="team-role">Executive Producer, Futureman</div><div class="team-bio">Manages production timelines, vendor coordination, and client delivery from Discovery through Commissioning. Ensures every phase hits its gates on time and on spec.</div></div>
+  <div class="team-card fade-in"><div class="team-avatar"><img src="headshots/conrad.jpeg" alt="Conrad Fuhrman"></div><h3>Conrad Fuhrman</h3><div class="team-role">CTO, Futureman</div><div class="team-bio">Oversees interactive systems architecture, sensor integration, and content delivery infrastructure. The technical lead ensuring the creative vision is buildable and maintainable.</div></div>
+  <div class="team-card fade-in"><div class="team-avatar"><img src="headshots/elliot.jpeg" alt="Elliot Miller"></div><h3>Elliot Miller</h3><div class="team-role">24 Seven Agencies x IonQ Partnership Director</div><div class="team-bio">Manages the agency partnership and client relationship for this engagement. Works across 24 Seven to strategize and solve problems for IonQ.</div></div>
+  <div class="team-card team-card-accent fade-in"><div class="team-accent-content"><span class="team-accent-number">200+</span><span class="team-accent-text">creatives and marketers on-call</span></div></div>
 </div>
 </section>
 
@@ -975,10 +988,19 @@ img{display:block;max-width:100%}
 <div class="lightbox-overlay" id="lightbox">
   <div class="lightbox">
     <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
-    <div class="lightbox-media"><span>Media Carousel TBD</span></div>
+    <div class="lightbox-carousel" id="lightbox-carousel">
+      <div class="carousel-track" id="carousel-track"></div>
+      <button class="carousel-arrow carousel-prev" id="carousel-prev"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
+      <button class="carousel-arrow carousel-next" id="carousel-next"><svg viewBox="0 0 24 24"><polyline points="9,6 15,12 9,18"/></svg></button>
+      <div class="carousel-dots" id="carousel-dots"></div>
+    </div>
     <div class="lightbox-body">
-      <h3 id="lightbox-title">Project</h3>
-      <p id="lightbox-desc">Placeholder project description. Media and story content to be delivered.</p>
+      <h3 id="lightbox-title"></h3>
+      <div id="lightbox-content"></div>
+      <div class="lightbox-callout" id="lightbox-callout">
+        <div class="lightbox-callout-label">Why this matters for IonQ</div>
+        <p id="lightbox-callout-text"></p>
+      </div>
     </div>
   </div>
 </div>
@@ -991,15 +1013,25 @@ img{display:block;max-width:100%}
     <div class="footer-closing-quote-bright">The future is not built in laboratories alone.<br>It is built in the rooms where decisions are made.</div>
     <p class="footer-closing-sub-bright">We would be honored to build that room with you.</p>
     <div class="footer-bright-rule"></div>
-    <div class="footer-bright-bottom">
-      <div class="footer-logos-bright">
+    <div class="footer-parent-logo">
+      <img src="logos/24sa-logo.png" alt="24 Seven Agencies" loading="lazy">
+    </div>
+    <div class="footer-sub-logos">
+      <div class="footer-sub-logo">
         <img src="logos/futureman-logo.png" alt="Futureman" loading="lazy">
-        <img src="logos/24sa-logo.png" alt="24 Seven Agencies" loading="lazy">
       </div>
-      <div class="footer-contact-bright">
-        <p>Elliot Miller, Senior Director, 24 Seven Agency Partnerships: <a href="mailto:elliot.miller@sketchdeck.com">elliot.miller@sketchdeck.com</a></p>
-        <p>Tate Stafford, VP, Futureman: <a href="mailto:tate@futuremandigital.com">tate@futuremandigital.com</a></p>
+      <div class="footer-sub-logo">
+        <img src="logos/sketchdeck.png" alt="SketchDeck" loading="lazy" class="footer-logo-sketchdeck">
       </div>
+      <div class="footer-sub-logo">
+        <img src="logos/markacy-logo.webp" alt="Markacy" loading="lazy">
+      </div>
+    </div>
+    <div class="footer-bright-rule"></div>
+    <div class="footer-contacts-label">Contacts</div>
+    <div class="footer-contact-bright">
+      <p>Elliot Miller, 24 Seven Agencies x IonQ Partnership Director, <a href="mailto:elliot.miller@sketchdeck.com">elliot.miller@sketchdeck.com</a></p>
+      <p>Tate Stafford, VP, Futureman, <a href="mailto:tate@futuremandigital.com">tate@futuremandigital.com</a></p>
     </div>
     <div class="footer-date-bright">April 2026 | Confidential</div>
   </div>
@@ -1145,28 +1177,6 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
   })});
 })();
 
-// ===== CAPABILITY ICON SEQUENTIAL GLITCH =====
-(function(){
-  const icons=document.querySelectorAll('.cap-card-icon');
-  if(!icons.length) return;
-  let idx=0;let running=false;
-  function glitchNext(){
-    icons.forEach(i=>i.classList.remove('glitching'));
-    icons[idx].classList.add('glitching');
-    icons[idx].querySelector('svg').addEventListener('animationend',()=>{
-      icons[idx].classList.remove('glitching');
-      idx=(idx+1)%icons.length;
-      setTimeout(glitchNext,800);
-    },{once:true});
-  }
-  const obs=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting&&!running){running=true;setTimeout(glitchNext,500);obs.disconnect()}
-    });
-  },{threshold:0.2});
-  icons.forEach(i=>obs.observe(i));
-})();
-
 // ===== SECTION LABEL GLITCH =====
 (function(){
   const labels=document.querySelectorAll('.section-label');
@@ -1185,8 +1195,8 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
 // ===== TIER CARDS (full-width detail panel) =====
 (function(){
   const tierData = {
-    micro:{
-      name:'Micro', price:'$250k',
+    small:{
+      name:'Small', price:'$275k',
       overview:'<p>IonQ is installing large-format displays regardless of what agency is selected. This tier is a focused content engagement built around that reality. Despite not including interactive systems, sensor integration, or dome experience, we\'ll display world-class passive content, developed to the quality standard IonQ\'s audience expects, ready to play from day one.</p><p>Futureman works from IonQ\'s existing sales materials, technical resources, and a compressed strategy session with Marketing to develop a core suite of screen-ready assets: one large-format ambient video for the 1st floor lobby LED and a supporting graphic asset suite scaled for 3rd floor screens. The visual language and asset architecture established here are built to be compatible with higher tiers, so if IonQ expands the experience down the road, nothing gets replaced. It gets built on.</p>',
       included:['Compressed content strategy and discovery session with IonQ Marketing','One large-format ambient hero video developed in custom CGI and 3D','Evergreen static graphic asset suite scaled for frames or wall displays','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leverage existing b-roll and AI-assisted production'],
       notIncluded:['Full SME interview series','Interactive or sensor-driven content of any kind','Dome experience','Custom narrative framework workshop','On-site commissioning support','Additional video production beyond the hero piece']
@@ -1250,15 +1260,93 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
 (function(){
   const overlay=document.getElementById('lightbox');
   const titleEl=document.getElementById('lightbox-title');
-  const descEl=document.getElementById('lightbox-desc');
+  const contentEl=document.getElementById('lightbox-content');
+  const calloutText=document.getElementById('lightbox-callout-text');
+  const track=document.getElementById('carousel-track');
+  const dotsWrap=document.getElementById('carousel-dots');
+  const prevBtn=document.getElementById('carousel-prev');
+  const nextBtn=document.getElementById('carousel-next');
   const closeBtn=overlay.querySelector('.lightbox-close');
+  let scrollAnim=null;
+
   const projects={
-    '1':{title:'Immersive Brand Experience',desc:'Large-format CGI content and interactive environment for a Fortune 500 headquarters visitor center. Media and story content to be delivered.'},
-    '2':{title:'Experiential Technology Showcase',desc:'Sensor-driven dome installation and motion content for a national science and technology client. Media and story content to be delivered.'},
-    '3':{title:'Executive Briefing Center',desc:'End-to-end content production, AV coordination, and commissioning for a technology company EBC. Media and story content to be delivered.'}
+    jaeger:{
+      title:'An icon brought to life through an immersive pop-up experience in the heart of Manhattan',
+      body:[
+        'Jaeger-LeCoultre is one of the most storied names in haute horlogerie. When they set out to bring the legacy of the Reverso to New York City, they needed more than a pop-up. They needed a world.',
+        'Over the course of a 10-day activation at Hudson Yards\' Public Square & Gardens, Futureman designed and produced "Reverso Stories," an immersive, multi-chapter journey spanning nine decades of craftsmanship, innovation, and design. The experience guided visitors through four narrative chapters: Story of an Icon, Story of Style & Design, Story of Innovation, and Story of Craftsmanship. Each brought to life through rarely seen archive timepieces, contemporary high jewelery pieces, and live artisan demonstrations including the decorative craft of perlage, giving the public an intimate look at a process typically hidden behind Manufacture walls.',
+        'As part of Jaeger-LeCoultre\'s Made of Makers program, Futureman built a dedicated sensory environment for an exclusive collaboration with Scent Artist Nicolas Bonneville, featuring three bespoke fragrances and an interactive ingredient identification game. The activation also included a nomadic 1931 Cafe, a branded hospitality moment within the larger experience.',
+        'The activation served as the global stage for the launch of the limited-edition Reverso Tribute Chronograph, tying product storytelling directly to experiential design in a city whose Art Deco DNA mirrors the watch\'s own origins.',
+        'Free and open to the public with guided tours, "Reverso Stories" transformed a commercial plaza into a cultural destination proving that when heritage meets bold creative execution, the result isn\'t just a pop-up. It\'s a pilgrimage.'
+      ],
+      callout:'This project required translating a deeply technical craft (haute horlogerie) into an experience that resonated with audiences ranging from collectors to casual passersby. The same challenge IonQ faces: making complex, precise technology feel accessible and compelling to visitors who range from quantum PhDs to Members of Congress. The institutional, editorial quality of this activation is the aesthetic register IonQ is looking for.',
+      images:['portfolio/jaeger-lecoultre/jaeger-1.png','portfolio/jaeger-lecoultre/jaeger-2.png','portfolio/jaeger-lecoultre/jaeger-3.png','portfolio/jaeger-lecoultre/jaeger-4.png','portfolio/jaeger-lecoultre/jaeger-5.png']
+    },
+    lifewave:{
+      title:'Interactive kiosks, immersive OLED content, dynamic sound design, all programmed in 18 languages',
+      body:[
+        'LifeWave set out to build a $5MM Welcome Center anchored around a Starship-Enterprise-level experience. They didn\'t just need vendors. They needed a creative and production partner who could architect the full journey end-to-end. They brought in Futureman.',
+        'Over four months, Futureman worked shoulder-to-shoulder with LifeWave and Original Syndicate, concepting, designing, and engineering an integrated universe that would transport every visitor the moment they stepped inside.',
+        'Futureman led the creative development of a fleet of interactive kiosks that put LifeWave\'s full product ecosystem at guests\' fingertips. Built with a custom responsive system, the kiosks deliver lightning-fast interactivity and the ability to instantly transform into any of 18 languages, reprogramming the entire experience based on who steps up to the screen.',
+        'To extend the journey, the video and 3D teams engineered a hero "hyperspace tunnel" spanning three seamless OLED screens. Futureman curated two decades of archival footage, designed cinematic 3D environments, and crafted an immersive narrative moment composed of a multi-zone soundscape that shifts across four distinct environments within the Welcome Center. The result: a truly transportive world that envelops visitors in the LifeWave story the moment they arrive.'
+      ],
+      callout:'This is the closest analog to the IonQ EBC in Futureman\'s portfolio. A permanent visitor center, built end-to-end: interactive kiosks, immersive environments, multi-zone content, dynamic sound design, and a visitor journey architected from first step to last. The production capability demonstrated here (custom interactive systems, large-format OLED content, spatial audio, multi-language support) maps directly to what IonQ\'s EBC requires. Different aesthetic, same production muscle.',
+      images:['portfolio/lifewave/experiencelarge2.jpeg','portfolio/lifewave/kiosk1.jpeg','portfolio/lifewave/kiosk2.jpeg','portfolio/lifewave/kiosk3.jpeg','portfolio/lifewave/kioskphoto.jpeg','portfolio/lifewave/largeexperienceimage.jpeg','portfolio/lifewave/lifewaveeventspace.jpeg','portfolio/lifewave/lifewavetablet1.jpg','portfolio/lifewave/lifewavetablet2.jpg','portfolio/lifewave/startreksmall2.jpeg','portfolio/lifewave/startrekvibes.jpeg']
+    },
+    unf:{
+      title:'New style for a legacy organization',
+      body:[
+        'The United Nations Foundation originally connected with Futureman over a decade ago when they needed help launching their "Nothing but Net" Campaign. Futureman delivered, and then some. That engagement led to a full rebuild of UNF\'s corporate website, one that streamlined their mission and values and one that strategically architected their campaigns from their initiatives.',
+        'Through a robust discovery and planning phase, Futureman worked to evolve the brand and transform both audience and organizational perception. The team was able to uncover key inputs and insights that helped create an intuitive and sensible information architecture for what UNF does and what they care about. This, coupled with a new visual design and custom website backend, enabled the site to continue to stay fresh with breaking news and new content, and continues to provide their audiences with a simplified way to engage with the organization.',
+        'A decade in, Futureman continues to refine and grow UNF\'s digital presence, with another full refresh on the docket for 2026.'
+      ],
+      callout:'This relationship demonstrates two things IonQ should care about. First, Futureman\'s experience working with institutions whose audiences include heads of state, diplomats, and policy leaders, the same profile that will walk through IonQ\'s DC EBC. Second, the longevity: Futureman doesn\'t hand off and disappear. A decade of continuous partnership, evolving content as the organization evolves, is exactly the kind of relationship a content-forward EBC requires as IonQ\'s story, use cases, and audience continue to develop.',
+      images:['portfolio/united nations/desktop1.jpeg','portfolio/united nations/desktop3.jpeg','portfolio/united nations/desktop4.jpeg','portfolio/united nations/undesktop.jpeg','portfolio/united nations/unf-mobile-1.jpg','portfolio/united nations/unf-mobile-2.jpg','portfolio/united nations/unf-mobile-3.jpg','portfolio/united nations/unf-mobile-4.jpg','portfolio/united nations/unf-mobile-5.jpg','portfolio/united nations/unf-mobile-6.jpg']
+    }
   };
-  document.querySelectorAll('.portfolio-tile').forEach(tile=>{tile.addEventListener('click',()=>{const proj=projects[tile.dataset.lightbox];titleEl.textContent=proj.title;descEl.textContent=proj.desc;overlay.classList.add('open');document.body.style.overflow='hidden'})});
-  function closeLightbox(){overlay.classList.remove('open');document.body.style.overflow=''}
+
+  function startAutoScroll(){
+    if(scrollAnim) cancelAnimationFrame(scrollAnim);
+    const carousel=document.getElementById('lightbox-carousel');
+    let scrollPos=0;
+    const speed=0.5;
+    function step(){
+      scrollPos+=speed;
+      const maxScroll=track.scrollWidth-carousel.clientWidth;
+      if(scrollPos>=maxScroll) scrollPos=0;
+      track.style.transform='translateX(-'+scrollPos+'px)';
+      scrollAnim=requestAnimationFrame(step);
+    }
+    scrollAnim=requestAnimationFrame(step);
+  }
+
+  function stopAutoScroll(){
+    if(scrollAnim){cancelAnimationFrame(scrollAnim);scrollAnim=null}
+  }
+
+  function openLightbox(key){
+    const proj=projects[key];
+    titleEl.textContent=proj.title;
+    contentEl.innerHTML=proj.body.map(p=>'<p>'+p+'</p>').join('');
+    calloutText.textContent=proj.callout;
+    track.innerHTML='';
+    proj.images.forEach(src=>{
+      const slide=document.createElement('div');
+      slide.className='carousel-slide';
+      slide.innerHTML='<img src="'+src+'" alt="">';
+      track.appendChild(slide);
+    });
+    track.style.transform='translateX(0)';
+    overlay.classList.add('open');
+    document.body.style.overflow='hidden';
+    setTimeout(startAutoScroll,500);
+  }
+
+  document.querySelectorAll('.portfolio-tile').forEach(tile=>{
+    tile.addEventListener('click',()=>openLightbox(tile.dataset.lightbox));
+  });
+
+  function closeLightbox(){stopAutoScroll();overlay.classList.remove('open');document.body.style.overflow=''}
   closeBtn.addEventListener('click',closeLightbox);
   overlay.addEventListener('click',(e)=>{if(e.target===overlay) closeLightbox()});
   document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&overlay.classList.contains('open')) closeLightbox()});
