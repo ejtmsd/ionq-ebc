@@ -80,6 +80,9 @@ img{display:block;max-width:100%}
 #sticky-nav a::after{content:'';position:absolute;bottom:0;left:16px;right:16px;height:2px;background:linear-gradient(90deg,var(--copper),var(--accent));transform:scaleX(0);transition:transform 0.3s ease;transform-origin:left}
 #sticky-nav a.active::after{transform:scaleX(1)}
 @media(max-width:768px){#sticky-nav{padding:0}.nav-brand{padding:0 12px 0 10px;margin-right:4px}.nav-brand img{height:14px}#sticky-nav a{padding:0 10px;font-size:10px}}
+.nav-pdf-btn{padding:4px 12px;font-family:var(--sans);font-size:12px;letter-spacing:3px;text-transform:uppercase;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:3px;cursor:pointer;white-space:nowrap;transition:all 0.2s;text-decoration:none;margin-left:4px}
+.nav-pdf-btn:hover{background:var(--accent);color:var(--bg)}
+.nav-pdf-btn::after{display:none !important}
 
 /* ---- SECTIONS ---- */
 .section{padding:120px 24px;position:relative}
@@ -360,7 +363,7 @@ img{display:block;max-width:100%}
 .footer-sub-logo{display:flex;flex-direction:column;align-items:center;gap:8px}
 .footer-sub-logo img{filter:brightness(0.2)}
 .footer-sub-logo:nth-child(1) img{height:28px}
-.footer-sub-logo:nth-child(2) img{height:40px}
+.footer-sub-logo:nth-child(2) img{height:56px}
 .footer-sub-logo:nth-child(3) img{height:42px}
 .footer-sub-tagline{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#5a4e3e}
 .footer-contacts-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#8a7d6b;text-align:center;margin-bottom:20px}
@@ -495,6 +498,87 @@ img{display:block;max-width:100%}
   /* Tier detail */
   .tier-detail-inner{padding:24px}
 }
+
+/* ---- PRINT STYLESHEET ---- */
+@media print{
+  /* Hide interactive/non-print elements */
+  #sticky-nav,.access-gate,.scroll-hint,.tab-hint,.zone-selectors,.tab-bar,
+  .process-diagram,.process-mobile-label,.carousel-arrow,.carousel-dots,
+  .lightbox-overlay,.nav-pdf-btn,.card-icon,.hero-particles,video,
+  .zone-subnav-btn,#zone3-subnav,.tier-card-cta,button,.phase-heading-icon,
+  #pixelate-filter,.pixelate-svg{display:none!important}
+
+  /* Remove animations, transitions, transforms */
+  *{animation:none!important;transition:none!important;transform:none!important}
+
+  /* Base colors for white background */
+  body{background:#fff!important;color:#1a1612!important;font-size:11pt}
+  .section,.section-dark,.section-alt,.section-light,.section-grain,.section-ruled{
+    background:#fff!important;color:#1a1612!important;padding:40px 24px!important
+  }
+  h1,h2,h3,h4,h5,h6,.section-heading{color:#1a1612!important;font-size:28pt}
+  .section-label{color:#8b6914!important;letter-spacing:2px!important}
+  .accent,[class*="accent"]{color:#8b6914!important}
+  a{color:#8b6914!important;text-decoration:none!important}
+  p,.body-text,body{color:#333!important}
+  .muted,[class*="muted"]{color:#666!important}
+  .hero-label{color:#8b6914!important}
+  .hero-sub{color:#555!important}
+  .section-sub{color:#555!important}
+
+  /* Cards */
+  .three-col-card,.cap-card,.tier-card,.tech-scope-card,.team-card{
+    background:#f8f5f0!important;border:1px solid #e0d8cc!important;
+    break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact
+  }
+  .callout{border-left-color:#8b6914!important;background:#f8f5f0!important}
+  .phase-list>li{background:#f8f5f0!important;border-color:#e0d8cc!important;break-inside:avoid}
+  .phase-sub li::before{background:#8b6914!important}
+
+  /* Hero */
+  #hero,.hero{min-height:auto!important;padding:60px 24px!important}
+  .hero-bg,#hero-video,#hero-overlay{display:none!important}
+  .hero-title{color:#1a1612!important;text-shadow:none!important}
+  .hero-content{position:relative!important}
+  .hero-rule{background:#8b6914!important}
+
+  /* Remove sticky positioning */
+  *{position:static!important}
+  .hero-content,.section-inner,.section-wide{position:relative!important}
+
+  /* Grids: keep columns, avoid breaks */
+  .three-col-grid,.cap-grid,.tier-grid,.team-grid,.tech-scope-grid{
+    display:grid!important
+  }
+
+  /* Portfolio thumbnails */
+  .portfolio-thumb{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  /* Hide carousel in print */
+  .lightbox-carousel,.carousel-track{display:none!important}
+
+  /* Show ALL zone/tab content */
+  .zone-module{display:block!important}
+  .tab-panel{display:block!important}
+  .zone-subsection{display:block!important}
+  .tier-detail{display:none!important}
+
+  /* Footer */
+  .site-footer-bright{background:#f8f5f0!important}
+  .footer-parent-logo img,.footer-sub-logo img{filter:none!important}
+
+  /* Page breaks */
+  #concepts,#process,#tech-scope,#pricing,#portfolio,#team{page-break-before:always}
+  .three-col-card,.cap-card,.tier-card,.tech-scope-card,.team-card,
+  .callout,.phase-detail{break-inside:avoid}
+
+  /* Typography */
+  .section-heading{font-size:28pt!important}
+  .section-label{letter-spacing:2px!important}
+
+  /* Fade-in elements: make visible */
+  .fade-in{opacity:1!important}
+}
 </style>
 </head>
 <body>
@@ -525,6 +609,7 @@ img{display:block;max-width:100%}
 <a href="#pricing">Pricing</a>
 <a href="#portfolio">Portfolio</a>
 <a href="#team">Team</a>
+<a href="https://hello.sketchdeck.com/hubfs/IonQ-EBC-Proposal.pdf" target="_blank" rel="noopener" class="nav-pdf-btn">Download as PDF</a>
 </div>
 </nav>
 
