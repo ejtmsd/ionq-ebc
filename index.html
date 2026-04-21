@@ -354,12 +354,6 @@ img{display:block;max-width:100%}
 /* Zone 3 brief block */
 .zone-brief p{color:rgba(240,230,214,0.7);font-size:15px;line-height:1.8}
 
-/* Zone sub-nav */
-.zone-subnav-btn.active{background:var(--accent);color:var(--bg);box-shadow:0 2px 8px rgba(196,145,62,0.3)}
-.zone-subnav-btn.active .tier-chip{background:rgba(26,22,18,0.25);color:var(--bg)}
-.zone-subsection{display:none}
-.zone-subsection.active{display:block;animation:tabReveal 0.3s ease}
-
 /* ---- STANDALONE TABBED SECTION ---- */
 .tabbed-section{max-width:900px;margin:0 auto}
 .tabbed-section .section-tier{display:inline-block;margin-bottom:24px}
@@ -604,7 +598,6 @@ img{display:block;max-width:100%}
   .scroll-hint{animation:none}
   .scroll-hint i{animation:none}
   .tab-panel.active{animation:none}
-  .hotspot-pulse{animation:none}
   .process-connector::after{transition:none}
   #sticky-nav a::after{transition:none}
   .tier-card{transition:none}
@@ -754,8 +747,7 @@ img{display:block;max-width:100%}
   #sticky-nav,.access-gate,.scroll-hint,.tab-hint,.zone-selectors,.tab-bar,
   .process-diagram,.process-mobile-label,.carousel-arrow,.carousel-dots,
   .lightbox-overlay,.nav-pdf-btn,.card-icon,.hero-particles,video,
-  .zone-subnav-btn,#zone3-subnav,.tier-card-cta,button,.phase-heading-icon,
-  #pixelate-filter,.pixelate-svg{display:none!important}
+  .tier-card-cta,button,.phase-heading-icon{display:none!important}
 
   /* Remove animations, transitions, transforms */
   *{animation:none!important;transition:none!important;transform:none!important}
@@ -809,7 +801,6 @@ img{display:block;max-width:100%}
   /* Show ALL zone/tab content */
   .zone-module{display:block!important}
   .tab-panel{display:block!important}
-  .zone-subsection{display:block!important}
   .tier-detail{display:none!important}
 
   /* Footer */
@@ -903,7 +894,7 @@ img{display:block;max-width:100%}
     <p><strong>Who we are.</strong> Futureman is a creative and production studio built for spaces like this: CGI, 3D, motion, interactive systems, and AV integration under one roof. Partnered with SketchDeck (via 24 Seven Agencies) for this engagement.</p>
   </div>
   <div class="exec-card fade-in">
-    <p><strong>What we're proposing.</strong> Four tiers, $275k to $1.5m. Evergreen spine, swappable skin. Built to last, built to update.</p>
+    <p><strong>What we're proposing.</strong> Three tiers, $275k to $1.5m. Evergreen spine, swappable skin. Built to last, built to update.</p>
   </div>
 </div>
 </section>
@@ -1005,7 +996,7 @@ img{display:block;max-width:100%}
   </div>
   <div class="tab-panel active" role="tabpanel" id="z1-tab1" aria-labelledby="z1-btn1">
     <img src="concept images/Quantum Shadow Wall.png" alt="Quantum Shadow Wall concept" class="concept-img" loading="lazy">
-    <p>Imagine as visitors enter, cameras track their every move as they enter. Their silhouettes are captured, processed through a visual representation of a quantum algorithm, and transformed in real time on the LED wall. Their likeness becomes data, gets superposed, and collapses into something new. It's immediate, personal, and a conversation starter before anyone says a word. No explanation needed.</p>
+    <p>Imagine as visitors enter, cameras track their every move. Their silhouettes are captured, processed through a visual representation of a quantum algorithm, and transformed in real time on the LED wall. Their likeness becomes data, gets superposed, and collapses into something new. It's immediate, personal, and a conversation starter before anyone says a word. No explanation needed.</p>
     <p>At the Small tier, this is achievable through real-time camera processing using TensorFlow or similar video processing libraries. Visitor presence directly influences the content playing on the LED without the complexity of full sensor integration.</p>
   </div>
   <div class="tab-panel" role="tabpanel" id="z1-tab2" aria-labelledby="z1-btn2">
@@ -1115,7 +1106,7 @@ img{display:block;max-width:100%}
       <div class="signature-rule-vert"></div>
       <h2 class="signature-headline"><span class="sig-word">How</span> <span class="sig-word">IonQ</span> <span class="sig-word">Drives</span> <span class="sig-word">Home</span> <span class="sig-word">Undeniable</span> <span class="sig-word">Proof</span></h2>
       <p class="signature-subhead-primary">The Use Case Portal.</p>
-      <p class="signature-availability">Available to be installed in the board room or the experience center, for medium or larger tier offering only.</p>
+      <p class="signature-availability">Available to be installed in the boardroom or the Experience Center, for large tier offering only.</p>
     </div>
 
     <div class="signature-experience">
@@ -1202,7 +1193,7 @@ img{display:block;max-width:100%}
       </li>
       <li><strong>Site and AV alignment</strong>
         <ul class="phase-sub">
-          <li>Early coordination with Seneca Group, Perkins Will, and facilities vendors</li>
+          <li>Early coordination with Seneca Group, Perkins&amp;Will, and facilities vendors</li>
           <li>Confirming screen specs, spatial flow, and technical constraints before anything gets designed</li>
         </ul>
       </li>
@@ -1363,7 +1354,7 @@ img{display:block;max-width:100%}
   <div class="tech-scope-card">
     <div class="tech-scope-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
     <h4>We sit at the table</h4>
-    <p>Full technical consulting included in every tier. Futureman works directly with Seneca Group, Perkins Will, and AV integration vendors from the moment we're engaged, not just at handoff.</p>
+    <p>Full technical consulting included in every tier. Futureman works directly with Seneca Group, Perkins&amp;Will, and AV integration vendors from the moment we're engaged, not just at handoff.</p>
   </div>
   <div class="tech-scope-card">
     <div class="tech-scope-icon"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5.5-3.8 10-8 12-4.2-2-8-6.5-8-12V6l8-4z"/></svg></div>
@@ -1392,10 +1383,10 @@ img{display:block;max-width:100%}
 <div style="height:40px"></div>
 <div class="cap-grid">
   <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><h3>Content Production</h3><ul><li>Custom CGI and 3D development (ion trap visualization, quantum circuit animation, use case environments, large-format ambient loops)</li><li>Motion design for extended loop and transition systems</li><li>Scriptwriting and narrative development for multi-register audiences (Congress to PhDs)</li><li>Storyboarding and visual language development</li><li>AI-assisted content integration, b-roll grading, and footage integration</li><li>Live-action and documentary production (customer testimonial filming, on-location direction)</li><li>Cinematic and spatial sound design</li></ul></div>
-  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Interactive &amp; Sensor Systems</h3><ul><li>Real-time camera-based visitor processing (TensorFlow and equivalent video processing libraries)</li><li>Motion, thermal, and acoustic sensor integration</li><li>Gesture recognition and multi-user gesture interaction (Minority Report-style)</li><li>Presence detection and reactive content triggering</li><li>Digital twin and biometric feedback layers</li><li>Simultaneous multi-visitor state management across shared surfaces</li></ul></div>
+  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Interactive &amp; Sensor Systems</h3><ul><li>Real-time camera-based visitor processing (TensorFlow and equivalent video processing libraries)</li><li>Motion, thermal, and acoustic sensor integration</li><li>Gesture recognition and multi-user gesture interaction</li><li>Presence detection and reactive content triggering</li><li>Digital twin and biometric feedback layers</li><li>Simultaneous multi-visitor state management across shared surfaces</li></ul></div>
   <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" style="fill:var(--accent);stroke:none"/><circle cx="6" cy="18" r="1" style="fill:var(--accent);stroke:none"/></svg></div><h3>Content Delivery Infrastructure</h3><ul><li>Media server configuration and show control (Disguise, Pixera, and equivalent pro-AV platforms)</li><li>Large-format LED calibration and color management</li><li>Floor projection and tabletop projection mapping</li><li>Surround screen and dome-scale playback systems</li><li>Spatial audio design and multi-zone audio routing</li><li>Playback queue logic and module sequencing</li></ul></div>
   <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z" style="fill:none"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg></div><h3>Content Architecture &amp; Management</h3><ul><li>Evergreen spine / swappable skin content system design</li><li>Visitor personalization logic and audience-profile content queuing</li><li>Content management framework built for low-lift IonQ-side updates</li><li>Module swap architecture enabling content refresh without rebuild</li><li>Multi-EBC portability (spine reusable across sites, skin localized per site)</li></ul></div>
-  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>AV &amp; Site Coordination</h3><ul><li>Direct integration with AV and facilities vendors (Seneca Group, Perkins Will, and equivalents)</li><li>Equipment specification and procurement consultation</li><li>Architectural and spatial constraint resolution (ceiling heights, sightlines, ambient light)</li><li>Network topology, file format, and playback spec alignment</li><li>Early-stage technical alignment (concurrent with Discovery)</li></ul></div>
+  <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>AV &amp; Site Coordination</h3><ul><li>Direct integration with AV and facilities vendors (Seneca Group, Perkins&amp;Will, and equivalents)</li><li>Equipment specification and procurement consultation</li><li>Architectural and spatial constraint resolution (ceiling heights, sightlines, ambient light)</li><li>Network topology, file format, and playback spec alignment</li><li>Early-stage technical alignment (concurrent with Discovery)</li></ul></div>
   <div class="cap-card fade-in"><div class="cap-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5.5-3.8 10-8 12-4.2-2-8-6.5-8-12V6l8-4z"/><polyline points="8,12 11,15 16,9"/></svg></div><h3>QA, Commissioning &amp; Handoff</h3><ul><li>Functional testing of sensor triggers, state changes, and edge cases</li><li>Cross-surface visual and audio review in context</li><li>On-site calibration (brightness, color, audio, sensor sensitivity)</li><li>Presenter training and content system walkthroughs</li><li>Full handoff documentation (asset library, update protocols, vendor contact map)</li><li>Defined 30-day post-launch support window</li></ul></div>
 </div>
 </section>
@@ -1662,18 +1653,6 @@ document.querySelectorAll('[role="tablist"]').forEach(tablist=>{
   tabs.forEach((t,i)=>{t.tabIndex=i===0?0:-1});
 });
 
-// ===== ZONE 3 SUB-NAV =====
-document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const subnav = btn.closest('.tab-bar');
-    subnav.querySelectorAll('.zone-subnav-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const module = btn.closest('.zone-module');
-    module.querySelectorAll('.zone-subsection').forEach(s=>s.classList.remove('active'));
-    document.getElementById(btn.dataset.target).classList.add('active');
-  });
-});
-
 // ===== ZONE SELECTORS =====
 (function(){
   const selectors = document.querySelectorAll('.zone-selector');
@@ -1905,20 +1884,20 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
   const tierData = {
     small:{
       name:'Small', price:'$275k',
-      overview:'<p>IonQ is installing large-format displays regardless of what agency is selected. This tier is a focused content engagement built around that reality. Despite not including interactive systems, sensor integration, or dome experience, we\'ll display world-class passive content, developed to the quality standard IonQ\'s audience expects, ready to play from day one.</p><p>Futureman works from IonQ\'s existing sales materials, technical resources, and a compressed strategy session with Marketing to develop a core suite of screen-ready assets: one large-format ambient video for the 1st floor lobby LED and a supporting graphic asset suite scaled for 3rd floor screens. The visual language and asset architecture established here are built to be compatible with higher tiers, so if IonQ expands the experience down the road, nothing gets replaced. It gets built on.</p>',
-      included:['Compressed content strategy and discovery session with IonQ Marketing','One large-format ambient hero video developed in custom CGI and 3D','Evergreen static graphic asset suite scaled for frames or wall displays','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leverage existing b-roll and AI-assisted production'],
-      notIncluded:['Full SME interview series','Interactive or sensor-driven content of any kind','Dome experience','Custom narrative framework workshop','On-site commissioning support','Additional video production beyond the hero piece']
+      overview:'<p>IonQ is installing large-format displays regardless of what agency is selected. This tier is a focused content engagement built around that reality. Despite not including the dome experience or Experience Center floor interactivity, we\'ll display world-class content, developed to the quality standard IonQ\'s audience expects, ready to play from day one.</p><p>Futureman works from IonQ\'s existing sales materials, technical resources, and a compressed strategy session with Marketing to develop a core suite of screen-ready assets: one large-format ambient video for the 1st floor lobby LED and a supporting graphic asset suite scaled for 3rd floor screens. The visual language and asset architecture established here are built to be compatible with higher tiers, so if IonQ expands the experience down the road, nothing gets replaced. It gets built on.</p>',
+      included:['Compressed content strategy and discovery session with IonQ Marketing','One large-format ambient hero video developed in custom CGI and 3D','Evergreen static graphic asset suite scaled for frames or wall displays','Custom sensor-driven experience installed for the Lobby LED screens using TensorFlow','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leverage existing b-roll and AI-assisted production'],
+      notIncluded:['Full SME interview series','Sensor-driven content beyond the Lobby LED','Interactive content beyond the Lobby LED','Dome experience','Custom narrative framework workshop','On-site commissioning support','Additional video production beyond the hero piece']
     },
     medium:{
       name:'Medium', price:'$675k&ndash;$750k',
       overview:'<p>The dome transforms from a display into an environment. A sensor-activated content system responds to visitor presence and movement. Visitors trigger state changes in the dome through where they stand, how they move, and how they interact with the space. The experience is designed to support both self-guided and presenter-led tour modes, with the presenter able to trigger specific states and sequences on demand.</p><p>Advanced camera systems enable gesture-based interaction, with visitors influencing content through movement rather than touch, with multiple visitors able to affect different sections of the visualization simultaneously. A digital twin layer adds biometric feedback, giving visitors a sense of their own presence within the quantum environment.</p><p>Content architecture is built to accommodate future refreshes as IonQ\'s use case library and business context evolve. Full AV coordination and handoff documentation for IonQ\'s facilities and integration vendors is included.</p><p>All content is custom developed using CGI and 3D. Footage-based elements leverage existing b-roll, AI-assisted production, and an optional additional production shoot if needed.</p>',
-      included:['Standard content strategy and discovery session with IonQ Marketing, full SME interview series, narrative framework workshop','One large-format ambient hero video developed in custom CGI and 3D','Evergreen static graphic asset suite scaled for frames or wall displays','Custom sensor-driven dome experience','Interactive content throughout the space','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leverage existing b-roll, AI-assisted production or live action content shoot','On-site commissioning'],
-      notIncluded:['Interactive content beyond the dome','Visitor personalization system','Experience Center floor-wide sensor integration']
+      included:['Standard content strategy and discovery session with IonQ Marketing, full SME interview series, narrative framework workshop','One large-format ambient hero video developed in custom CGI and 3D','Evergreen static graphic asset suite scaled for frames or wall displays','Custom sensor-driven dome experience','Interactive content in the dome','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leverage existing b-roll, AI-assisted production or live action content shoot','On-site commissioning'],
+      notIncluded:['Visitor personalization system','Experience Center floor-wide sensor integration']
     },
     large:{
       name:'Large', price:'$1.15m&ndash;$1.5m',
       overview:'<p>Sensor and interactive content extends beyond the dome into key zones across the Experience Center floor, including tabletop projections and gesture-based interactions that give visitors direct physical engagement with the content. Additional screens are integrated across activation areas on the 3rd floor, coordinated with facilities vendors.</p><p>The defining feature of the Large tier is the visitor personalization system: the ability to surface tailored content tracks based on audience profile configured in advance of each visit. Tracks might include frameworks like <em>Quantum is Now</em>, <em>National Security Through Innovation</em>, or <em>Healthcare &amp; Life Sciences</em>. The specific tracks are determined in Discovery based on IonQ\'s primary visitor profiles. IonQ Marketing configures and queues audience-specific modules before each visit through a custom content management framework built for low-lift operation.</p><p>The full content suite is paired with a defined refresh model: evergreen architecture designed for longevity, with an update process that IonQ\'s team can execute without agency involvement for routine changes.</p><p>All content is custom developed using CGI and 3D. Footage-based elements leverage existing b-roll, AI-assisted production, and additional production shoot(s) as needed.</p>',
-      included:['Standard content strategy and discovery session with IonQ Marketing, full SME interview series, narrative framework workshop','One to three large-format ambient hero video(s) developed in custom CGI and 3D','Evergreen static graphic asset suite scaled for frames or wall displays','Custom sensor-driven dome experience','Interactive content throughout the space','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leverage existing b-roll, AI-assisted production or live action content shoot','On-site commissioning'],
+      included:['Standard content strategy and discovery session with IonQ Marketing, full SME interview series, narrative framework workshop','One to three large-format ambient hero video(s) developed in custom CGI and 3D','Evergreen static graphic asset suite scaled for frames or wall displays','Custom sensor-driven dome experience','Interactive content throughout the space','Content creation and installation for The Use Case Portal','Basic content documentation enabling IonQ to self-manage updates independently','Footage-based elements leverage existing b-roll, AI-assisted production or live action content shoot','On-site commissioning'],
       notIncluded:['Post-launch retainer beyond the 30-day support window (available as a separate engagement)','Hardware procurement (that sits with IonQ\'s AV vendors)']
     }
   };
@@ -1986,7 +1965,7 @@ document.querySelectorAll('.zone-subnav-btn').forEach(btn=>{
       title:'An icon brought to life through an immersive pop-up experience in the heart of Manhattan',
       body:[
         'Jaeger-LeCoultre is one of the most storied names in haute horlogerie. When they set out to bring the legacy of the Reverso to New York City, they needed more than a pop-up. They needed a world.',
-        'Over the course of a 10-day activation at Hudson Yards\' Public Square & Gardens, Futureman designed and produced "Reverso Stories," an immersive, multi-chapter journey spanning nine decades of craftsmanship, innovation, and design. The experience guided visitors through four narrative chapters: Story of an Icon, Story of Style & Design, Story of Innovation, and Story of Craftsmanship. Each brought to life through rarely seen archive timepieces, contemporary high jewelery pieces, and live artisan demonstrations including the decorative craft of perlage, giving the public an intimate look at a process typically hidden behind Manufacture walls.',
+        'Over the course of a 10-day activation at Hudson Yards\' Public Square & Gardens, Futureman designed and produced "Reverso Stories," an immersive, multi-chapter journey spanning nine decades of craftsmanship, innovation, and design. The experience guided visitors through four narrative chapters: Story of an Icon, Story of Style & Design, Story of Innovation, and Story of Craftsmanship. Each brought to life through rarely seen archive timepieces, contemporary high jewelry pieces, and live artisan demonstrations including the decorative craft of perlage, giving the public an intimate look at a process typically hidden behind Manufacture walls.',
         'As part of Jaeger-LeCoultre\'s Made of Makers program, Futureman built a dedicated sensory environment for an exclusive collaboration with Scent Artist Nicolas Bonneville, featuring three bespoke fragrances and an interactive ingredient identification game. The activation also included a nomadic 1931 Cafe, a branded hospitality moment within the larger experience.',
         'The activation served as the global stage for the launch of the limited-edition Reverso Tribute Chronograph, tying product storytelling directly to experiential design in a city whose Art Deco DNA mirrors the watch\'s own origins.',
         'Free and open to the public with guided tours, "Reverso Stories" transformed a commercial plaza into a cultural destination proving that when heritage meets bold creative execution, the result isn\'t just a pop-up. It\'s a pilgrimage.'
