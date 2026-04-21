@@ -70,7 +70,59 @@ The ideas you see here are proof we know how to think about the problem. Discove
 
 ---
 
-## 5. Concept Ideas
+## 5. The Signature Installation
+
+**meta:** Standalone featured section. This is the centerpiece of the proposal and should read that way. No tabs, no subsections, no siblings. Full-width treatment, dark background one to two shades deeper than the surrounding sections, substantially more vertical padding above and below than any other section on the page. Single warm-gold horizontal rule above the section label. Large serif headline, generous line spacing in the body, narrow measure on body copy. No rendered imagery anywhere in this section, visual atmosphere comes entirely from typography, white space, and an ambient background layer.
+
+**section label:** 05 / The Signature Installation
+
+**headline:** The moment in the meeting when the room does the proving.
+
+**tier tag:** *Medium at core. Large across the floor.*
+
+### Lede
+
+Every Executive Business Center has one real job: move the room in the host's favor when the stakes are live. That's what you're building for. Senate staff briefings, defense contract walkthroughs, round extensions with a strategic.
+
+Of the installations we considered, this is the one we're recommending IonQ build. It's the one the host will reach for in the middle of the meeting that matters most.
+
+### the experience
+
+The visitors are seated. The conversation has been going for twenty minutes. The host has been walking them through the story, and they have been listening the way smart people listen to pitches they are not yet sure about.
+
+Then the room activates.
+
+The walls around the table resolve into a single surround image. Sound drops low and positional. The use case arrives full-scale, not as a slide or a video, but as the space around the chairs they are sitting in.
+
+A container network rerouting across the Atlantic, the logistics model behind it failing to keep up. A protein that refuses to fold, and a drug pipeline stalled underneath it. A grid buckling, ten minutes of optimization runway left.
+
+The classical visualization keeps working. Branching. Cascading. Running out of room. Then it stops. The sound cuts. Quantum runs.
+
+Nobody stood up. Nobody was asked to walk anywhere. The host kept talking. The room became the argument being made, and then released.
+
+### why this is the centerpiece
+
+Every conversation inside this building has a number attached to it. A letter of support. A line in a contract. A term sheet. These decisions get made in windows measured in minutes, and the thing that moves them is conviction, which is the hardest thing to manufacture for a technology most visitors cannot yet see.
+
+Decks do not get you there. Neither does a well-lit conference room. What gets you there is letting the cost of the classical ceiling settle into the visitor's peripheral vision mid-conversation, and letting the quantum answer arrive into the same space before they have a chance to reset. Everything else in the EBC creates atmosphere. This one does the work.
+
+### one room, every meeting
+
+The installation runs a different scenario depending on who is in the room. Before each visit, IonQ Marketing queues the use case most likely to land with the audience coming through the door. Pharma gets a molecule. Defense gets a logistics network. A Congressional delegation gets the failure that touches the districts they represent. Same architecture, same surfaces, different payload. This is the evergreen spine and swappable skin idea at its most consequential point in the space.
+
+Because it is triggered rather than entered, it slots into whatever meeting structure the host wants. A five-minute beat inside a longer presentation. A single decisive moment after the handshake. A full sequence for a visiting delegation.
+
+At Medium, the portal anchors on the room's primary surfaces with spatial audio and projection, triggered by the presenter on cue. At Large, it extends: additional surfaces, tabletop projection, gesture interaction, scenarios queued automatically against visitor profile, and a presenter console for mid-meeting control.
+
+This is the installation that justifies the Large tier, because it is the one the building leans on when it has to earn its budget.
+
+### what Discovery resolves
+
+The scenarios, the arcs, the moments of classical failure that IonQ's SMEs and solutions team already know work on the audiences they are meant to work on. We build the vessel and the trigger architecture. IonQ's content leadership decides what runs inside it.
+
+---
+
+## 6. Concept Ideas
 
 **meta:** This is the most visually distinctive section of the page. It opens with framing copy, then presents the `FloorPlanMap` (the existing v1 floor plan image, with clickable hotspots for each zone). Clicking a zone on the map scrolls/snaps to the corresponding `ZoneModule` below. Each `ZoneModule` presents zone-specific ideas as **tabs** inside the module so the user can flip between ideas without leaving the zone.
 
@@ -129,7 +181,7 @@ The Experience Center is where the EBC earns credibility. The lobby creates wond
 
 ---
 
-## 6. Video Content
+## 7. Video Content
 
 **meta:** Standalone section. Not a zone. `ZoneModule`-style tab pattern (4 tabs, one per concept) but without the zone-header framing. Treat this as its own top-level section.
 
@@ -153,32 +205,6 @@ This one is almost purely aesthetic but grounded in IonQ's actual technology. Io
 
 **Tab 4 — The Weight of Unsolved Problems**
 The most emotionally ambitious option. Opens on a patient waiting for a drug that doesn't exist yet. A logistics network failing during a humanitarian crisis. A financial model that can't process the variables fast enough to prevent collapse. These aren't dramatized — they're rendered almost journalistically, quietly. Each unsolved problem is then translated into its computational form: the scale of what classical computing can't resolve. Then IonQ. Not as a savior — as a tool. A powerful, precise, available tool. The video ends not with a solution but with the suggestion of one: the ion trap, running. *The work is already happening.*
-
----
-
-## 7. Extra Ordinary Experiences
-
-**meta:** Standalone section. Not a zone. Tab pattern (3 tabs, one per installation concept). Top-level section, visually distinct from the zone modules above.
-
-**section intro:**
-Three installation concepts that extend the interactive layer beyond any single zone. Large-tier additions — these ride on top of the foundational content and sensor systems already in scope at lower tiers.
-
-**tier tag:** *Large / Upgrade*
-
-**tabs (3):**
-
-**Tab 1 — The Decoherence Room**
-An installation where visitors become the noise. Microphones, motion sensors, and thermal cameras feed into a live quantum circuit visualization on screen. When visitors are still and quiet, the circuit runs cleanly. When they move and speak, errors cascade — the system degrades in real time. IonQ's differentiation is that they've solved decoherence better than anyone. This installation makes visitors feel the problem before they hear the solution.
-
-**Tab 2 — Use Case Portals**
-The visitor isn't selecting an industry from a menu — they're stepping into one. Floor projection, surround screens, and spatial audio collapse the space around a single real-world problem: a supply chain that can't resolve, a molecule that won't fold, a financial model running out of time. The problem builds visually until it hits its classical ceiling. Then quantum runs. The resolution is the pitch.
-
-Each portal is a self-contained environment, swappable by IonQ without a rebuild, triggerable by a presenter mid-tour or surfaced automatically in a self-guided flow. At the Large tier, tabletop projections and gesture-based interactions extend this into the broader Experience Center floor, giving visitors direct physical engagement with the content.
-
-The specific use cases (which industries, which problems, which moments of classical failure) are exactly what we'd excavate in Discovery. IonQ's SMEs and solutions team will know which scenarios land hardest with the visitor profiles walking through that door. We build the vessel. Discovery tells us what to put in it.
-
-**Tab 3 — The Complexity Wall**
-A large-format tactile display built around a real optimization problem — nodes and edges representing drug interaction modeling, supply chain routing, or whatever use case is most resonant for IonQ's audience. Visitors drag and attempt to solve it classically, watching the compute time explode exponentially. Then IonQ runs it.
 
 ---
 
